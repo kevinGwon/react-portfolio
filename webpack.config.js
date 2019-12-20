@@ -9,7 +9,7 @@ const webpackObj = isDev ? require('./webpack.dev') : require('./webpack.prod');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
-  entry: {app: path.resolve(__dirname, 'public', 'app.js')},
+  entry: {app: path.resolve(__dirname, 'src', 'app.js')},
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash].js',
@@ -65,14 +65,15 @@ const config = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: './src/index.html'
     }),
     new MiniCssExtractPlugin({ filename: 'style.css' }),
     new CopyWebpackPlugin([
       { 
-        context: 'public/',
+        context: 'src/',
         from: 'images/',
-        to: 'images/'
+        to: 'images/',
+        force: true
       }
     ])
   ]

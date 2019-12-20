@@ -13,7 +13,6 @@ module.exports = {
     historyApiFallback: true,
     port: 3000,
     open: 'google chrome',
-    watchContentBase: true,
-    writeToDisk: true
+    watchContentBase: true
   }
 };
