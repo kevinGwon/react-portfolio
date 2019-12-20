@@ -6,6 +6,8 @@ const merge = require('webpack-merge');
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const isDev = process.env.NODE_ENV === 'development' ? true : false;
 const webpackObj = isDev ? require('./webpack.dev') : require('./webpack.prod');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 const config = {
   entry: {app: path.resolve(__dirname, 'public', 'app.js')},
   output: {
@@ -42,7 +44,18 @@ const config = {
               sourceMap: isDev,
             }
           }
-        ],
+        ]
+      }, {
+        test: /\.(png|jpe|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images'
+            }
+          }
+        ]
       },
     ]
   },
@@ -54,7 +67,14 @@ const config = {
     new HtmlWebpackPlugin({
       template: './public/index.html'
     }),
-    new MiniCssExtractPlugin({ filename: 'style.css' })
+    new MiniCssExtractPlugin({ filename: 'style.css' }),
+    new CopyWebpackPlugin([
+      { 
+        context: 'public/',
+        from: 'images/',
+        to: 'images/'
+      }
+    ])
   ]
 };
 
