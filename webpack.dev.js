@@ -1,9 +1,7 @@
 
 const webpack = require('webpack');
-const merge = require('webpack-merge');
-const webpackConfig = require('./webpack.config');
 
-module.exports = merge(webpackConfig, {
+module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   plugins: [
@@ -18,4 +16,4 @@ module.exports = merge(webpackConfig, {
     watchContentBase: true,
     writeToDisk: true
   }
-});
+};
