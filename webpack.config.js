@@ -3,11 +3,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const isDev = process.env.NODE_ENV === 'development' ? true : false;
-const webpackObj = isDev ? require('./webpack.dev') : require('./webpack.prod');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
+// webpeack config
+const isDev = process.env.NODE_ENV === 'development' ? true : false;
+const configCustom = isDev ? require('./webpack.dev') : require('./webpack.prod');
 const config = {
   entry: {app: path.resolve(__dirname, 'src', 'app.js')},
   output: {
@@ -80,7 +81,7 @@ const config = {
 };
 
 console.log('-----------------------');
-console.log(isDev);
+console.log(process.env.NODE_ENV);
 console.log('-----------------------');
 
-module.exports = merge(config, webpackObj);
+module.exports = merge(config, configCustom);
