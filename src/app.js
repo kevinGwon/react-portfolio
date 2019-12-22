@@ -4,8 +4,7 @@ import './style.scss';
 
 ReactDOM.render(
   <div>
-    <img src="./images/kevin/test.jpg" />
-  </div>
-  ,
+    <img src='./images/kevin/test.jpg' />
+  </div>,
   document.getElementById('app')
 );
