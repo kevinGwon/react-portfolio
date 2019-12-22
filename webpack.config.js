@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
@@ -12,17 +13,12 @@ const configCustom = isDev
   : require('./webpack.prod');
 const config = {
   entry: {
-    app: [
-      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=1000',
-      path.resolve(__dirname, 'src', 'app.js')
-    ]
+    index: path.resolve(__dirname, 'src', 'index.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash].js',
-    publicPath: '/',
-    hotUpdateChunkFilename: '.hot/[id].[hash].hot-update.js',
-    hotUpdateMainFilename: '.hot/[hash].hot-update.json'
+    publicPath: '/'
   },
   module: {
     rules: [
