@@ -1,6 +1,8 @@
-html {
-  color: red;
-}
-img {
-  max-width: 100%;
-}
+// modules
+@import 'node_modules/normalize.css/normalize';
+
+// custom reset
+@import 'scss/reset.scss';
+
+// Components
+@import 'scss/components/list';

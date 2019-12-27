@@ -1,0 +1,11 @@
+.movie-list {
+  li {
+  }
+
+  @media (min-width: 720px) {
+    li {
+      float: left;
+      width: 20%;
+    }
+  }
+}
