@@ -1,10 +1,22 @@
-// modules
+// vendor
 @import 'node_modules/normalize.css/normalize';
-@import 'scss/modules/helper';
-@import 'scss/modules/layout';
+@import 'sass-mq/_mq.scss';
 
-// custom reset
-@import 'scss/reset.scss';
+// variable
+@import 'scss/utils/variable';
+
+// mixin
+@import 'scss/utils/mixin';
+
+// base
+@import 'scss/base/helper';
+@import 'scss/base/reset';
+
+// modules
+@import 'scss/modules/layout';
+@import 'scss/modules/paragraph';
+@import 'scss/modules/typography';
+@import 'scss/modules/button';
 
 // Components
 @import 'scss/components/list';
