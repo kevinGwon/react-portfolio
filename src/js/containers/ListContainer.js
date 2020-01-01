@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import List from '../components/List';
 import { useSelector, useDispatch } from 'react-redux';
-import { KOFIC_DATA, KMDB_DATA, DAILY, WEEK, RESET } from '../modules/list';
+import { KOFIC_DATA, KMDB_DATA } from '../modules/list';
 
 function ListContainer() {
   const { year, month, day, daily, query, list } = useSelector(
@@ -10,33 +10,13 @@ function ListContainer() {
       year: store.list.year,
       month: store.list.month,
       day: store.list.day,
-      daily: store.list.daily,
       query: store.list.query,
       list: store.list.list,
+      daily: store.load.daily,
     }),
     [],
   );
   const dispatch = useDispatch();
-  const onDaily = e => {
-    if (e.target.classList.contains('is-active')) return false;
-    dispatch({
-      type: RESET,
-    });
-    dispatch({
-      type: DAILY,
-      daily: true,
-    });
-  };
-  const onWeek = e => {
-    if (e.target.classList.contains('is-active')) return false;
-    dispatch({
-      type: RESET,
-    });
-    dispatch({
-      type: WEEK,
-      daily: true,
-    });
-  };
 
   useEffect(() => {
     const koficDATA = async () => {
@@ -50,14 +30,14 @@ function ListContainer() {
         console.log('----------info------------');
         console.log('Year Month Day = ' + `${year}-${month}-${day}`);
         console.log(`Type = ${daily ? 'Daily' : 'Week'}`);
-        console.log(
-          'URL = ' +
-            `http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/${
-              daily ? 'searchDailyBoxOfficeList' : 'searchWeeklyBoxOfficeList'
-            }.json?key=dcff08753bb2a2277b21a9fa2c36baf7&targetDt=${year}${month}${day}&multiMovieYn=N${
-              daily ? '' : '&weekGb=0'
-            }`,
-        );
+        // console.log(
+        //   'URL = ' +
+        //     `http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/${
+        //       daily ? 'searchDailyBoxOfficeList' : 'searchWeeklyBoxOfficeList'
+        //     }.json?key=dcff08753bb2a2277b21a9fa2c36baf7&targetDt=${year}${month}${day}&multiMovieYn=N${
+        //       daily ? '' : '&weekGb=0'
+        //     }`,
+        // );
         console.log('--------------------------');
         const response = await axios({
           method: 'get',
@@ -106,7 +86,7 @@ function ListContainer() {
     };
     koficDATA();
   }, [daily, day, dispatch, month, query, year]);
-  return <List daily={daily} list={list} onDaily={onDaily} onWeek={onWeek} />;
+  return <List daily={daily} list={list} />;
 }
 
 export default ListContainer;

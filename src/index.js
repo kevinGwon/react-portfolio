@@ -20,6 +20,10 @@ import * as serviceWorker from './serviceWorker';
 const store = createStore(rootReducer);
 // const store = createStore(rootReducer, applyMiddleware(reduxLogger));
 
+console.log('--------Global Store---------');
+console.log(store.getState());
+console.log('-----------------------------');
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
