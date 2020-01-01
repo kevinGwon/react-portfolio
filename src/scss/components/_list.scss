@@ -4,7 +4,14 @@
 
 .movie {
 
-  &-func {}
+  &-func {
+    .btn {
+      &.is-active {
+        color: $white;
+        background-color: $color-primary;
+      }
+    }
+  }
 
   &-list {
     li {}
@@ -16,6 +23,7 @@
 
     a {
       display: block;
+      color: inherit;
     }
 
     img {
