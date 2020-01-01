@@ -28,6 +28,32 @@
       "git add"
     ]
   },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "prettier"
+    ],
+    "rules": {
+      "semi": [
+        "error",
+        "always"
+      ],
+      "indent": [
+        "error",
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "no-unused-vars": 1,
+      "no-console": 0,
+      "react/jsx-filename-extension": 0
+    }
+  },
   "dependencies": {
     "express": "^4.17.1",
     "nodemon": "^2.0.2",
@@ -44,6 +70,7 @@
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
     "axios": "^0.19.0",
+    "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
