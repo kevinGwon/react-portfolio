@@ -21,6 +21,7 @@ function List({ daily, list, onDaily, onWeek }) {
       }
     });
   }
+
   return (
     <>
       <div className="logo">
@@ -50,7 +51,7 @@ function List({ daily, list, onDaily, onWeek }) {
         </button>
       </div>
       <ul className="movie-list">
-        {list.length &&
+        {list.length > 0 &&
           list.map(item => (
             <li key={item.rank}>
               <a href="#">

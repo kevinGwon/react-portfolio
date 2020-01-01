@@ -3,8 +3,8 @@ import ListContainer from './containers/ListContainer';
 
 function App() {
   return (
-    <div className='l-wrap'>
-      <ListContainer />;
+    <div className="l-wrap">
+      <ListContainer />
     </div>
   );
 }

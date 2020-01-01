@@ -49,7 +49,7 @@ function ListContainer() {
          */
         console.log('----------info------------');
         console.log('Year Month Day = ' + `${year}-${month}-${day}`);
-        console.log('Daily = ' + daily);
+        console.log(`Type = ${daily ? 'Daily' : 'Week'}`);
         console.log(
           'URL = ' +
             `http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/${

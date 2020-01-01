@@ -28,7 +28,7 @@ const initState = {
   year: year,
   month: month,
   day: day,
-  daily: false,
+  daily: true,
   query: [],
   list: [],
 };
@@ -36,7 +36,6 @@ const initState = {
 export default function list(state = initState, action) {
   switch (action.type) {
     case 'list/KOFIC_DATA':
-      console.log('list/KOFIC_DATA');
       // 영화순위 목록
       action.data.map(item =>
         state.query.push({
@@ -49,28 +48,22 @@ export default function list(state = initState, action) {
         koficDATA: action.data,
       };
     case 'list/KMDB_DATA':
-      console.log('list/KMDB_DATA');
       return {
         ...state,
         kmdbDATA: action.data,
         list: [...state.list, action.list],
       };
     case 'list/DAILY':
-      console.log('list/DAILY');
-      console.log(state);
       return {
         ...state,
         daily: true,
       };
     case 'list/WEEK':
-      console.log('list/WEEK');
-      console.log(state);
       return {
         ...state,
         daily: false,
       };
     case 'list/RESET':
-      console.log('list/RESET');
       return {
         ...state,
         query: [],
