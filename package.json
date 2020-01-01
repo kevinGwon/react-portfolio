@@ -51,7 +51,10 @@
       ],
       "no-unused-vars": 1,
       "no-console": 0,
-      "react/jsx-filename-extension": 0
+      "react/jsx-filename-extension": 0,
+      "eslint-disable-next-line jsx-a11y/anchor-is-valid": 0,
+      "no-useless-concat": 0,
+      "jsx-a11y/anchor-is-valid": 0
     }
   },
   "dependencies": {
