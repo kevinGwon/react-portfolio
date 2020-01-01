@@ -17,7 +17,8 @@ import './style.scss';
 // Proxy
 import * as serviceWorker from './serviceWorker';
 
-const store = createStore(rootReducer, applyMiddleware(reduxLogger));
+const store = createStore(rootReducer);
+// const store = createStore(rootReducer, applyMiddleware(reduxLogger));
 
 ReactDOM.render(
   <Provider store={store}>

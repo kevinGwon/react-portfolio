@@ -1,27 +1,80 @@
+export const KOFIC_DATA = 'list/KOFIC_DATA';
+export const KMDB_DATA = 'list/KMDB_DATA';
+export const DAILY = 'list/DAILY';
+export const WEEK = 'list/WEEK';
+export const RESET = 'list/RESET';
+
+const date = new Date();
+let year, week, month, day;
+
+year = date.getFullYear();
+month =
+  String(date.getMonth() + 1).length == '1'
+    ? '0' + (date.getMonth() + 1)
+    : date.getMonth() + 1;
+day =
+  String(date.getDate()).length == '1'
+    ? '0' + date.getDate()
+    : date.getDate() + 1;
+
+// 매년 초 데이터 기록이 없을때, 이전 연도의 초기값으로 설정
+if (parseInt(month, 10) === 1 && parseInt(day, 10) < 7) {
+  year = year - 1;
+  month = 12;
+  day = 27;
+}
+
 const initState = {
+  year: year,
+  month: month,
+  day: day,
+  daily: false,
   query: [],
-  list: []
+  list: [],
 };
 
 export default function list(state = initState, action) {
   switch (action.type) {
-    case 'KOFIC_DATA':
+    case 'list/KOFIC_DATA':
+      console.log('list/KOFIC_DATA');
       // 영화순위 목록
       action.data.map(item =>
         state.query.push({
           rank: item.rank,
-          query: item.movieNm
-        })
+          query: item.movieNm,
+        }),
       );
       return {
         ...state,
-        koficDATA: action.data
+        koficDATA: action.data,
       };
-    case 'KMDB_DATA':
+    case 'list/KMDB_DATA':
+      console.log('list/KMDB_DATA');
       return {
         ...state,
         kmdbDATA: action.data,
-        list: [...state.list, action.list]
+        list: [...state.list, action.list],
+      };
+    case 'list/DAILY':
+      console.log('list/DAILY');
+      console.log(state);
+      return {
+        ...state,
+        daily: true,
+      };
+    case 'list/WEEK':
+      console.log('list/WEEK');
+      console.log(state);
+      return {
+        ...state,
+        daily: false,
+      };
+    case 'list/RESET':
+      console.log('list/RESET');
+      return {
+        ...state,
+        query: [],
+        list: [],
       };
     default:
       return state;
