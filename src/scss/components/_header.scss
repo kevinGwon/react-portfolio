@@ -1,0 +1,27 @@
+.header {
+  margin: 10rem 0;
+
+  &-inner {
+    position: relative;
+    max-width: $w-wrap/2;
+    margin: auto;
+    padding-left: 180px;
+    box-sizing: border-box;
+
+    .logo {
+      position: absolute;
+      left: 0;
+      width: 160px;
+    }
+  }
+  &-utils {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateY(120%);
+    text-align: center;
+  }
+}

@@ -1,3 +1,5 @@
+import { ALL_RESET } from './list';
+
 export const LOADING = 'load/LOADING';
 export const LOADING_OUT = 'load/LOADING_OUT';
 export const DAILY = 'load/DAILY';
@@ -8,26 +10,40 @@ const initState = {
   loading: false,
 };
 
-export const onLoading = dispatch =>
+export const onDaily = () => dispatch => {
   dispatch({
-    type: LOADING,
-    loading: false,
+    type: ALL_RESET,
   });
-
-export const onLoadingOut = dispatch =>
   dispatch({
     type: LOADING_OUT,
-    loading: true,
   });
+  dispatch({
+    type: DAILY,
+  });
+};
+
+export const onWeek = () => dispatch => {
+  dispatch({
+    type: ALL_RESET,
+  });
+  dispatch({
+    type: LOADING_OUT,
+  });
+  dispatch({
+    type: WEEK,
+  });
+};
 
 export default function load(state = initState, action) {
   switch (action.type) {
     case 'load/LOADING':
       return {
+        ...state,
         loading: true,
       };
     case 'load/LOADING_OUT':
       return {
+        ...state,
         loading: false,
       };
     case 'load/DAILY':

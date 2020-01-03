@@ -1,0 +1,186 @@
+// -----------------------------------------------------------------------------
+// Form
+// -----------------------------------------------------------------------------
+
+[type=text],
+[type=number],
+[type=tel],
+[type=search],
+[type=password],
+[type=email],
+[type=url],
+[type=date],
+[type=datetime-local],
+[type=file],
+select,
+textarea {
+  box-sizing: border-box;
+  padding: $input-padding-tb $input-padding-lr;
+  border: 2px solid $color-primary;
+
+  // background: $white;
+  background: transparent;
+  color: $white;
+  font-size: 16px;
+  line-height: 1.25;
+  outline: none;
+  vertical-align: middle;
+
+  -webkit-border-radius: 0;
+  -webkit-appearance: none;
+  transition: border-color 0.3s;
+
+  &:hover,
+  &:focus {
+    // border-color: $black;
+  }
+
+  &[readonly] {
+
+    &:hover,
+    &:focus {
+      border-color: $silver;
+    }
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    color: $silver-dark;
+    background: $fog;
+
+    &:hover {
+      border-color: $silver;
+    }
+  }
+}
+
+input {
+  height: 46px;
+}
+
+select {
+  display: inline-block;
+  padding-right: 40px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  &::-ms-expand {
+    display: none;
+  }
+
+  .csstransitions & {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAICAYAAADnVO9eAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkMzMEY4OTZBNTI3MTExRThBQjRDQzc4NkVEN0Q2N0E1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkMzMEY4OTZCNTI3MTExRThBQjRDQzc4NkVEN0Q2N0E1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QzMwRjg5Njg1MjcxMTFFOEFCNENDNzg2RUQ3RDY3QTUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QzMwRjg5Njk1MjcxMTFFOEFCNENDNzg2RUQ3RDY3QTUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7NDvcmAAAAmklEQVR42mLQ0NAQZiASgNT+//+fgRzMxMXFNcvIyCiHkCUgNSC1DGQCpk+fPkUxMjIGGxsbl+BSBJIDqQGpJduiO3fu/Pz48aMHkO2NzTKomDdIDUgt2RaBCFyWUcsSEGBE5qioqLDz8/PvADK3/vv3j4OJickZ3RJQxFJsEZplDNh8QjWLQEBBQYEDRD948OAHuhy5FgEEGABfqXiJWBAInAAAAABJRU5ErkJggg==);
+    background-repeat: no-repeat;
+    background-position: right 50%;
+    background-size: 26px auto;
+
+    &[multiple] {
+      background: transparent;
+    }
+  }
+}
+
+textarea {
+  max-width: 100%;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+// placeholder 색상
+::-webkit-input-placeholder {
+  color: $white;
+}
+
+::-moz-placeholder {
+  color: $white;
+}
+
+:-ms-input-placeholder {
+  color: $silver-dark;
+}
+
+:-moz-placeholder {
+  color: $silver-dark;
+}
+
+// clear 버튼 감춤
+input {
+  &::-ms-clear {
+    display: none;
+  }
+}
+
+// number type 컨트롤에서 spinner 감춤
+input[type=number] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+  }
+}
+
+// search type 컨트롤에서 관련 버튼 감춤
+input[type=search] {
+
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+}
+
+// date type 컨트롤에서 관련 버튼 감춤
+input[type=date],
+input[type=datetime-local] {
+  &::-webkit-inner-spin-button {
+    display: none;
+    margin: 0;
+  }
+
+  &::-webkit-clear-button,
+  &::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+
+  &::-webkit-datetime-edit-fields-wrapper {
+    padding: 0;
+  }
+}
+
+// input size
+.input {
+  &-block {
+    display: block;
+    width: 100%;
+  }
+
+  &--sm {
+    padding: $input-padding-tb - 2px $input-padding-lr;
+    font-size: 14px;
+    line-height: 14px;
+    height: 36px;
+  }
+
+  &--lg {
+    padding: $input-padding-tb + 2px $input-padding-lr;
+    font-size: 18px;
+    line-height: 34px;
+    height: 56px;
+  }
+}
+
+.ta {
+  position: relative;
+
+  &-counter {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    font-size: 14px;
+    color: $gray4;
+  }
+}

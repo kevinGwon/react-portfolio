@@ -1,18 +1,19 @@
 export const KOFIC_DATA = 'list/KOFIC_DATA';
 export const KMDB_DATA = 'list/KMDB_DATA';
-export const RESET = 'list/RESET';
+export const ALL_RESET = 'list/ALL_RESET';
+export const LIST_RESET = 'list/LIST_RESET';
 
 const date = new Date();
-let year, week, month, day;
+let year, month, day;
 
 year = date.getFullYear();
 
 month =
-  String(date.getMonth() + 1).length == '1'
+  String(date.getMonth() + 1).length === '1'
     ? '0' + (date.getMonth() + 1)
     : date.getMonth() + 1;
 day =
-  String(date.getDate()).length == '1'
+  String(date.getDate()).length === '1'
     ? '0' + date.getDate()
     : date.getDate() + 1;
 
@@ -51,7 +52,14 @@ export default function list(state = initState, action) {
         kmdbDATA: action.data,
         list: [...state.list, action.list],
       };
-    case 'list/RESET':
+    case 'list/LIST_RESET':
+      console.log('LIST_RESET!!');
+      return {
+        ...state,
+        list: [],
+      };
+    case 'list/ALL_RESET':
+      console.log('ALL_RESET!!');
       return {
         ...state,
         query: [],

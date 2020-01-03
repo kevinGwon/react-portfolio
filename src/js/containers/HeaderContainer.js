@@ -1,36 +1,23 @@
 import React from 'react';
 import Header from '../components/Header';
 import { useSelector, useDispatch } from 'react-redux';
-import { RESET } from '../modules/list';
-import { DAILY, WEEK } from '../modules/load';
+
+import { onDaily, onWeek } from '../modules/load';
 
 function HeaderContainer() {
   const dispatch = useDispatch();
-  const { daily, loading } = useSelector(store => ({
+  const { daily } = useSelector(store => ({
     daily: store.load.daily,
-    loading: store.load.loading,
   }));
-  const onDaily = e => {
+  const onRunDaily = e => {
     if (e.target.classList.contains('is-active')) return false;
-    dispatch({
-      type: RESET,
-    });
-    dispatch({
-      type: DAILY,
-      daily: true,
-    });
+    dispatch(onDaily());
   };
-  const onWeek = e => {
+  const onRunWeek = e => {
     if (e.target.classList.contains('is-active')) return false;
-    dispatch({
-      type: RESET,
-    });
-    dispatch({
-      type: WEEK,
-      daily: true,
-    });
+    dispatch(onWeek());
   };
-  return <Header daily={daily} onDaily={onDaily} onWeek={onWeek} />;
+  return <Header daily={daily} onRunDaily={onRunDaily} onRunWeek={onRunWeek} />;
 }
 
 export default HeaderContainer;

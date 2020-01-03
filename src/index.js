@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 // Redux
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import reduxThunk from 'redux-thunk';
 import reduxLogger from 'redux-logger';
 import rootReducer from './js/modules';
 
@@ -17,7 +18,7 @@ import './style.scss';
 // Proxy
 import * as serviceWorker from './serviceWorker';
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(reduxThunk));
 // const store = createStore(rootReducer, applyMiddleware(reduxLogger));
 
 console.log('--------Global Store---------');
