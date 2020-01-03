@@ -13,7 +13,7 @@ function ListContainer() {
   );
 
   // load reducer
-  const { daily, loading } = useSelector(store => store.load, []);
+  const { daily, loading, searchText } = useSelector(store => store.load, []);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -78,7 +78,7 @@ function ListContainer() {
       }
     };
     koficDATA();
-  }, [dispatch, daily, day, month, query, year]);
+  }, [dispatch, daily, day, month, query, year, searchText]);
 
   if (loading) return <div>로딩중...</div>;
 

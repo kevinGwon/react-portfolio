@@ -4,10 +4,12 @@ export const LOADING = 'load/LOADING';
 export const LOADING_OUT = 'load/LOADING_OUT';
 export const DAILY = 'load/DAILY';
 export const WEEK = 'load/WEEK';
+export const SEARCH_TEXT = 'load/SEARCH_TEXT';
 
 const initState = {
   daily: true,
   loading: false,
+  searchText: '',
 };
 
 export const onDaily = () => dispatch => {
@@ -55,6 +57,11 @@ export default function load(state = initState, action) {
       return {
         ...state,
         daily: false,
+      };
+    case 'load/SEARCH_TEXT':
+      return {
+        ...state,
+        searchText: action.searchText,
       };
     default:
       return state;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Header({ daily, onRunDaily, onRunWeek }) {
+function Header({ daily, onRunDaily, onRunWeek, onChange, onSubmit }) {
   return (
     <header className="header">
       <div className="header-inner">
@@ -15,12 +15,18 @@ function Header({ daily, onRunDaily, onRunWeek }) {
           </svg>
         </div>
         <div className="header-search">
-          <form action="#">
-            <input
-              type="search"
-              className="input-block"
-              placeholder="제목을 입력하세요"
-            />
+          <form onSubmit={e => onSubmit(e)}>
+            <div className="input-group input-group--search">
+              <input
+                type="search"
+                className="input-block"
+                placeholder="제목을 입력하세요"
+                onChange={onChange}
+              />
+              <button type="submit" className="btn btn--search">
+                검색
+              </button>
+            </div>
           </form>
         </div>
         <div className="header-utils">

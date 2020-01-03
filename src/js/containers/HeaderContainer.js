@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { onDaily, onWeek } from '../modules/load';
+import { SEARCH_TEXT, onDaily, onWeek } from '../modules/load';
 
 function HeaderContainer() {
+  const [searchText, setSearchText] = useState('');
   const dispatch = useDispatch();
   const { daily } = useSelector(store => ({
     daily: store.load.daily,
@@ -17,7 +18,25 @@ function HeaderContainer() {
     if (e.target.classList.contains('is-active')) return false;
     dispatch(onWeek());
   };
-  return <Header daily={daily} onRunDaily={onRunDaily} onRunWeek={onRunWeek} />;
+  const onSubmit = e => {
+    e.preventDefault();
+    dispatch({
+      type: SEARCH_TEXT,
+      searchText: searchText,
+    });
+  };
+  const onChange = e => {
+    setSearchText(e.target.value);
+  };
+  return (
+    <Header
+      daily={daily}
+      onRunDaily={onRunDaily}
+      onRunWeek={onRunWeek}
+      onSubmit={onSubmit}
+      onChange={onChange}
+    />
+  );
 }
 
 export default HeaderContainer;
