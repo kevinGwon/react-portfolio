@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const globImporter = require('node-sass-glob-importer');
 
 // webpeack config
 const isDev = process.env.NODE_ENV === 'development' ? true : false;
@@ -13,12 +14,12 @@ const configCustom = isDev
   : require('./webpack.prod');
 const config = {
   entry: {
-    index: ['babel-polyfill', path.resolve(__dirname, 'src', 'index.js')]
+    index: ['babel-polyfill', path.resolve(__dirname, 'src', 'index.js')],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash].js',
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -26,8 +27,8 @@ const config = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.s[ac]ss$/i,
@@ -37,22 +38,25 @@ const config = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               hmr: isDev,
-              reloadAll: isDev
-            }
+              reloadAll: isDev,
+            },
           },
           {
             loader: 'css-loader',
             options: {
-              sourceMap: isDev
-            }
+              sourceMap: isDev,
+            },
           },
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: isDev
-            }
-          }
-        ]
+              sourceMap: isDev,
+              sassOptions: {
+                importer: globImporter(),
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.(png|jpe|gif)$/i,
@@ -61,20 +65,20 @@ const config = {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'images'
-            }
-          }
-        ]
-      }
-    ]
+              outputPath: 'images',
+            },
+          },
+        ],
+      },
+    ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './src/index.html',
     }),
     new MiniCssExtractPlugin({ filename: 'style.css' }),
     new CopyWebpackPlugin([
@@ -82,10 +86,10 @@ const config = {
         context: 'src/',
         from: 'images/',
         to: 'images/',
-        force: true
-      }
-    ])
-  ]
+        force: true,
+      },
+    ]),
+  ],
 };
 
 console.log('-----------------------');
