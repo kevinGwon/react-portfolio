@@ -95,6 +95,26 @@
       cursor: not-allowed;
     }
   }
+
+  &--invert {
+    border-color: $color-primary;
+    background-color: $color-primary;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      border-color: $color-primary;
+      background-color: $color-primary;
+      color: $white;
+    }
+
+    &[disabled] {
+      border-color: transparent !important;
+      background-color: rgba($white, 0.2) !important;
+      color: $silver-dark !important;
+      cursor: not-allowed;
+    }
+  }
 }
 
 .btn-r {
