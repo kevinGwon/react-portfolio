@@ -1,3 +1,7 @@
+// API
+import { koficDATA } from '../modules/asyncAPI';
+
+// action
 import { ALL_RESET } from './list';
 
 export const LOADING = 'load/LOADING';
@@ -22,6 +26,7 @@ export const onDaily = () => dispatch => {
   dispatch({
     type: DAILY,
   });
+  dispatch(koficDATA());
 };
 
 export const onWeek = () => dispatch => {
@@ -34,6 +39,7 @@ export const onWeek = () => dispatch => {
   dispatch({
     type: WEEK,
   });
+  dispatch(koficDATA());
 };
 
 export default function load(state = initState, action) {
