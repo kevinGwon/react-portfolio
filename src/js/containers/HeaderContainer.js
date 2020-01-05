@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { SEARCH_TEXT, onDaily, onWeek } from '../modules/load';
+import { SEARCH_TEXT, onDaily, onWeek } from '../reducer/load';
 
 function HeaderContainer() {
   const [searchText, setSearchText] = useState('');

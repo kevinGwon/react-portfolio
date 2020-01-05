@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import List from '../components/List';
 import { useSelector, useDispatch } from 'react-redux';
-import { KOFIC_DATA, KMDB_DATA } from '../modules/list';
-import { LOADING, LOADING_OUT } from '../modules/load';
+import { KOFIC_DATA, KMDB_DATA } from '../reducer/list';
+import { LOADING, LOADING_OUT } from '../reducer/load';
 
 function ListContainer() {
   // list reducer
