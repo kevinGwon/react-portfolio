@@ -1,12 +1,14 @@
 import axios from 'axios';
 
 // ACTION
-import { KOFIC_DATA, KMDB_DATA } from '../reducer/list';
+import { KOFIC_DATA, KMDB_DATA, LIST_SORT } from '../reducer/list';
 import { LOADING, LOADING_OUT } from '../reducer/load';
 
 export const kmdbDATA = () => async (dispatch, getState) => {
   const { year, query } = getState().list;
-  const { daily } = getState().load;
+  const { daily, searchText } = getState().load;
+
+  const searchQuery = searchText.length === 0 ? query : [{ query: searchText }];
 
   try {
     /*
@@ -15,22 +17,23 @@ export const kmdbDATA = () => async (dispatch, getState) => {
      * rest - http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_xml.jsp?collection=kmdb_new&detail=N&director=%EB%B0%95%EC%B0%AC%EC%9A%B1&ServiceKey=인증키값
      * key - 3M5U8T5PG7R74K1J2828
      */
-    for (let i = 0; i < query.length; i++) {
+    for (let i = 0; i < searchQuery.length; i++) {
       const response = await axios({
         method: 'get',
-        url: `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp?collection=kmdb_new&detail=Y&listCount=10&query=${query[i].query}&createDts=${year}&sort=prodYear&ServiceKey=3M5U8T5PG7R74K1J2828`,
+        url: `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp?collection=kmdb_new&detail=Y&listCount=10&query=${searchQuery[i].query}&createDts=${year}&sort=prodYear&ServiceKey=3M5U8T5PG7R74K1J2828`,
       });
       dispatch({
         type: KMDB_DATA,
         data: response.data,
         list: {
-          rank: query[i].rank,
-          theme: query[i].query,
+          rank: searchQuery[i].rank,
+          theme: searchQuery[i].query,
           data: response.data,
         },
       });
       // 모든 API 로드가 완료되면 로딩화면 아웃
-      if (i === query.length - 1) {
+      if (i === searchQuery.length - 1) {
+        dispatch({ type: LIST_SORT });
         dispatch({ type: LOADING_OUT });
       }
     }

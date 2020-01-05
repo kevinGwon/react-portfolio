@@ -2,6 +2,7 @@ export const KOFIC_DATA = 'list/KOFIC_DATA';
 export const KMDB_DATA = 'list/KMDB_DATA';
 export const ALL_RESET = 'list/ALL_RESET';
 export const LIST_RESET = 'list/LIST_RESET';
+export const LIST_SORT = 'list/LIST_SORT';
 
 const date = new Date();
 let year, month, day;
@@ -28,6 +29,7 @@ const initState = {
   year: year,
   month: month,
   day: day,
+  sort: false,
   query: [],
   list: [],
 };
@@ -53,13 +55,16 @@ export default function list(state = initState, action) {
         list: [...state.list, action.list],
       };
     case 'list/LIST_RESET':
-      console.log('LIST_RESET!!');
       return {
         ...state,
         list: [],
       };
+    case 'list/LIST_SORT':
+      return {
+        ...state,
+        sort: !state.sort,
+      };
     case 'list/ALL_RESET':
-      console.log('ALL_RESET!!');
       return {
         ...state,
         query: [],

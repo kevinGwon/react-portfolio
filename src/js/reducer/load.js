@@ -1,5 +1,5 @@
 // API
-import { koficDATA } from '../modules/asyncAPI';
+import { koficDATA, kmdbDATA } from '../modules/asyncAPI';
 
 // action
 import { ALL_RESET } from './list';
@@ -40,6 +40,20 @@ export const onWeek = () => dispatch => {
     type: WEEK,
   });
   dispatch(koficDATA());
+};
+
+export const onSearch = searchText => dispatch => {
+  dispatch({
+    type: ALL_RESET,
+  });
+  dispatch({
+    type: LOADING,
+  });
+  dispatch({
+    type: SEARCH_TEXT,
+    searchText: searchText,
+  });
+  dispatch(kmdbDATA());
 };
 
 export default function load(state = initState, action) {

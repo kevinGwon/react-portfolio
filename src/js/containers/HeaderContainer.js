@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { SEARCH_TEXT, onDaily, onWeek } from '../reducer/load';
+// API
+import { koficDATA } from '../modules/asyncAPI';
+import { onDaily, onWeek, onSearch } from '../reducer/load';
+
+// ACTION
+import { SEARCH_TEXT } from '../reducer/load';
 
 function HeaderContainer() {
   const [searchText, setSearchText] = useState('');
@@ -20,10 +25,7 @@ function HeaderContainer() {
   };
   const onSubmit = e => {
     e.preventDefault();
-    dispatch({
-      type: SEARCH_TEXT,
-      searchText: searchText,
-    });
+    dispatch(onSearch(searchText));
   };
   const onChange = e => {
     setSearchText(e.target.value);
