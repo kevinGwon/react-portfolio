@@ -3,7 +3,7 @@
 ## Spec
 - webpack 4.x
 - Husky, Prettier, Eslint
-- React 16.12.0
+- React(16.12.x), Hooks, Redux, Redux-Thunk
 
 ## Set
 - node.js package manager로 yarn을 사용
