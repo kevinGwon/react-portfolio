@@ -6,9 +6,9 @@ import { LOADING, LOADING_OUT } from '../reducer/load';
 
 export const kmdbDATA = () => async (dispatch, getState) => {
   const { year, query } = getState().list;
-  const { daily, searchText } = getState().load;
+  const { daily, isSearch, searchText } = getState().load;
 
-  const searchQuery = searchText.length === 0 ? query : [{ query: searchText }];
+  const searchQuery = !isSearch ? query : [{ query: searchText }];
 
   try {
     /*
@@ -20,19 +20,24 @@ export const kmdbDATA = () => async (dispatch, getState) => {
     for (let i = 0; i < searchQuery.length; i++) {
       const response = await axios({
         method: 'get',
-        url: `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp?collection=kmdb_new&detail=Y&listCount=10&query=${searchQuery[i].query}&createDts=${year}&sort=prodYear&ServiceKey=3M5U8T5PG7R74K1J2828`,
+        url: `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp?collection=kmdb_new&detail=Y&listCount=10&title=${
+          searchQuery[i].query
+        }&query=${searchQuery[i].query}&createDts=${
+          isSearch ? '1990' : year
+        }&sort=prodYear&ServiceKey=3M5U8T5PG7R74K1J2828`,
       });
       dispatch({
         type: KMDB_DATA,
         data: response.data,
         list: {
-          rank: searchQuery[i].rank,
+          // rank: searchQuery[i].rank,
           theme: searchQuery[i].query,
           data: response.data,
         },
       });
       // 모든 API 로드가 완료되면 로딩화면 아웃
       if (i === searchQuery.length - 1) {
+        console.log('LAST API');
         dispatch({ type: LIST_SORT });
         dispatch({ type: LOADING_OUT });
       }
@@ -62,6 +67,7 @@ export const koficDATA = () => async (dispatch, getState) => {
         daily ? '' : '&weekGb=0'
       }`,
     });
+    console.log(response.data);
     dispatch({
       type: KOFIC_DATA,
       data: daily

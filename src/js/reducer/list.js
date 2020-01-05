@@ -10,11 +10,11 @@ let year, month, day;
 year = date.getFullYear();
 
 month =
-  String(date.getMonth() + 1).length === '1'
+  String(date.getMonth() + 1).length === 1
     ? '0' + (date.getMonth() + 1)
     : date.getMonth() + 1;
 day =
-  String(date.getDate()).length === '1'
+  String(date.getDate()).length === 1
     ? '0' + date.getDate()
     : date.getDate() + 1;
 

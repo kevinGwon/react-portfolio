@@ -14,7 +14,7 @@ function ListContainer() {
   const { list, sort } = useSelector(store => store.list, []);
 
   // load reducer
-  const { daily, loading, searchText } = useSelector(store => store.load, []);
+  const { daily, isLoading, searchText } = useSelector(store => store.load, []);
   const dispatch = useDispatch();
 
   let listSort = list;
@@ -26,7 +26,7 @@ function ListContainer() {
 
   // 순서 정렬
   if (sort) {
-    console.log('sort =' + sort);
+    console.log('sort = ' + sort);
     // listSort.sort((prev, next) => {
     //   if (parseInt(prev.rank, 10) > parseInt(next.rank, 10)) {
     //     return 1;
@@ -45,10 +45,12 @@ function ListContainer() {
       }
       return item;
     });
+
+    // off sort
     dispatch({ type: LIST_SORT });
   }
 
-  if (loading) return <div>로딩중...</div>;
+  if (isLoading) return <div>로딩중...</div>;
 
   return <List daily={daily} list={listSort} />;
 }

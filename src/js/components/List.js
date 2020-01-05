@@ -7,12 +7,12 @@ function List({ daily, list, onDaily, onWeek }) {
       <div className="l-wrap">
         <ul className="movie-list">
           {list.length > 0 &&
-            list.map(item => (
+            list.map((item, i) => (
               <li
                 key={
                   item.data.Data[0].Result
                     ? item.data.Data[0].Result[0].DOCID
-                    : item.rank
+                    : i
                 }
               >
                 <a href="#">

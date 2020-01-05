@@ -1,7 +1,7 @@
 // API
 import { koficDATA, kmdbDATA } from '../modules/asyncAPI';
 
-// action
+// ACTION
 import { ALL_RESET } from './list';
 
 export const LOADING = 'load/LOADING';
@@ -9,12 +9,8 @@ export const LOADING_OUT = 'load/LOADING_OUT';
 export const DAILY = 'load/DAILY';
 export const WEEK = 'load/WEEK';
 export const SEARCH_TEXT = 'load/SEARCH_TEXT';
-
-const initState = {
-  daily: true,
-  loading: false,
-  searchText: '',
-};
+export const SEARCH = 'load/SEARCH';
+export const SEARCH_OUT = 'load/SEARCH_OUT';
 
 export const onDaily = () => dispatch => {
   dispatch({
@@ -56,17 +52,24 @@ export const onSearch = searchText => dispatch => {
   dispatch(kmdbDATA());
 };
 
+const initState = {
+  daily: true,
+  isLoading: false,
+  isSearch: false,
+  searchText: '',
+};
+
 export default function load(state = initState, action) {
   switch (action.type) {
     case 'load/LOADING':
       return {
         ...state,
-        loading: true,
+        isLoading: true,
       };
     case 'load/LOADING_OUT':
       return {
         ...state,
-        loading: false,
+        isLoading: false,
       };
     case 'load/DAILY':
       return {
@@ -82,6 +85,16 @@ export default function load(state = initState, action) {
       return {
         ...state,
         searchText: action.searchText,
+      };
+    case 'load/SEARCH':
+      return {
+        ...state,
+        isSearch: true,
+      };
+    case 'load/SEARCH_OUT':
+      return {
+        ...state,
+        isSearch: false,
       };
     default:
       return state;

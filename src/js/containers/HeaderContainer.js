@@ -7,7 +7,7 @@ import { koficDATA } from '../modules/asyncAPI';
 import { onDaily, onWeek, onSearch } from '../reducer/load';
 
 // ACTION
-import { SEARCH_TEXT } from '../reducer/load';
+import { SEARCH_TEXT, SEARCH } from '../reducer/load';
 
 function HeaderContainer() {
   const [searchText, setSearchText] = useState('');
@@ -25,6 +25,7 @@ function HeaderContainer() {
   };
   const onSubmit = e => {
     e.preventDefault();
+    dispatch({ type: SEARCH });
     dispatch(onSearch(searchText));
   };
   const onChange = e => {
