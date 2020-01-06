@@ -12,12 +12,18 @@
 @import 'scss/base/helper';
 @import 'scss/base/reset';
 
+// Swiper
+@import 'node_modules/swiper/swiper.scss';
+@import 'node_modules/swiper/components/pagination/pagination.scss';
+// @import 'node_modules/swiper/components/navigation/navigation.scss';
+
 // modules
 @import 'scss/modules/layout';
 @import 'scss/modules/paragraph';
 @import 'scss/modules/typography';
 @import 'scss/modules/button';
 @import 'scss/modules/form';
+@import 'scss/modules/swiper';
 
 // Components
 @import 'scss/components/*';
