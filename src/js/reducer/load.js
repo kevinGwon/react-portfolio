@@ -1,5 +1,5 @@
 // API
-import { discoverAPI } from '../modules/asyncAPI';
+import { getAPI } from '../modules/asyncAPI';
 
 // ACTION
 import { ALL_RESET } from './list';
@@ -21,7 +21,7 @@ export const onSearch = searchText => dispatch => {
     type: SEARCH_TEXT,
     searchText: searchText,
   });
-  dispatch(discoverAPI());
+  dispatch(getAPI());
 };
 
 const initState = {

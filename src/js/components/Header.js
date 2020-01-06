@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Header({ daily, onRunDaily, onRunWeek, onChange, onSubmit }) {
+function Header({ daily, onChange, onSubmit }) {
   return (
     <header className="header">
       <div className="header-inner">
@@ -28,22 +28,6 @@ function Header({ daily, onRunDaily, onRunWeek, onChange, onSubmit }) {
               </button>
             </div>
           </form>
-        </div>
-        <div className="header-utils">
-          <button
-            className={`btn btn--ghost ${daily ? 'is-active' : ''}`}
-            type="button"
-            onClick={e => onRunDaily(e)}
-          >
-            Daily
-          </button>
-          <button
-            className={`btn btn--ghost ${daily ? '' : 'is-active'}`}
-            type="button"
-            onClick={e => onRunWeek(e)}
-          >
-            Week
-          </button>
         </div>
       </div>
     </header>
