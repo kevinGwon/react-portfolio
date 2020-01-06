@@ -1,5 +1,4 @@
-export const KOFIC_DATA = 'list/KOFIC_DATA';
-export const KMDB_DATA = 'list/KMDB_DATA';
+export const DISCOVER_LIST = 'list/DISCOVER_LIST';
 export const ALL_RESET = 'list/ALL_RESET';
 export const LIST_RESET = 'list/LIST_RESET';
 export const LIST_SORT = 'list/LIST_SORT';
@@ -30,34 +29,20 @@ const initState = {
   month: month,
   day: day,
   sort: false,
-  query: [],
-  list: [],
+  discoverList: [],
 };
 
 export default function list(state = initState, action) {
   switch (action.type) {
-    case 'list/KOFIC_DATA':
-      // 영화순위 목록
-      action.data.map(item =>
-        state.query.push({
-          rank: item.rank,
-          query: item.movieNm,
-        }),
-      );
+    case 'list/DISCOVER_LIST':
       return {
         ...state,
-        koficDATA: action.data,
-      };
-    case 'list/KMDB_DATA':
-      return {
-        ...state,
-        kmdbDATA: action.data,
-        list: [...state.list, action.list],
+        discoverList: [...state.discoverList, action.discoverList],
       };
     case 'list/LIST_RESET':
       return {
         ...state,
-        list: [],
+        discoverList: [],
       };
     case 'list/LIST_SORT':
       return {
@@ -67,8 +52,7 @@ export default function list(state = initState, action) {
     case 'list/ALL_RESET':
       return {
         ...state,
-        query: [],
-        list: [],
+        discoverList: [],
       };
     default:
       return state;

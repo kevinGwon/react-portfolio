@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import { useSelector, useDispatch } from 'react-redux';
 
 // API
-import { koficDATA } from '../modules/asyncAPI';
+// import { koficDATA } from '../modules/asyncAPI';
 import { onDaily, onWeek, onSearch } from '../reducer/load';
 
 // ACTION

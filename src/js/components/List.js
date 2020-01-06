@@ -1,44 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import Swiper from 'react-id-swiper';
 
 function List({ daily, list, onDaily, onWeek }) {
-  console.log(list);
+  list = list.filter(item => item.overview.length !== 0);
+  const params = {
+    effect: 'coverflow',
+    centeredSlides: true,
+    slidesPerView: 3,
+    spaceBetween: 15,
+    grabCursor: true,
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  };
   return (
     <>
       <div className="l-wrap">
-        <ul className="movie-list">
-          {list.length > 0 &&
-            list.map((item, i) => (
-              <li
-                key={
-                  item.data.Data[0].Result
-                    ? item.data.Data[0].Result[0].DOCID
-                    : i
-                }
-              >
-                <a href="#">
-                  <div className="thumb">
-                    {item.data.Data[0].Result ? (
-                      <img
-                        src={item.data.Data[0].Result[0].posters.split('|')[0]}
-                        alt=""
-                      />
-                    ) : (
-                      <img
-                        src="http://placehold.it/320x400?text=Preparing image"
-                        alt=""
-                      />
-                    )}
-                  </div>
-                  <strong className="title">{item.data.Query}</strong>
-                  <p className="cont">
-                    {item.data.Data[0].Result
-                      ? item.data.Data[0].Result[0].plot
-                      : '내용 준비중'}
-                  </p>
-                </a>
-              </li>
-            ))}
-        </ul>
+        <Swiper {...params}>
+          {list.map(item => (
+            <div key={item.id}>
+              <a href="#">
+                <div className="thumb">
+                  <img src={item.posterImage} alt="" />
+                </div>
+              </a>
+            </div>
+          ))}
+        </Swiper>
       </div>
     </>
   );
