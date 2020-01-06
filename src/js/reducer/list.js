@@ -1,7 +1,13 @@
-export const DISCOVER_LIST = 'list/DISCOVER_LIST';
+// ACTION
+export const POPULARITY_LIST = 'list/POPULARITY_LIST';
+export const AVERAGE_LIST = 'list/AVERAGE_LIST';
 export const ALL_RESET = 'list/ALL_RESET';
 export const LIST_RESET = 'list/LIST_RESET';
 export const LIST_SORT = 'list/LIST_SORT';
+
+// CATEGORY
+export const POPULARITY = 'POPULARITY';
+export const AVERAGE = 'AVERAGE';
 
 const date = new Date();
 let year, month, day;
@@ -29,20 +35,52 @@ const initState = {
   month: month,
   day: day,
   sort: false,
-  discoverList: [],
+  lists: {
+    popularity: {
+      category: 'popularity',
+      list: [],
+    },
+    average: {
+      category: 'average',
+      list: [],
+    },
+  },
 };
 
-export default function list(state = initState, action) {
+const list = (state = initState, action) => {
   switch (action.type) {
-    case 'list/DISCOVER_LIST':
+    case 'list/POPULARITY_LIST':
       return {
         ...state,
-        discoverList: [...state.discoverList, action.discoverList],
+        lists: {
+          ...state.lists,
+          popularity: {
+            ...state.lists.popularity,
+            list: [...state.lists.popularity.list, action.popularity],
+          },
+        },
+      };
+    case 'list/AVERAGE_LIST':
+      return {
+        ...state,
+        lists: {
+          ...state.lists,
+          average: {
+            ...state.lists.average,
+            list: [...state.lists.average.list, action.average],
+          },
+        },
       };
     case 'list/LIST_RESET':
       return {
         ...state,
-        discoverList: [],
+        lists: {
+          ...state.lists,
+          popularity: {
+            category: 'popularity',
+            list: [...state.lists.average.list, action.average],
+          },
+        },
       };
     case 'list/LIST_SORT':
       return {
@@ -52,9 +90,14 @@ export default function list(state = initState, action) {
     case 'list/ALL_RESET':
       return {
         ...state,
-        discoverList: [],
+        lists: {
+          ...state.lists,
+          // popularity: [],
+        },
       };
     default:
       return state;
   }
-}
+};
+
+export default list;

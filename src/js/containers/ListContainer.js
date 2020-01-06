@@ -3,15 +3,18 @@ import List from '../components/List';
 import { useSelector, useDispatch } from 'react-redux';
 
 // API
-import { discoverAPI } from '../modules/asyncAPI';
+import { getAPI } from '../modules/asyncAPI';
 
 // ACTION
 import { LIST_SORT } from '../reducer/list';
 import { LOADING } from '../reducer/load';
 
-function ListContainer() {
+// CATEGORY
+import { POPULARITY, AVERAGE } from '../reducer/list';
+
+function ListContainer({ category, lists }) {
   // list reducer
-  const { discoverList, sort } = useSelector(store => store.list, []);
+  const { sort } = useSelector(store => store.list, []);
 
   // load reducer
   const { isLoading } = useSelector(store => store.load, []);
@@ -19,31 +22,27 @@ function ListContainer() {
 
   useEffect(() => {
     dispatch({ type: LOADING });
-    dispatch(discoverAPI());
-  }, [dispatch]);
+
+    switch (category) {
+      case POPULARITY:
+        dispatch(getAPI(POPULARITY));
+        break;
+      case AVERAGE:
+        dispatch(getAPI(AVERAGE));
+        break;
+      default:
+        console.log('지정된 리스트가 없습니다');
+    }
+  }, [category, dispatch]);
 
   // 순서 정렬
   if (sort) {
-    console.log('sort = ' + sort);
-    // listSort.sort((prev, next) => {
-    //   if (parseInt(prev.rank, 10) > parseInt(next.rank, 10)) {
-    //     return 1;
-    //   }
-    //   if (parseInt(prev.rank, 10) < parseInt(next.rank, 10)) {
-    //     return -1;
-    //   }
-    //   return 0;
-    // });
-    // listSort.map(item => {
-    //   console.log(item);
-    // });
-
-    // off sort
     dispatch({ type: LIST_SORT });
   }
+
   if (isLoading) return <div>로딩중...</div>;
 
-  return <List list={discoverList} />;
+  return <List lists={lists} />;
 }
 
 export default ListContainer;

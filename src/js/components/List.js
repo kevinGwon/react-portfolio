@@ -1,38 +1,57 @@
 import React, { useEffect } from 'react';
-import Swiper from 'react-id-swiper';
+import Swiper from 'swiper';
 
-function List({ daily, list, onDaily, onWeek }) {
-  list = list.filter(item => item.overview.length !== 0);
-  const params = {
-    effect: 'coverflow',
-    centeredSlides: true,
-    slidesPerView: 3,
-    spaceBetween: 15,
-    grabCursor: true,
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  };
+function List({ lists }) {
+  useEffect(() => {
+    setTimeout(() => {
+      let swiper = new Swiper(`.swiper-container-${lists.category}`, {
+        effect: 'coverflow',
+        lazy: true,
+        centeredSlides: true,
+        slidesPerView: 3,
+        spaceBetween: 5,
+        grabCursor: true,
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'bullets',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    }, 0);
+  }, [lists.category]);
   return (
     <>
-      <div className="l-wrap">
-        <Swiper {...params}>
-          {list.map(item => (
-            <div key={item.id}>
+      <div className={`swiper-container swiper-container-${lists.category}`}>
+        <div className="swiper-wrapper">
+          {lists.list.map(item => (
+            <div key={item.id} className="swiper-slide">
               <a href="#">
                 <div className="thumb">
-                  <img src={item.posterImage} alt="" />
+                  <img
+                    data-src={
+                      item.posterImage.indexOf('null') === -1
+                        ? item.posterImage
+                        : 'http://placehold.it/500x747?text=Preparing image'
+                    }
+                    className="swiper-lazy"
+                    alt=""
+                  />
                 </div>
               </a>
             </div>
           ))}
-        </Swiper>
+        </div>
+
+        {/* Pagination */}
+        <div className="swiper-pagination"></div>
+
+        {/* Arrow */}
+        <div className="swiper-button-next"></div>
+        <div className="swiper-button-prev"></div>
       </div>
     </>
   );
