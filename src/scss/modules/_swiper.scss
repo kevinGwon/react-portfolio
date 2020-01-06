@@ -1,7 +1,9 @@
 .swiper {
   &-container {
+    padding-top: 3rem;
     padding-bottom: 3rem;
   }
+
   &-pagination {
     &-bullet {
       opacity: 0.35;
@@ -12,7 +14,9 @@
       }
     }
   }
+
   &-button {
+
     &-next,
     &-prev {
       position: absolute;
@@ -22,11 +26,41 @@
       width: 27%;
       background-color: transparent;
     }
+
     &-prev {
       left: 0;
     }
+
     &-next {
       right: 0;
+    }
+  }
+
+  &-slide {
+    position: relative;
+    height: 0;
+    padding-bottom: percentage(582/1180);
+
+    a {
+      display: block;
+      @include full-pos;
+    }
+
+    .thumb {
+      height: 100%;
+
+      img {
+        object-fit: cover;
+        height: 100%;
+      }
+    }
+
+    &-prev {
+      opacity: 0.5;
+    }
+
+    &-next {
+      opacity: 0.5;
     }
   }
 }
