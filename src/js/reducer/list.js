@@ -1,13 +1,24 @@
 // ACTION
-export const POPULARITY_LIST = 'list/POPULARITY_LIST';
-export const AVERAGE_LIST = 'list/AVERAGE_LIST';
-export const ALL_RESET = 'list/ALL_RESET';
-export const LIST_RESET = 'list/LIST_RESET';
-export const LIST_SORT = 'list/LIST_SORT';
+export const ACTION_LIST = 'ACTION_LIST';
+export const THRILLER_LIST = 'THRILLER_LIST';
+export const CRIME_LIST = 'CRIME_LIST';
+export const WAR_LIST = 'WAR_LIST';
+export const HORROR_LIST = 'HORROR_LIST';
+export const ROMANCE_LIST = 'ROMANCE_LIST';
+export const ANIMATION_LIST = 'ANIMATION_LIST';
+
+export const ALL_RESET = 'ALL_RESET';
+export const LIST_RESET = 'LIST_RESET';
+export const LIST_SORT = 'LIST_SORT';
 
 // CATEGORY
-export const POPULARITY = 'POPULARITY';
-export const AVERAGE = 'AVERAGE';
+export const ACTION = 'ACTION';
+export const THRILLER = 'THRILLER';
+export const CRIME = 'CRIME';
+export const WAR = 'WAR';
+export const HORROR = 'HORROR';
+export const ROMANCE = 'ROMANCE';
+export const ANIMATION = 'ANIMATION';
 
 const date = new Date();
 let year, month, day;
@@ -35,13 +46,47 @@ const initState = {
   month: month,
   day: day,
   sort: false,
-  lists: {
-    popularity: {
-      category: 'popularity',
+  genres: {
+    action: {
+      category: 'action',
+      code: 28,
+      isLoading: false,
       list: [],
     },
-    average: {
-      category: 'average',
+    thriller: {
+      category: 'thriller',
+      code: 53,
+      isLoading: false,
+      list: [],
+    },
+    crime: {
+      category: 'crime',
+      code: 80,
+      isLoading: false,
+      list: [],
+    },
+    war: {
+      category: 'war',
+      code: 10752,
+      isLoading: false,
+      list: [],
+    },
+    horror: {
+      category: 'horror',
+      code: 27,
+      isLoading: false,
+      list: [],
+    },
+    romance: {
+      category: 'romance',
+      code: 10749,
+      isLoading: false,
+      list: [],
+    },
+    animation: {
+      category: 'animation',
+      code: 16,
+      isLoading: false,
       list: [],
     },
   },
@@ -49,50 +94,105 @@ const initState = {
 
 const list = (state = initState, action) => {
   switch (action.type) {
-    case 'list/POPULARITY_LIST':
+    case ACTION_LIST:
       return {
         ...state,
-        lists: {
-          ...state.lists,
-          popularity: {
-            ...state.lists.popularity,
-            list: [...state.lists.popularity.list, action.popularity],
+        genres: {
+          ...state.genres,
+          action: {
+            ...state.genres.action,
+            list: [...state.genres.action.list, action.action],
           },
         },
       };
-    case 'list/AVERAGE_LIST':
+    case THRILLER_LIST:
       return {
         ...state,
-        lists: {
-          ...state.lists,
-          average: {
-            ...state.lists.average,
-            list: [...state.lists.average.list, action.average],
+        genres: {
+          ...state.genres,
+          thriller: {
+            ...state.genres.thriller,
+            list: [...state.genres.thriller.list, action.thriller],
           },
         },
       };
-    case 'list/LIST_RESET':
+    case CRIME_LIST:
       return {
         ...state,
-        lists: {
-          ...state.lists,
-          popularity: {
-            category: 'popularity',
-            list: [...state.lists.average.list, action.average],
+        genres: {
+          ...state.genres,
+          crime: {
+            ...state.genres.crime,
+            list: [...state.genres.crime.list, action.crime],
           },
         },
       };
-    case 'list/LIST_SORT':
+    case WAR_LIST:
+      return {
+        ...state,
+        genres: {
+          ...state.genres,
+          war: {
+            ...state.genres.war,
+            list: [...state.genres.war.list, action.war],
+          },
+        },
+      };
+    case HORROR_LIST:
+      return {
+        ...state,
+        genres: {
+          ...state.genres,
+          horror: {
+            ...state.genres.horror,
+            list: [...state.genres.horror.list, action.horror],
+          },
+        },
+      };
+    case ROMANCE_LIST:
+      return {
+        ...state,
+        genres: {
+          ...state.genres,
+          romance: {
+            ...state.genres.romance,
+            list: [...state.genres.romance.list, action.romance],
+          },
+        },
+      };
+    case ANIMATION_LIST:
+      return {
+        ...state,
+        genres: {
+          ...state.genres,
+          animation: {
+            ...state.genres.animation,
+            list: [...state.genres.animation.list, action.animation],
+          },
+        },
+      };
+    case LIST_RESET:
+      return {
+        ...state,
+        genres: {
+          ...state.genres,
+          action: {
+            category: 'action',
+            list: [...state.genres.average.list, action.average],
+          },
+        },
+      };
+    case LIST_SORT:
       return {
         ...state,
         sort: !state.sort,
       };
-    case 'list/ALL_RESET':
+    case ALL_RESET:
       return {
         ...state,
-        lists: {
-          ...state.lists,
-          // popularity: [],
+        genres: {
+          ...state.genres,
+          // ACTION: [],
         },
       };
     default:

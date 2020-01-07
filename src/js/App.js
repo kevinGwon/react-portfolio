@@ -1,26 +1,56 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import HeaderContainer from './containers/HeaderContainer';
+import FooterContainer from './containers/FooterContainer';
 import ListContainer from './containers/ListContainer';
 
-// CATEGORY
-import { POPULARITY, AVERAGE } from './reducer/list';
-
 function App() {
-  const { lists } = useSelector(store => store.list, []);
+  // list reducer
+  const { genres } = useSelector(store => store.list, []);
+
   return (
     <>
       <HeaderContainer />
 
-      <div className="article">
-        <div className="l-wrap">
-          <h2>인기 영화</h2>
-          <ListContainer category={POPULARITY} lists={lists.popularity} />
+      <article className="movie-article">
+        {/* Action */}
+        <ListContainer
+          category={genres.action.category}
+          lists={genres.action}
+        />
 
-          <h2>높은 평점</h2>
-          <ListContainer category={AVERAGE} lists={lists.average} />
-        </div>
-      </div>
+        {/* Thriller */}
+        <ListContainer
+          category={genres.thriller.category}
+          lists={genres.thriller}
+        />
+
+        {/* Crime */}
+        <ListContainer category={genres.crime.category} lists={genres.crime} />
+
+        {/* War */}
+        <ListContainer category={genres.war.category} lists={genres.war} />
+
+        {/* Horror */}
+        <ListContainer
+          category={genres.horror.category}
+          lists={genres.horror}
+        />
+
+        {/* Romance */}
+        <ListContainer
+          category={genres.romance.category}
+          lists={genres.romance}
+        />
+
+        {/* Animation */}
+        <ListContainer
+          category={genres.animation.category}
+          lists={genres.animation}
+        />
+      </article>
+
+      <FooterContainer />
     </>
   );
 }

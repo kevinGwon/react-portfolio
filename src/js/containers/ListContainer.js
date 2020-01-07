@@ -3,14 +3,20 @@ import List from '../components/List';
 import { useSelector, useDispatch } from 'react-redux';
 
 // API
-import { getAPI } from '../modules/asyncAPI';
+import { asyncAPI } from '../modules/asyncAPI';
 
 // ACTION
-import { LIST_SORT } from '../reducer/list';
 import { LOADING } from '../reducer/load';
-
-// CATEGORY
-import { POPULARITY, AVERAGE } from '../reducer/list';
+import {
+  LIST_SORT,
+  ACTION,
+  THRILLER,
+  CRIME,
+  WAR,
+  HORROR,
+  ROMANCE,
+  ANIMATION,
+} from '../reducer/list';
 
 function ListContainer({ category, lists }) {
   // list reducer
@@ -20,27 +26,43 @@ function ListContainer({ category, lists }) {
   const { isLoading } = useSelector(store => store.load, []);
   const dispatch = useDispatch();
 
+  const categoryCode = lists.code;
+
   useEffect(() => {
     dispatch({ type: LOADING });
 
-    switch (category) {
-      case POPULARITY:
-        dispatch(getAPI(POPULARITY));
+    switch (category.toUpperCase()) {
+      case ACTION:
+        dispatch(asyncAPI(category, categoryCode));
         break;
-      case AVERAGE:
-        dispatch(getAPI(AVERAGE));
+      // eslint-disable-next-line no-duplicate-case
+      case THRILLER:
+        dispatch(asyncAPI(category, categoryCode));
+        break;
+      case CRIME:
+        dispatch(asyncAPI(category, categoryCode));
+        break;
+      case WAR:
+        dispatch(asyncAPI(category, categoryCode));
+        break;
+      case HORROR:
+        dispatch(asyncAPI(category, categoryCode));
+        break;
+      case ROMANCE:
+        dispatch(asyncAPI(category, categoryCode));
+        break;
+      case ANIMATION:
+        dispatch(asyncAPI(category, categoryCode));
         break;
       default:
         console.log('지정된 리스트가 없습니다');
     }
-  }, [category, dispatch]);
+  }, [category, categoryCode, dispatch]);
 
   // 순서 정렬
   if (sort) {
     dispatch({ type: LIST_SORT });
   }
-
-  if (isLoading) return <div>로딩중...</div>;
 
   return <List lists={lists} />;
 }
