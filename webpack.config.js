@@ -80,7 +80,7 @@ const config = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
-    new MiniCssExtractPlugin({ filename: 'style.css' }),
+    new MiniCssExtractPlugin(),
     new CopyWebpackPlugin([
       {
         context: 'src/',
