@@ -1,7 +1,6 @@
 .swiper {
   &-container {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-bottom: 5rem;
   }
 
   &-pagination {
@@ -12,6 +11,13 @@
       &-active {
         opacity: 1;
       }
+    }
+  }
+
+  &-lazy {
+    &-preloader {
+      border-color: $color-primary;
+      border-top-color: transparent;
     }
   }
 
