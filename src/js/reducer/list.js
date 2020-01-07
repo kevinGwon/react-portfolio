@@ -50,43 +50,43 @@ const initState = {
     action: {
       category: 'action',
       code: 28,
-      isLoading: false,
+      isLoading: true,
       list: [],
     },
     thriller: {
       category: 'thriller',
       code: 53,
-      isLoading: false,
+      isLoading: true,
       list: [],
     },
     crime: {
       category: 'crime',
       code: 80,
-      isLoading: false,
+      isLoading: true,
       list: [],
     },
     war: {
       category: 'war',
       code: 10752,
-      isLoading: false,
+      isLoading: true,
       list: [],
     },
     horror: {
       category: 'horror',
       code: 27,
-      isLoading: false,
+      isLoading: true,
       list: [],
     },
     romance: {
       category: 'romance',
       code: 10749,
-      isLoading: false,
+      isLoading: true,
       list: [],
     },
     animation: {
       category: 'animation',
       code: 16,
-      isLoading: false,
+      isLoading: true,
       list: [],
     },
   },
@@ -168,6 +168,17 @@ const list = (state = initState, action) => {
           animation: {
             ...state.genres.animation,
             list: [...state.genres.animation.list, action.animation],
+          },
+        },
+      };
+    case 'LIST_LOADING':
+      return {
+        ...state,
+        genres: {
+          ...state.genres,
+          [action.category]: {
+            ...state.genres[action.category],
+            isLoading: action.isLoading,
           },
         },
       };

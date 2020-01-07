@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Swiper from 'swiper';
+import Loading from './Loading';
 
 function List({ lists }) {
   useEffect(() => {
@@ -30,11 +31,13 @@ function List({ lists }) {
           prevEl: '.swiper-button-prev',
         },
       });
-    }, 300);
-  }, [lists.category]);
+      console.log(`${lists.category} = ${lists.isLoading}`);
+    }, 500);
+  }, [lists.category, lists.isLoading]);
   return (
     <>
       <div className="movie-container">
+        {lists.isLoading && <Loading />}
         <div
           className="movie-container-bg"
           style={
@@ -44,7 +47,7 @@ function List({ lists }) {
           }
         ></div>
         <div className="l-wrap">
-          <div className="h2">{lists.category}</div>
+          <h2 className="h1">{lists.category}</h2>
           <div
             className={`swiper-container swiper-container-${lists.category}`}
           >

@@ -89,8 +89,11 @@ const runResponse = async props => {
 
       // // 모든 API 로드가 완료되면 로딩화면 아웃
       if (i === response.data.results.length - 1) {
-        props.dispatch({ type: LIST_SORT });
-        props.dispatch({ type: LOADING_OUT });
+        props.dispatch({
+          type: 'LIST_LOADING',
+          category: props.category,
+          isLoading: false,
+        });
       }
     }
   } catch (error) {
@@ -99,8 +102,17 @@ const runResponse = async props => {
 };
 
 export const asyncAPI = (category, categoryCode) => (dispatch, getState) => {
-  const { year, month, day } = getState().list;
+  const { year, month, day, genres } = getState().list;
   const { isSearch } = getState().load;
 
-  runResponse({ dispatch, category, categoryCode, year, month, day, isSearch });
+  runResponse({
+    dispatch,
+    category,
+    categoryCode,
+    year,
+    month,
+    day,
+    isSearch,
+    genres,
+  });
 };

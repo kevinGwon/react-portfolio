@@ -1,12 +1,21 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import Loading from './components/Loading';
 import HeaderContainer from './containers/HeaderContainer';
 import FooterContainer from './containers/FooterContainer';
 import ListContainer from './containers/ListContainer';
 
+// ACTION
+import { LOADING } from './reducer/load';
+
 function App() {
   // list reducer
   const { genres } = useSelector(store => store.list, []);
+
+  // load reducer
+  const { isLoading } = useSelector(store => store.load, []);
+
+  // if (isLoading) return <Loading />;
 
   return (
     <>
