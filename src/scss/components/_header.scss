@@ -9,20 +9,6 @@
     }
   }
 
-  &-inner {
-    position: relative;
-    max-width: $w-wrap/2;
-    margin: auto;
-    padding-left: 180px;
-    box-sizing: border-box;
-
-    .logo {
-      position: absolute;
-      left: 0;
-      width: 160px;
-    }
-  }
-
   &-utils {
     position: absolute;
     z-index: 10;
@@ -41,19 +27,15 @@
   }
 
   &-search {
-    .input-group {
+    max-width: 500px;
+    margin: auto;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    width: 100%;
+    box-sizing: border-box;
 
-      &--search {
-        position: relative;
-        padding-right: 8.6rem;
-
-        .btn {
-          position: absolute;
-          right: 0;
-          top: 0;
-          bottom: 0;
-        }
-      }
+    .input-block {
+      border-width: 1px;
     }
   }
 }
