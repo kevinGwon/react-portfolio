@@ -10,6 +10,7 @@ import {
   HORROR_LIST,
   ROMANCE_LIST,
   ANIMATION_LIST,
+  LOADING_LIST,
 } from '../reducer/list';
 
 // CATEGORY
@@ -89,11 +90,13 @@ const runResponse = async props => {
 
       // // 모든 API 로드가 완료되면 로딩화면 아웃
       if (i === response.data.results.length - 1) {
-        props.dispatch({
-          type: 'LIST_LOADING',
-          category: props.category,
-          isLoading: false,
-        });
+        setTimeout(() => {
+          props.dispatch({
+            type: LOADING_LIST,
+            category: props.category,
+            isLoading: true,
+          });
+        }, 1500);
       }
     }
   } catch (error) {

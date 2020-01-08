@@ -7,6 +7,7 @@ export const HORROR_LIST = 'HORROR_LIST';
 export const ROMANCE_LIST = 'ROMANCE_LIST';
 export const ANIMATION_LIST = 'ANIMATION_LIST';
 
+export const LOADING_LIST = 'LOADING_LIST';
 export const ALL_RESET = 'ALL_RESET';
 export const LIST_RESET = 'LIST_RESET';
 export const LIST_SORT = 'LIST_SORT';
@@ -50,43 +51,43 @@ const initState = {
     action: {
       category: 'action',
       code: 28,
-      isLoading: true,
+      isLoading: false,
       list: [],
     },
     thriller: {
       category: 'thriller',
       code: 53,
-      isLoading: true,
+      isLoading: false,
       list: [],
     },
     crime: {
       category: 'crime',
       code: 80,
-      isLoading: true,
+      isLoading: false,
       list: [],
     },
     war: {
       category: 'war',
       code: 10752,
-      isLoading: true,
+      isLoading: false,
       list: [],
     },
     horror: {
       category: 'horror',
       code: 27,
-      isLoading: true,
+      isLoading: false,
       list: [],
     },
     romance: {
       category: 'romance',
       code: 10749,
-      isLoading: true,
+      isLoading: false,
       list: [],
     },
     animation: {
       category: 'animation',
       code: 16,
-      isLoading: true,
+      isLoading: false,
       list: [],
     },
   },
@@ -171,7 +172,7 @@ const list = (state = initState, action) => {
           },
         },
       };
-    case 'LIST_LOADING':
+    case LOADING_LIST:
       return {
         ...state,
         genres: {
