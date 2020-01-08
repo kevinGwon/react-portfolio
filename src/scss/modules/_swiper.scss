@@ -22,7 +22,6 @@
   }
 
   &-button {
-
     &-next,
     &-prev {
       position: absolute;
@@ -67,6 +66,12 @@
 
     &-next {
       opacity: 0.5;
+    }
+  }
+
+  @include mq(large) {
+    &-container {
+      max-width: 850px;
     }
   }
 }

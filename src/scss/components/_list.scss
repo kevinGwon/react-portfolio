@@ -3,7 +3,6 @@
 }
 
 .movie {
-
   &-app {
     &.is-loading {
       .movie-article {
@@ -21,11 +20,11 @@
     }
   }
 
-  &-container {
+  &-section {
     position: relative;
     padding: 10rem 0 5rem;
 
-    &+& {
+    & + & {
       margin-top: 10rem;
     }
 
@@ -70,8 +69,10 @@
       position: absolute;
     }
 
-    @include mq(medium) {}
+    @include mq(medium) {
+    }
 
-    @include mq(large) {}
+    @include mq(large) {
+    }
   }
 }
