@@ -31,15 +31,13 @@ function List({ lists }) {
           prevEl: '.swiper-button-prev',
         },
       });
-      console.log(`${lists.category} = ${lists.isLoading}`);
     }, 500);
   }, [lists.category, lists.isLoading]);
   return (
     <>
-      <div className="movie-container">
-        {lists.isLoading && <Loading />}
+      <section className="movie-section">
         <div
-          className="movie-container-bg"
+          className="movie-section-bg"
           style={
             lists.list[0] && {
               backgroundImage: `url('${lists.list[0].bgImage}')`,
@@ -47,7 +45,15 @@ function List({ lists }) {
           }
         ></div>
         <div className="l-wrap">
-          <h2 className="h1">{lists.category}</h2>
+          <h2 className="h1">
+            {lists.category === 'action' && '액션'}
+            {lists.category === 'thriller' && '스릴러'}
+            {lists.category === 'crime' && '범죄'}
+            {lists.category === 'war' && '전쟁'}
+            {lists.category === 'horror' && '공포'}
+            {lists.category === 'romance' && '로맨스'}
+            {lists.category === 'animation' && '애니메이션'}
+          </h2>
           <div
             className={`swiper-container swiper-container-${lists.category}`}
           >
@@ -80,7 +86,7 @@ function List({ lists }) {
             <div className="swiper-button-prev"></div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }
