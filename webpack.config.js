@@ -74,6 +74,11 @@ const config = {
   },
   resolve: {
     extensions: ['*', '.js', '.jsx'],
+    modules: [
+      path.resolve('./node_modules'),
+      path.resolve('./node_modules/gsap/src/uncompressed/plugins'),
+      path.resolve('./src/js'),
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -89,6 +94,10 @@ const config = {
         force: true,
       },
     ]),
+    new webpack.ProvidePlugin({
+      TweenMax: ['gsap', 'TweenMax'],
+      IG: 'modules/global',
+    }),
   ],
 };
 
