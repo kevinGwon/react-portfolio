@@ -33,6 +33,11 @@
       "react-app",
       "prettier"
     ],
+    "globals": {
+      "IG": false,
+      "TweenMax": false,
+      "TimelineMax": false
+    },
     "rules": {
       "semi": [
         "error",
