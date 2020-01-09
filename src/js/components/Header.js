@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Header({ daily, onChange, onSubmit }) {
+function Header({ onChange, onSubmit, inputText }) {
   return (
     <header id="header" className="header">
       <div className="header-inner">
@@ -11,6 +11,7 @@ function Header({ daily, onChange, onSubmit }) {
               type="search"
               className="input-block"
               placeholder="제목을 입력하세요"
+              value={inputText}
               onChange={onChange}
             />
           </form>

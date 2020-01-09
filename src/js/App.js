@@ -18,7 +18,7 @@ function App() {
   const { genres } = useSelector(store => store.list, []);
 
   // load reducer
-  const { isLoading } = useSelector(store => store.load, []);
+  const { isLoading, isSearch } = useSelector(store => store.load, []);
 
   useEffect(() => {
     dispatch(onLoading(genres));
@@ -29,45 +29,58 @@ function App() {
       <HeaderContainer />
 
       <article className="movie-article">
-        {/* Action */}
-        <ListContainer
-          category={genres.action.category}
-          lists={genres.action}
-        />
+        <div className={`movie-article-view ${isSearch ? 'is-search' : ''}`}>
+          <div className="movie-section-box">
+            {/* Action */}
+            <ListContainer
+              category={genres.action.category}
+              lists={genres.action}
+            />
 
-        {/* Thriller */}
-        <ListContainer
-          category={genres.thriller.category}
-          lists={genres.thriller}
-        />
+            {/* Thriller */}
+            <ListContainer
+              category={genres.thriller.category}
+              lists={genres.thriller}
+            />
 
-        {/* Crime */}
-        <ListContainer category={genres.crime.category} lists={genres.crime} />
+            {/* Crime */}
+            <ListContainer
+              category={genres.crime.category}
+              lists={genres.crime}
+            />
 
-        {/* War */}
-        <ListContainer category={genres.war.category} lists={genres.war} />
+            {/* War */}
+            <ListContainer category={genres.war.category} lists={genres.war} />
 
-        {/* Horror */}
-        <ListContainer
-          category={genres.horror.category}
-          lists={genres.horror}
-        />
+            {/* Horror */}
+            <ListContainer
+              category={genres.horror.category}
+              lists={genres.horror}
+            />
 
-        {/* Romance */}
-        <ListContainer
-          category={genres.romance.category}
-          lists={genres.romance}
-        />
+            {/* Romance */}
+            <ListContainer
+              category={genres.romance.category}
+              lists={genres.romance}
+            />
 
-        {/* Animation */}
-        <ListContainer
-          category={genres.animation.category}
-          lists={genres.animation}
-        />
+            {/* Animation */}
+            <ListContainer
+              category={genres.animation.category}
+              lists={genres.animation}
+            />
+          </div>
+          {isSearch && (
+            <div className="movie-section-box movie-section-box--search">
+              <ListContainer
+                category={genres.search.category}
+                lists={genres.search}
+              />
+            </div>
+          )}
+        </div>
       </article>
-
       <FooterContainer />
-
       {isLoading && <Loading />}
     </>
   );

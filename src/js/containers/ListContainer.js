@@ -5,6 +5,9 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 // API
 import { asyncAPI } from '../modules/asyncAPI';
 
+// List Thunk
+import { resetList } from '../reducer/list';
+
 // ACTION
 import { LOADING } from '../reducer/load';
 import {
@@ -16,17 +19,21 @@ import {
   HORROR,
   ROMANCE,
   ANIMATION,
+  SEARCH,
 } from '../reducer/list';
 
 function ListContainer({ category, lists }) {
-  // list reducer
-  const { sort } = useSelector(store => store.list, shallowEqual);
+  // Reducer
+  const { searchText } = useSelector(store => store.load, shallowEqual);
 
   const dispatch = useDispatch();
 
   const categoryCode = lists.code;
 
   useEffect(() => {
+    // 로드가 완료된 리스트는 그대로 유지
+    if (lists.isLoading) return;
+
     switch (category.toUpperCase()) {
       case ACTION:
       case THRILLER:
@@ -35,16 +42,17 @@ function ListContainer({ category, lists }) {
       case HORROR:
       case ROMANCE:
       case ANIMATION:
-        dispatch(asyncAPI(category, categoryCode));
+        dispatch(asyncAPI({ category, categoryCode }));
         break;
+      case SEARCH:
+        dispatch(resetList({ category }));
+        dispatch(asyncAPI({ category, searchText }));
       default:
-        console.log('지정된 리스트가 없습니다');
+        console.log(
+          '지정된 리스트가 없거나, 이미 리스트를 모두 완료 하였습니다.',
+        );
     }
-    // 순서 정렬
-    if (sort) {
-      dispatch({ type: LIST_SORT });
-    }
-  }, [category, categoryCode, dispatch, sort]);
+  }, [category, categoryCode, dispatch, lists.isLoading, searchText]);
 
   return <List lists={lists} />;
 }

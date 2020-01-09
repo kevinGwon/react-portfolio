@@ -1,0 +1,35 @@
+.movie {
+
+  &-article {
+    overflow: hidden;
+  }
+
+  &-article-view {
+    transition: transform $dur $ease;
+
+    &.is-search {
+      transform: translateX(-100%);
+
+      .movie-section-box {
+        &:first-child {
+          overflow: hidden;
+          height: 100vh;
+        }
+      }
+
+      .movie-section-box--search {
+        transform: translateX(100%);
+      }
+    }
+  }
+
+  &-section-box {
+    &--search {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+    }
+  }
+}

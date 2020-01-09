@@ -1,29 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import Header from '../components/Header';
 import { useSelector, useDispatch } from 'react-redux';
 
 // API
-// import { koficDATA } from '../modules/asyncAPI';
+import { asyncAPI } from '../modules/asyncAPI';
+
+// Load Thunk
 import { onSearch } from '../reducer/load';
 
-// ACTION
-import { SEARCH_TEXT, SEARCH } from '../reducer/load';
-
 function HeaderContainer() {
-  const [searchText, setSearchText] = useState('');
+  const [inputText, setInputText] = useState('');
   const dispatch = useDispatch();
-  const { daily } = useSelector(store => ({
-    daily: store.load.daily,
-  }));
   const onSubmit = e => {
     e.preventDefault();
-    dispatch({ type: SEARCH });
-    dispatch(onSearch(searchText));
   };
-  const onChange = e => {
-    setSearchText(e.target.value);
-  };
-  return <Header daily={daily} onSubmit={onSubmit} onChange={onChange} />;
+  const onChange = useCallback(
+    e => {
+      let searchText = e.target.value;
+      setInputText(searchText);
+      dispatch(onSearch(searchText));
+    },
+    [dispatch],
+  );
+
+  return (
+    <Header onSubmit={onSubmit} onChange={onChange} inputText={inputText} />
+  );
 }
 
 export default HeaderContainer;

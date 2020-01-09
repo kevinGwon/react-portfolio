@@ -11,6 +11,7 @@ import {
   ROMANCE_LIST,
   ANIMATION_LIST,
   LOADING_LIST,
+  SEARCH_LIST,
 } from '../reducer/list';
 
 // CATEGORY
@@ -22,6 +23,7 @@ import {
   HORROR,
   ROMANCE,
   ANIMATION,
+  SEARCH,
 } from '../reducer/list';
 
 import { LOADING_OUT } from '../reducer/load';
@@ -38,7 +40,7 @@ let opt = {
   baseBgImageUrl: 'https://image.tmdb.org/t/p/original',
 };
 
-const runResponse = async props => {
+const runResponse = async payload => {
   /*
    * The Movie Database API - https://www.themoviedb.org/
    *
@@ -47,21 +49,28 @@ const runResponse = async props => {
    */
 
   opt = extend(opt, {
-    year: props.year,
-    month: props.month,
-    day: props.day,
-    category: props.category,
-    categoryCode: props.categoryCode,
+    year: payload.year,
+    month: payload.month,
+    day: payload.day,
+    category: payload.category,
+    categoryCode: payload.categoryCode,
+    searchText: payload.searchText,
   });
+
+  let getUrl = !payload.isSearch
+    ? `https://api.themoviedb.org/3/discover/movie?api_key=${opt.key}&language=${opt.lang}&release_date.gte=${opt.year}-${opt.month}-${opt.day}&with_genres=${opt.categoryCode}&sort_by=popularity.desc&include_adult=true&include_video=true&page=1`
+    : `https://api.themoviedb.org/3/search/multi?api_key=${opt.key}&language=${
+        opt.lang
+      }&include_adult=true&query=${opt.searchText.length && opt.searchText}`;
 
   try {
     const response = await axios({
       method: 'get',
-      url: `https://api.themoviedb.org/3/discover/movie?api_key=${opt.key}&language=${opt.lang}&release_date.gte=${opt.year}-${opt.month}-${opt.day}&with_genres=${opt.categoryCode}&sort_by=popularity.desc&include_adult=true&include_video=true&page=1`,
+      url: getUrl,
     });
 
     for (let i = 0; i < response.data.results.length; i++) {
-      switch (props.category.toUpperCase()) {
+      switch (payload.category.toUpperCase()) {
         case ACTION:
         case THRILLER:
         case CRIME:
@@ -69,10 +78,12 @@ const runResponse = async props => {
         case HORROR:
         case ROMANCE:
         case ANIMATION:
+        case SEARCH:
           response.data.results[i] !== null &&
-            props.dispatch({
-              type: `${props.category.toUpperCase()}_LIST`,
-              [props.category]: {
+            payload.dispatch({
+              type: `list/${payload.category.toUpperCase()}_LIST`,
+              category: payload.category,
+              [payload.category]: {
                 title: response.data.results[i].title,
                 id: response.data.results[i].id,
                 genre: response.data.results[i].genre_ids,
@@ -91,9 +102,9 @@ const runResponse = async props => {
       // // 모든 API 로드가 완료되면 로딩화면 아웃
       if (i === response.data.results.length - 1) {
         setTimeout(() => {
-          props.dispatch({
+          payload.dispatch({
             type: LOADING_LIST,
-            category: props.category,
+            category: payload.category,
             isLoading: true,
           });
         }, 1500);
@@ -104,9 +115,13 @@ const runResponse = async props => {
   }
 };
 
-export const asyncAPI = (category, categoryCode) => (dispatch, getState) => {
+export const asyncAPI = payload => (dispatch, getState) => {
   const { year, month, day, genres } = getState().list;
   const { isSearch } = getState().load;
+
+  const category = payload.category;
+  const categoryCode = payload.categoryCode;
+  const searchText = payload.searchText;
 
   runResponse({
     dispatch,
@@ -116,6 +131,7 @@ export const asyncAPI = (category, categoryCode) => (dispatch, getState) => {
     month,
     day,
     isSearch,
+    searchText,
     genres,
   });
 };

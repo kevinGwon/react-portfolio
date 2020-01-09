@@ -1,7 +1,7 @@
 import imagesLoaded from 'imagesloaded';
 
 // ACTION
-import { ALL_RESET } from './list';
+import { LOADING_LIST, ALL_RESET } from './list';
 
 // Animation Thunk
 import { reveal as animationReveal } from '../animation/reveal';
@@ -9,15 +9,17 @@ import { reveal as animationReveal } from '../animation/reveal';
 export const LOADING = 'load/LOADING';
 export const LOADING_OUT = 'load/LOADING_OUT';
 export const SEARCH_TEXT = 'load/SEARCH_TEXT';
-export const SEARCH = 'load/SEARCH';
+export const SEARCH_ON = 'load/SEARCH_ON';
 export const SEARCH_OUT = 'load/SEARCH_OUT';
 
 export const onSearch = searchText => dispatch => {
   dispatch({
-    type: ALL_RESET,
+    type: LOADING_LIST,
+    category: 'search',
+    isLoading: false,
   });
   dispatch({
-    type: LOADING,
+    type: SEARCH_ON,
   });
   dispatch({
     type: SEARCH_TEXT,
@@ -64,7 +66,7 @@ export default function load(state = initState, action) {
         ...state,
         searchText: action.searchText,
       };
-    case SEARCH:
+    case SEARCH_ON:
       return {
         ...state,
         isSearch: true,
