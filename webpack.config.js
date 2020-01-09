@@ -102,7 +102,7 @@ const config = {
 };
 
 console.log('-----------------------');
-console.log('reload webpack = ' + process.env.NODE_ENV);
+console.log('Developer Mode = ' + process.env.NODE_ENV);
 console.log('-----------------------');
 
 module.exports = merge(config, configCustom);
