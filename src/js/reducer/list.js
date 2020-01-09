@@ -1,16 +1,17 @@
 // ACTION
-export const ACTION_LIST = 'ACTION_LIST';
-export const THRILLER_LIST = 'THRILLER_LIST';
-export const CRIME_LIST = 'CRIME_LIST';
-export const WAR_LIST = 'WAR_LIST';
-export const HORROR_LIST = 'HORROR_LIST';
-export const ROMANCE_LIST = 'ROMANCE_LIST';
-export const ANIMATION_LIST = 'ANIMATION_LIST';
+export const ACTION_LIST = 'list/ACTION_LIST';
+export const THRILLER_LIST = 'list/THRILLER_LIST';
+export const CRIME_LIST = 'list/CRIME_LIST';
+export const WAR_LIST = 'list/WAR_LIST';
+export const HORROR_LIST = 'list/HORROR_LIST';
+export const ROMANCE_LIST = 'list/ROMANCE_LIST';
+export const ANIMATION_LIST = 'list/ANIMATION_LIST';
+export const SEARCH_LIST = 'list/SEARCH_LIST';
 
-export const LOADING_LIST = 'LOADING_LIST';
-export const ALL_RESET = 'ALL_RESET';
-export const LIST_RESET = 'LIST_RESET';
-export const LIST_SORT = 'LIST_SORT';
+export const LOADING_LIST = 'list/LOADING_LIST';
+export const ALL_RESET = 'list/ALL_RESET';
+export const LIST_RESET = 'list/LIST_RESET';
+export const LIST_SORT = 'list/LIST_SORT';
 
 // CATEGORY
 export const ACTION = 'ACTION';
@@ -20,6 +21,14 @@ export const WAR = 'WAR';
 export const HORROR = 'HORROR';
 export const ROMANCE = 'ROMANCE';
 export const ANIMATION = 'ANIMATION';
+export const SEARCH = 'SEARCH';
+
+export const resetList = payload => dispatch => {
+  dispatch({
+    type: LIST_RESET,
+    category: payload.category,
+  });
+};
 
 const date = new Date();
 let year, month, day;
@@ -90,85 +99,42 @@ const initState = {
       isLoading: false,
       list: [],
     },
+    search: {
+      category: 'search',
+      isLoading: false,
+      list: [],
+    },
   },
 };
 
 const list = (state = initState, action) => {
   switch (action.type) {
     case ACTION_LIST:
-      return {
-        ...state,
-        genres: {
-          ...state.genres,
-          action: {
-            ...state.genres.action,
-            list: [...state.genres.action.list, action.action],
-          },
-        },
-      };
     case THRILLER_LIST:
-      return {
-        ...state,
-        genres: {
-          ...state.genres,
-          thriller: {
-            ...state.genres.thriller,
-            list: [...state.genres.thriller.list, action.thriller],
-          },
-        },
-      };
     case CRIME_LIST:
-      return {
-        ...state,
-        genres: {
-          ...state.genres,
-          crime: {
-            ...state.genres.crime,
-            list: [...state.genres.crime.list, action.crime],
-          },
-        },
-      };
     case WAR_LIST:
-      return {
-        ...state,
-        genres: {
-          ...state.genres,
-          war: {
-            ...state.genres.war,
-            list: [...state.genres.war.list, action.war],
-          },
-        },
-      };
     case HORROR_LIST:
-      return {
-        ...state,
-        genres: {
-          ...state.genres,
-          horror: {
-            ...state.genres.horror,
-            list: [...state.genres.horror.list, action.horror],
-          },
-        },
-      };
     case ROMANCE_LIST:
+    case ANIMATION_LIST:
+      const category = action.category;
       return {
         ...state,
         genres: {
           ...state.genres,
-          romance: {
-            ...state.genres.romance,
-            list: [...state.genres.romance.list, action.romance],
+          [category]: {
+            ...state.genres[category],
+            list: [...state.genres[category].list, action[category]],
           },
         },
       };
-    case ANIMATION_LIST:
+    case SEARCH_LIST:
       return {
         ...state,
         genres: {
           ...state.genres,
-          animation: {
-            ...state.genres.animation,
-            list: [...state.genres.animation.list, action.animation],
+          search: {
+            ...state.genres.search,
+            list: [...state.genres.search.list, action.search],
           },
         },
       };
@@ -184,13 +150,14 @@ const list = (state = initState, action) => {
         },
       };
     case LIST_RESET:
+      const resetCategory = action.category;
       return {
         ...state,
         genres: {
           ...state.genres,
-          action: {
-            category: 'action',
-            list: [...state.genres.average.list, action.average],
+          [resetCategory]: {
+            ...state.genres[resetCategory],
+            list: [],
           },
         },
       };
