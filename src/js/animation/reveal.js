@@ -8,5 +8,6 @@ export const reveal = () => dispatch => {
     ease: IG.EASE,
     autoAlpha: 0,
     y: 100,
+    clearProps: 'all',
   });
 };
