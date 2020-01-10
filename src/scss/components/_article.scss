@@ -1,6 +1,9 @@
 .movie {
   &-article {
     overflow: hidden;
+    position: relative;
+
+    height: 100vh;
 
     .movie-app {
       &.is-loading {

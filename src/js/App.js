@@ -4,6 +4,7 @@ import Loading from './components/Loading';
 import HeaderContainer from './containers/HeaderContainer';
 import FooterContainer from './containers/FooterContainer';
 import ListContainer from './containers/ListContainer';
+import scrollMotion from './animation/scroll';
 
 // Thunk
 import { onLoading } from './reducer/load';
