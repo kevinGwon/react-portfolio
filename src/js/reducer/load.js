@@ -1,7 +1,11 @@
 import imagesLoaded from 'imagesloaded';
 
 // ACTION
+import { ONCE_LOADING } from './global';
 import { LOADING_LIST, ALL_RESET } from './list';
+
+// List Thunk
+import { resetList } from './list';
 
 // Animation Thunk
 import { reveal as animationReveal } from '../animation/reveal';
@@ -12,12 +16,8 @@ export const SEARCH_TEXT = 'load/SEARCH_TEXT';
 export const SEARCH_ON = 'load/SEARCH_ON';
 export const SEARCH_OUT = 'load/SEARCH_OUT';
 
-export const onSearch = searchText => dispatch => {
-  dispatch({
-    type: LOADING_LIST,
-    category: 'search',
-    isLoading: false,
-  });
+export const onSearch = searchText => (dispatch, getState) => {
+  dispatch(resetList({ category: 'search' }));
   dispatch({
     type: SEARCH_ON,
   });
@@ -29,6 +29,7 @@ export const onSearch = searchText => dispatch => {
 
 export const onLoading = genres => (dispatch, getState) => {
   if (
+    !getState().global.onceLoading &&
     genres.action.isLoading &&
     genres.thriller.isLoading &&
     genres.crime.isLoading &&
@@ -38,6 +39,7 @@ export const onLoading = genres => (dispatch, getState) => {
     genres.animation.isLoading
   ) {
     imagesLoaded('#app', { background: true }, () => {
+      dispatch({ type: ONCE_LOADING });
       dispatch(animationReveal());
     });
   }
@@ -75,6 +77,7 @@ export default function load(state = initState, action) {
       return {
         ...state,
         isSearch: false,
+        searchText: '',
       };
     default:
       return state;

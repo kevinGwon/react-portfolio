@@ -151,12 +151,14 @@ const list = (state = initState, action) => {
       };
     case LIST_RESET:
       const resetCategory = action.category;
+      console.log(`Reset ${resetCategory}`);
       return {
         ...state,
         genres: {
           ...state.genres,
           [resetCategory]: {
             ...state.genres[resetCategory],
+            isLoading: false,
             list: [],
           },
         },

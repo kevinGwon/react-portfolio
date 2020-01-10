@@ -33,7 +33,6 @@ function ListContainer({ category, lists }) {
   useEffect(() => {
     // 로드가 완료된 리스트는 그대로 유지
     if (lists.isLoading) return;
-
     switch (category.toUpperCase()) {
       case ACTION:
       case THRILLER:
@@ -45,12 +44,9 @@ function ListContainer({ category, lists }) {
         dispatch(asyncAPI({ category, categoryCode }));
         break;
       case SEARCH:
-        dispatch(resetList({ category }));
         dispatch(asyncAPI({ category, searchText }));
       default:
-        console.log(
-          '지정된 리스트가 없거나, 이미 리스트를 모두 완료 하였습니다.',
-        );
+        console.log('----- No more list -----');
     }
   }, [category, categoryCode, dispatch, lists.isLoading, searchText]);
 

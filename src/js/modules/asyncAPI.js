@@ -54,14 +54,26 @@ const runResponse = async payload => {
     day: payload.day,
     category: payload.category,
     categoryCode: payload.categoryCode,
+    isSearch: payload.isSearch,
     searchText: payload.searchText,
   });
 
-  let getUrl = !payload.isSearch
-    ? `https://api.themoviedb.org/3/discover/movie?api_key=${opt.key}&language=${opt.lang}&release_date.gte=${opt.year}-${opt.month}-${opt.day}&with_genres=${opt.categoryCode}&sort_by=popularity.desc&include_adult=true&include_video=true&page=1`
-    : `https://api.themoviedb.org/3/search/multi?api_key=${opt.key}&language=${
-        opt.lang
-      }&include_adult=true&query=${opt.searchText.length && opt.searchText}`;
+  let getUrl;
+
+  if (opt.isSearch) {
+    let searching =
+      opt.searchText !== undefined && opt.searchText.length ? true : false;
+    let queryString = searching ? `&query=${opt.searchText}` : '';
+    getUrl =
+      queryString.length !== 0
+        ? `https://api.themoviedb.org/3/search/multi?api_key=${opt.key}&language=${opt.lang}&include_adult=true${queryString}`
+        : null;
+  } else {
+    getUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${opt.key}&language=${opt.lang}&release_date.gte=${opt.year}-${opt.month}-${opt.day}&with_genres=${opt.categoryCode}&sort_by=popularity.desc&include_adult=true&include_video=true&page=1`;
+  }
+
+  // 검색값이 없으면 return
+  if (getUrl === null) return false;
 
   try {
     const response = await axios({
@@ -69,8 +81,28 @@ const runResponse = async payload => {
       url: getUrl,
     });
 
+    function runList(category) {
+      setTimeout(() => {
+        payload.dispatch({
+          type: LOADING_LIST,
+          category: category,
+          isLoading: true,
+        });
+      }, 1500);
+    }
+
+    function runSearchList(category) {
+      setTimeout(() => {
+        payload.dispatch({
+          type: LOADING_LIST,
+          category: category,
+          isLoading: true,
+        });
+      }, 1500);
+    }
+
     for (let i = 0; i < response.data.results.length; i++) {
-      switch (payload.category.toUpperCase()) {
+      switch (opt.category.toUpperCase()) {
         case ACTION:
         case THRILLER:
         case CRIME:
@@ -101,17 +133,13 @@ const runResponse = async payload => {
 
       // // 모든 API 로드가 완료되면 로딩화면 아웃
       if (i === response.data.results.length - 1) {
-        setTimeout(() => {
-          payload.dispatch({
-            type: LOADING_LIST,
-            category: payload.category,
-            isLoading: true,
-          });
-        }, 1500);
+        opt.isSearch
+          ? runSearchList(payload.category)
+          : runList(payload.category);
       }
     }
   } catch (error) {
-    console.log(error);
+    console.log('검색 결과가 없습니다.');
   }
 };
 
