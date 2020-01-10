@@ -1,7 +1,14 @@
 .movie {
-
   &-article {
     overflow: hidden;
+
+    .movie-app {
+      &.is-loading {
+        .movie-article {
+          visibility: hidden;
+        }
+      }
+    }
   }
 
   &-article-view {
@@ -18,6 +25,7 @@
       }
 
       .movie-section-box--search {
+        overflow-y: auto;
         transform: translateX(100%);
       }
     }

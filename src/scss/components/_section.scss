@@ -1,0 +1,99 @@
+.logo {
+  fill: #e50914;
+}
+
+.movie {
+  &-func {
+    .btn {
+      &.is-active {
+        color: $white;
+        background-color: $color-primary;
+      }
+    }
+  }
+
+  &-section {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100vh;
+    box-sizing: border-box;
+
+    & + & {
+      margin-top: 10rem;
+    }
+
+    &-bg {
+      @include full-pos;
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.5;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        height: 35%;
+        background: linear-gradient(black 30%, transparent);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 35%;
+        background: linear-gradient(transparent 30%, black);
+      }
+    }
+
+    &-box--search {
+      //
+    }
+
+    .h1 {
+      position: relative;
+      z-index: 10;
+      margin-bottom: 6rem;
+      text-align: center;
+    }
+
+    .loading {
+      position: absolute;
+    }
+
+    @include mq(medium) {
+    }
+
+    @include mq(large) {
+      &-box--search {
+        ul {
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+        }
+        li {
+          flex-basis: percentage(1/3.2);
+          position: relative;
+          height: 0;
+          padding-bottom: 50%;
+        }
+        .thumb {
+          @include full-pos;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+}

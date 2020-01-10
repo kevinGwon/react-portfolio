@@ -2,7 +2,7 @@
   position: fixed;
   z-index: 100;
   left: 0;
-  top: 0;
+  top: 5rem;
   width: 100%;
 
   .btn {
@@ -39,7 +39,7 @@
     box-sizing: border-box;
 
     .input-block {
-      border: 1px solid $white;
+      border: 1px solid rgba($white, 0.7);
     }
   }
 }

@@ -1,4 +1,6 @@
 #app {
+  position: relative;
+
   &.is-loading {
     overflow: hidden;
     position: fixed;
