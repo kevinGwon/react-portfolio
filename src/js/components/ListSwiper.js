@@ -1,8 +1,73 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import Swiper from 'swiper';
 import Loading from './Loading';
 
 function List({ lists }) {
+  const $sectionBg = useRef();
+  const $window = window;
+
+  const runBackUpBg = useCallback(obj => {
+    const $div = document.createElement('div');
+    obj.slideLength === 1
+      ? $div.classList.add('movie-section-bg', 'movie-section-bg--next')
+      : $div.classList.add('movie-section-bg');
+    $div.style.backgroundImage = `url('${obj.bgUrl}')`;
+
+    if (obj.slideLength === 1) {
+      obj.$bg.after($div);
+    } else {
+      console.log('------ Slide overFlow || Reset Slide ------');
+      obj.$section.prepend($div);
+    }
+  }, []);
+
+  const runTransition = useCallback(
+    $target => {
+      const index = $target.snapIndex,
+        $slide = $target.slides[index],
+        $section = $slide.parentNode.offsetParent.offsetParent,
+        $bgAll = $section.querySelectorAll('.movie-section-bg'),
+        $bg = $section.querySelector('.movie-section-bg'),
+        bgUrl = $slide.querySelector('img').getAttribute('data-bg'),
+        slideLength = $bgAll.length;
+
+      if ($bgAll.length > 1) {
+        $bgAll.forEach(item => {
+          item.remove();
+        });
+        runBackUpBg({ slideLength, $section, bgUrl });
+        return false;
+      }
+
+      let $prev = null,
+        $current = $bg,
+        $next = null;
+
+      runBackUpBg({ slideLength, $bg, bgUrl });
+      // let $div = document.createElement('div');
+      // $div.classList.add('movie-section-bg', 'movie-section-bg--next');
+      // $div.style.backgroundImage = `url('${bgUrl}')`;
+      // $bg.after($div);
+
+      $next = $section.querySelector('.movie-section-bg--next');
+      $current = $next;
+      $prev = $current.previousElementSibling;
+
+      TweenMax.to($next, IG.DUR / 1.5, {
+        scale: 1,
+      });
+
+      TweenMax.to($prev, IG.DUR, {
+        autoAlpha: 0,
+        rotation: -45,
+        onComplete: () => {
+          $current.classList.remove('movie-section-bg--next');
+          $prev.remove();
+        },
+      });
+    },
+    [runBackUpBg],
+  );
   useEffect(() => {
     if (lists.category !== 'search') {
       setTimeout(() => {
@@ -33,22 +98,18 @@ function List({ lists }) {
             prevEl: '.swiper-button-prev',
           },
           on: {
-            slideChange(e) {
-              const index = this.snapIndex,
-                $slide = this.slides[index],
-                $section = $slide.parentNode.offsetParent.offsetParent,
-                $bg = $section.querySelector('.movie-section-bg'),
-                bgUrl = $slide.querySelector('img').getAttribute('data-bg');
-
-              console.log($bg);
-              console.log($bg.style);
-              $bg.style.backgroundImage = `url('${bgUrl}')`;
+            slideChange() {
+              runTransition(this);
+            },
+            slideChangeTransitionEnd() {
+              // runTransition(this);
             },
           },
         });
       }, 500);
     }
-  }, [lists.category]);
+  }, [lists.category, runTransition]);
+
   return (
     <section className="movie-section">
       <div
@@ -58,6 +119,7 @@ function List({ lists }) {
             backgroundImage: `url('${lists.list[0].bgImage}')`,
           }
         }
+        ref={$sectionBg}
       ></div>
       <div className="l-wrap">
         <h2 className="h1">
@@ -71,7 +133,6 @@ function List({ lists }) {
           {' 영화'}
         </h2>
         <div className={`swiper-container swiper-container-${lists.category}`}>
-          <div></div>
           <div className="swiper-wrapper">
             {lists.list.map(item => (
               <div key={item.id} className="swiper-slide">
@@ -81,12 +142,12 @@ function List({ lists }) {
                       data-src={
                         item.posterImage.indexOf('null') === -1
                           ? item.posterImage
-                          : 'http://placehold.it/500x747?text=Preparing image'
+                          : 'http://placehold.it/500x747?text=Not Found'
                       }
                       data-bg={
                         item.bgImage.indexOf('null') === -1
                           ? item.bgImage
-                          : 'http://placehold.it/3840x2160?text=Preparing image'
+                          : 'http://placehold.it/3840x2160?text=Not Found'
                       }
                       className="swiper-lazy"
                       alt=""
