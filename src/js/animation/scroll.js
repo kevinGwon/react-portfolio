@@ -1,46 +1,52 @@
 const DOWN = 'DOWN';
 const UP = 'UP';
 
-let lastScrollTop = 0,
-  dir = null,
-  isScroll = false,
-  index = 0;
+const scrollMotion = () => {
+  let lastScrollTop = 0,
+    dir = null,
+    isMove = false,
+    index = 0;
 
-const scrollMotion = e => {
-  e.preventDefault();
-  e.stopPropagation();
-  const $target = document.querySelectorAll('section');
+  const $section = document.querySelectorAll('section');
 
-  let scrollTop =
-    e.wheelDeltaY || e.pageYOffset || document.documentElement.scrollTop;
-  if (isScroll) return;
-  if (scrollTop > lastScrollTop) {
-    runGetDir(UP);
-    runGetIndex(UP, $target.length);
-  } else {
-    runGetDir(DOWN);
-    runGetIndex(DOWN, $target.length);
-  }
-  lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  const scrollMotion = e => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    let dirValue = e.wheelDelta / 120 || e.deltaY / -120;
+
+    dir = !(dirValue > 0) ? DOWN : UP;
+    runGetDir(dir);
+  };
+
+  const runGetDir = dir => {
+    if (isMove) return;
+    runDetect(dir);
+  };
+
+  const runDetect = (dir, length) => {
+    dir === UP ? --index : ++index;
+
+    if (index < 0) {
+      index = 0;
+    } else if (index > $section.length) {
+      index = $section.length;
+    }
+
+    runMoveTo({ dir, index });
+  };
+
+  const runMoveTo = obj => {
+    isMove = true;
+    console.log(obj.dir);
+    console.log(obj.index);
+
+    setTimeout(() => {
+      isMove = false;
+    }, 500);
+  };
+
+  document.addEventListener('wheel', scrollMotion, { passive: false });
 };
 
-const runGetDir = dir => {
-  isScroll = true;
-  console.log(dir);
-  console.log(index);
-  setTimeout(() => {
-    isScroll = false;
-  }, 1500);
-};
-
-const runGetIndex = (dir, length) => {
-  if (dir === DOWN) {
-    if (index === length) return false;
-    index = index + 1;
-  } else if (dir === UP) {
-    if (index === 0) return false;
-    index = index - 1;
-  }
-};
-
-document.addEventListener('wheel', scrollMotion, { passive: false });
+export default scrollMotion;

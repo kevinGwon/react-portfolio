@@ -25,6 +25,9 @@ function App() {
     dispatch(onLoading(genres));
   }, [dispatch, genres]);
 
+  useEffect(() => {
+    scrollMotion();
+  }, []);
   return (
     <>
       <HeaderContainer />
