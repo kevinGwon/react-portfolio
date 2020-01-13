@@ -59,7 +59,7 @@ function List({ lists }) {
 
       TweenMax.to($prev, IG.DUR, {
         autoAlpha: 0,
-        rotation: -45,
+        rotation: -25,
         onComplete: () => {
           $current.classList.remove('movie-section-bg--next');
           $prev.remove();
@@ -100,9 +100,6 @@ function List({ lists }) {
           on: {
             slideChange() {
               runTransition(this);
-            },
-            slideChangeTransitionEnd() {
-              // runTransition(this);
             },
           },
         });
