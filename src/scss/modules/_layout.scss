@@ -1,9 +1,15 @@
 .l-wrap {
   max-width: $w-wrap;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  padding-left: $offset-sm;
+  padding-right: $offset-sm;
+  box-sizing: border-box;
 
-  @media (min-width: 1024px) {
+  @include mq(large) {
+    width: 100%;
+    padding-left: $offset-lg;
+    padding-right: $offset-lg;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
