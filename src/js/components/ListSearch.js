@@ -3,7 +3,7 @@ import React from 'react';
 function SearchList({ lists }) {
   return (
     <div className="l-wrap">
-      <ul>
+      <ul className="search-list">
         {lists.list.length !== 0 ? (
           lists.list.map(item => (
             <li key={item.id}>
@@ -20,7 +20,7 @@ function SearchList({ lists }) {
             </li>
           ))
         ) : (
-          <div>검색 결과가 없습니다</div>
+          <li className="no-item">검색 결과가 없습니다</li>
         )}
       </ul>
     </div>

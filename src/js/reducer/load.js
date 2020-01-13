@@ -16,7 +16,7 @@ export const SEARCH_TEXT = 'load/SEARCH_TEXT';
 export const SEARCH_ON = 'load/SEARCH_ON';
 export const SEARCH_OUT = 'load/SEARCH_OUT';
 
-export const onSearch = searchText => (dispatch, getState) => {
+export const onSearchText = searchText => (dispatch, getState) => {
   dispatch(resetList({ category: 'search' }));
   dispatch({
     type: SEARCH_ON,

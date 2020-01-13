@@ -7,31 +7,33 @@ import { asyncAPI } from '../modules/asyncAPI';
 
 import {
   // ACTION
+  SEARCH_ON,
   SEARCH_OUT,
   // Load Thunk
-  onSearch,
+  onSearchText,
 } from '../reducer/load';
 
 function HeaderContainer() {
   const { isSearch } = useSelector(store => store.load, shallowEqual);
   const [inputText, setInputText] = useState('');
+  const [isActiveSearch, setIsActiveSearch] = useState(false);
   const dispatch = useDispatch();
-
+  const $inputSearch = useRef();
   const onSubmit = useCallback(e => {
     e.preventDefault();
+  }, []);
+
+  const onSearch = useCallback(e => {
+    console.log('click');
+    setIsActiveSearch(true);
+    $inputSearch.current.focus();
   }, []);
 
   const onChange = useCallback(
     e => {
       let searchText = e.target.value;
       setInputText(searchText);
-      dispatch(onSearch(searchText));
-
-      if (!searchText.length) {
-        dispatch({
-          type: SEARCH_OUT,
-        });
-      }
+      dispatch(onSearchText(searchText)); // dep = [isSearch]
     },
     [dispatch],
   );
@@ -41,6 +43,7 @@ function HeaderContainer() {
       dispatch({
         type: SEARCH_OUT,
       });
+      setIsActiveSearch(false);
       setInputText('');
     },
     [dispatch],
@@ -49,10 +52,13 @@ function HeaderContainer() {
   return (
     <Header
       onSubmit={onSubmit}
+      onSearch={onSearch}
       onChange={onChange}
       onGoHome={onGoHome}
       inputText={inputText}
       isSearch={isSearch}
+      isActiveSearch={isActiveSearch}
+      $inputSearch={$inputSearch}
     />
   );
 }
