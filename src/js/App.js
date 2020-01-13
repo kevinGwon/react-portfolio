@@ -26,8 +26,22 @@ function App() {
   }, [dispatch, genres]);
 
   useEffect(() => {
-    scrollMotion();
-  }, []);
+    if (isLoading) {
+      setTimeout(() => {
+        scrollMotion();
+      }, 3000);
+    }
+    // if (isSearch) {
+    //   document.removeEventListener('wheel', scrollMotion);
+    // }
+    // if (!isLoading && !isSearch) {
+    //   console.log('isSearch = ' + isSearch);
+    //   document.addEventListener('wheel', scrollMotion, {
+    //     passive: false,
+    //   });
+    // }
+  }, [isLoading, isSearch]);
+
   return (
     <>
       <HeaderContainer />
@@ -35,6 +49,17 @@ function App() {
       <article className="movie-article">
         <div className={`movie-article-view ${isSearch ? 'is-search' : ''}`}>
           <div className="movie-section-box">
+            <div className="movie-indicator">
+              {Object.keys(genres).map(
+                itemKey =>
+                  itemKey !== 'search' && (
+                    <button type="button" key={genres[itemKey].category}>
+                      {genres[itemKey].category}
+                    </button>
+                  ),
+              )}
+            </div>
+
             {/* Action */}
             <ListContainer
               category={genres.action.category}
