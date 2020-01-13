@@ -42,7 +42,8 @@ function App() {
       console.log('isLoading && isSearch');
       scrollMotion.init();
     }
-  }, [isLoading, isSearch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSearch]);
 
   return (
     <>
