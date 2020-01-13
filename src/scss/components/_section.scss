@@ -147,6 +147,7 @@
             height: calc(100vh - #{$header-height-sm});
             width: 100%;
             margin-top: 0;
+            padding-bottom: 0;
             font-size: 2rem;
           }
         }
@@ -171,7 +172,7 @@
 
             &.no-item {
               flex: 1;
-              height: calc(100vh - (#{$header-height-lg} - 20px));
+              height: calc(100vh - (#{$header-height-lg} + 20px));
               margin-top: 0;
             }
           }

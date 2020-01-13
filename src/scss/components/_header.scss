@@ -156,7 +156,9 @@
     .btn {
       &-home {
         top: auto;
+        left: $offset-lg;
         bottom: 13px;
+        margin-left: -15px;
         transform: translateY(0);
       }
     }
