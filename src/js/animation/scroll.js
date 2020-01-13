@@ -1,129 +1,146 @@
-const DOWN = 'DOWN';
-const UP = 'UP';
-const isActive = 'is-active';
-const isAnimated = 'is-animated';
-
-let $sectionBox = null;
-let $section = null;
-let $indicatorBtn = null;
-
-const scrollMotion = isSearch => {
-  let lastScrollTop = 0,
-    dir = null,
-    isMove = false,
-    index = 0,
-    sectionLength = 0;
-
-  if ($section === null) {
-    $sectionBox = document.querySelector('.movie-section-box');
-    $section = $sectionBox.querySelectorAll('section');
-    $indicatorBtn = $sectionBox.querySelectorAll('.movie-indicator button');
-    sectionLength = $section.length - 1;
-
-    setTimeout(() => {
-      $sectionBox.classList.add('is-loaded');
-      $section[0].classList.add(isActive);
-    }, 1000);
+class ScrollMotion {
+  constructor() {
+    this.DOWN = 'DOWN';
+    this.UP = 'UP';
+    this.isActive = 'is-active';
+    this.isAnimated = 'is-animated';
+    this.lastScrollTop = 0;
+    this.dir = null;
+    this.isMove = false;
+    this.index = 0;
+    this.sectionLength = 0;
+    this.eventMap = {};
+    this.eventWheel = 'wheel.onWheel';
+    this.$sectionBox = null;
+    this.$section = null;
+    this.$indicatorBtn = null;
   }
 
-  const scrollMotion = e => {
+  init() {
+    if (this.$section === null) {
+      this.$sectionBox = document.querySelector('.movie-section-box');
+      this.$section = this.$sectionBox.querySelectorAll('section');
+      this.$indicatorBtn = this.$sectionBox.querySelectorAll(
+        '.movie-indicator button',
+      );
+      this.sectionLength = this.$section.length - 1;
+
+      setTimeout(() => {
+        this.$sectionBox.classList.add('is-loaded');
+        this.$section[0].classList.add(this.isActive);
+      }, 1000);
+    }
+    this.runIndicator();
+    this.runAddScroll();
+  }
+
+  runAddScroll() {
+    this.eventMap[this.eventWheel] = this.runScroll.bind(this);
+    document.addEventListener('wheel', this.eventMap[this.eventWheel], {
+      passive: false,
+    });
+  }
+
+  runDestroyScroll(e) {
+    console.log('runDestroyScroll');
+    document.removeEventListener('wheel', this.eventMap[this.eventWheel]);
+    delete this.eventMap[this.eventWheel];
+  }
+
+  runScroll(e) {
     e.preventDefault();
     e.stopPropagation();
 
-    if (isSearch) {
-      console.log('Remove wheel');
-      // console.log(e.view.removeEventListener('wheel', scrollMotion));
-    }
-
     let dirValue = e.wheelDelta / 120 || e.deltaY / -120;
+    this.dir = !(dirValue > 0) ? this.DOWN : this.UP;
+    this.runGetDir(this.dir);
+  }
 
-    dir = !(dirValue > 0) ? DOWN : UP;
-    runGetDir(dir);
-  };
-
-  const runOnlock = () => {
+  runOnlock() {
     setTimeout(() => {
-      isMove = false;
+      this.isMove = false;
     }, 500);
-  };
+  }
 
-  const runGetDir = dir => {
-    if (isMove) return;
-    runDetect(dir);
-  };
+  runGetDir(dir) {
+    if (this.isMove) return;
+    this.runDetect(dir);
+  }
 
-  const runDetect = dir => {
-    dir === UP ? --index : ++index;
+  runDetect(dir) {
+    dir === this.UP ? --this.index : ++this.index;
 
-    if (index <= 0) {
-      index = 0;
-    } else if (index >= sectionLength) {
-      index = sectionLength;
+    if (this.index <= 0) {
+      this.index = 0;
+    } else if (this.index >= this.sectionLength) {
+      this.index = this.sectionLength;
     }
 
-    runMoveTo({ dir, index });
-  };
+    this.runMoveTo(dir);
+  }
 
-  const runAddClass = obj => {
-    for (let i = 0; i <= sectionLength; i++) {
-      if (obj.index === 0 && $section[0].classList.contains(isActive)) {
-        runOnlock();
+  runAddClass(dir) {
+    for (let i = 0; i <= this.sectionLength; i++) {
+      if (
+        this.index === 0 &&
+        this.$section[0].classList.contains(this.isActive)
+      ) {
+        this.runOnlock();
         return;
       }
 
       if (
-        obj.index === sectionLength &&
-        $section[sectionLength].classList.contains(isActive)
+        this.index === this.sectionLength &&
+        this.$section[this.sectionLength].classList.contains(this.isActive)
       ) {
-        runOnlock();
+        this.runOnlock();
         return;
       }
 
-      if ($section[i].classList.contains(isActive)) {
+      if (this.$section[i].classList.contains(this.isActive)) {
         // Active section
-        $section[i].classList.remove(isActive);
+        this.$section[i].classList.remove(this.isActive);
         // Active indicator
-        $indicatorBtn[i].classList.remove(isActive);
+        this.$indicatorBtn[i].classList.remove(this.isActive);
 
-        if (obj.dir !== 0 && obj.dir === UP) {
-          $section[i - 1].classList.remove(isAnimated);
+        if (dir !== 0 && dir === this.UP) {
+          this.$section[i - 1].classList.remove(this.isAnimated);
         }
       }
     }
 
     // Active indicator
-    $indicatorBtn[obj.index].classList.add(isActive);
+    this.$indicatorBtn[this.index].classList.add(this.isActive);
     // Active section
-    $section[obj.index].classList.add(isActive);
+    this.$section[this.index].classList.add(this.isActive);
 
-    if (obj.dir === DOWN) {
-      if (obj.dir === 0) return;
-      $section[obj.index - 1].classList.add(isAnimated);
+    if (dir === this.DOWN) {
+      if (dir === 0) return;
+      this.$section[this.index - 1].classList.add(this.isAnimated);
     }
-  };
+  }
 
-  const runMoveTo = obj => {
-    isMove = true;
+  runMoveTo(dir) {
+    this.isMove = true;
 
-    console.log(`${obj.index} / ${sectionLength}`);
-    runAddClass({ ...obj });
-    runOnlock();
-  };
+    console.log(`${this.index} / ${this.sectionLength}`);
+    this.runAddClass(dir);
+    this.runOnlock();
+  }
 
-  const runIndicator = () => {
-    for (let i = 0; i <= $indicatorBtn.length - 1; i++) {
-      $indicatorBtn[i].addEventListener('click', () => {
-        index = i;
-        runMoveTo({ index });
+  runIndicator() {
+    for (let i = 0; i <= this.$indicatorBtn.length - 1; i++) {
+      this.$indicatorBtn[i].addEventListener('click', () => {
+        this.index = i;
+        this.runMoveTo();
       });
     }
-  };
+  }
+}
 
-  runIndicator();
-  console.log('isSeach = ' + isSearch);
-  document.addEventListener('wheel', scrollMotion, {
-    passive: false,
-  });
-};
+export default ScrollMotion;
 
-export default scrollMotion;
+// console.log('isSeach = ' + isSearch);
+// document.addEventListener('wheel', runScroll, {
+// passive: false,
+// });

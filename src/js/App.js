@@ -4,13 +4,15 @@ import Loading from './components/Loading';
 import HeaderContainer from './containers/HeaderContainer';
 import FooterContainer from './containers/FooterContainer';
 import ListContainer from './containers/ListContainer';
-import scrollMotion from './animation/scroll';
+import ScrollMotion from './animation/scroll';
 
 // Thunk
 import { onLoading } from './reducer/load';
 
 // ACTION
 import { LOADING } from './reducer/load';
+
+const scrollMotion = new ScrollMotion();
 
 function App() {
   const dispatch = useDispatch();
@@ -28,18 +30,18 @@ function App() {
   useEffect(() => {
     if (isLoading) {
       setTimeout(() => {
-        scrollMotion();
+        console.log('isLoading');
+        scrollMotion.init();
       }, 3000);
     }
-    // if (isSearch) {
-    //   document.removeEventListener('wheel', scrollMotion);
-    // }
-    // if (!isLoading && !isSearch) {
-    //   console.log('isSearch = ' + isSearch);
-    //   document.addEventListener('wheel', scrollMotion, {
-    //     passive: false,
-    //   });
-    // }
+    if (isSearch) {
+      console.log('isSearch');
+      scrollMotion.runDestroyScroll();
+    }
+    if (!isLoading && !isSearch) {
+      console.log('isLoading && isSearch');
+      scrollMotion.init();
+    }
   }, [isLoading, isSearch]);
 
   return (
