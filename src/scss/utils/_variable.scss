@@ -3,7 +3,8 @@
 // -----------------------------------------------------------------------------
 
 // breakpoints
-$mq-breakpoints: (small: 560px,
+$mq-breakpoints: (
+  small: 560px,
   medium: 720px,
   large: 960px,
   x-large: 1200px,
@@ -21,14 +22,14 @@ $gutter-lg: 20px;
 // -----------------------------------------------------------------------------
 $w-small: 360px;
 $w-default: 1440px;
-$w-wrap: 1180px;
+$w-wrap: 1280px;
 
 $offset-sm: 20px;
-$offset-md: 64px;
-$offset-lg: 130px;
+$offset-md: 30px;
+$offset-lg: 50px;
 
 $header-height-sm: 45px; // 모바일 header 높이
-$header-height-lg: 90px; // 데스크탑 header 높이
+$header-height-lg: 75px; // 데스크탑 header 높이
 $header-height-compact: 45px; // 데스크탑 header 최소화 시 높이
 
 $input-padding-tb: 10px;
