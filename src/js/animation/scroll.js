@@ -28,6 +28,7 @@ class ScrollMotion {
       setTimeout(() => {
         this.$sectionBox.classList.add('is-loaded');
         this.$section[0].classList.add(this.isActive);
+        this.$indicatorBtn[0].classList.add(this.isActive);
       }, 1000);
     }
     this.runIndicator();
@@ -35,6 +36,7 @@ class ScrollMotion {
   }
 
   runAddScroll() {
+    console.log('runAddScroll');
     this.eventMap[this.eventWheel] = this.runScroll.bind(this);
     document.addEventListener('wheel', this.eventMap[this.eventWheel], {
       passive: false,

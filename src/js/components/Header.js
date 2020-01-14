@@ -14,15 +14,20 @@ function Header({
     <header id="header" className="header">
       <div className="l-header">
         <h1 className="logo a11y">The movie</h1>
-        {isSearch && (
-          <button className="btn-home" onClick={onGoHome}>
-            <svg viewBox="0 0 40 40">
-              <polyline points="25.9,32.1 13.4,19.5 25.9,7" />
-            </svg>
-            <span>돌아가기</span>
-          </button>
-        )}
-        <div className={`header-search ${isActiveSearch ? 'is-active' : ''}`}>
+        <button
+          className={`btn-home ${isSearch ? 'is-visible' : ''}`}
+          onClick={onGoHome}
+        >
+          <svg viewBox="0 0 40 40">
+            <polyline points="25.9,32.1 13.4,19.5 25.9,7" />
+          </svg>
+          <span>돌아가기</span>
+        </button>
+        <div
+          className={`header-search ${isActiveSearch ? 'is-active' : ''} ${
+            isSearch ? 'is-typing' : ''
+          }`}
+        >
           <form onSubmit={e => onSubmit(e)}>
             <div className="input-group">
               <input

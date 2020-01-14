@@ -43,13 +43,16 @@
     box-sizing: border-box;
 
     &.is-active {
-      max-width: 200px;
-
       .input {
         &-group {
           width: 100%;
+          transition: width $dur/2 $ease;
         }
       }
+    }
+    &.is-typing {
+      width: 200px;
+      transition: width $dur/3 $ease;
     }
 
     .input {
@@ -57,7 +60,6 @@
         width: 0;
         padding-right: 30px;
         box-sizing: border-box;
-        transition: width $dur $ease;
       }
       &-block {
         padding: 0;
@@ -84,10 +86,20 @@
     }
     &-home {
       display: inline-block;
-      left: $offset-sm;
+      visibility: hidden;
+      left: 0;
       z-index: 10;
       padding-left: 2.5rem;
       color: $white;
+      opacity: 0;
+
+      &.is-visible {
+        opacity: 1;
+        visibility: visible;
+        left: $offset-sm;
+        transition: all $dur $ease;
+        transition-delay: $dur/2;
+      }
 
       svg {
         position: absolute;
@@ -131,7 +143,11 @@
   }
 
   @include mq(medium) {
-    //
+    &-search {
+      &.is-typing {
+        width: 450px;
+      }
+    }
   }
   @include mq(large) {
     & {
@@ -140,8 +156,8 @@
     }
 
     &-search {
-      &.is-active {
-        max-width: 450px;
+      &.is-typing {
+        // width: 450px;
       }
     }
 
@@ -156,10 +172,14 @@
     .btn {
       &-home {
         top: auto;
-        left: $offset-lg;
+        left: 0;
         bottom: 13px;
         margin-left: -15px;
         transform: translateY(0);
+
+        &.is-visible {
+          left: $offset-lg;
+        }
       }
     }
   }

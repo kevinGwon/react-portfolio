@@ -52,7 +52,7 @@ function App() {
       <article className="movie-article">
         <div className={`movie-article-view ${isSearch ? 'is-search' : ''}`}>
           <div className="movie-section-box">
-            <div className="movie-indicator">
+            <div className="movie-indicator" lang="en">
               {Object.keys(genres).map(
                 itemKey =>
                   itemKey !== 'search' && (

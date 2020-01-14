@@ -12,22 +12,6 @@
     }
   }
 
-  &-indicator {
-    position: fixed;
-    z-index: 100;
-    left: 100px;
-    opacity: 0;
-
-    button {
-      color: inherit;
-      font-size: 1.6rem;
-
-      &.is-active {
-        color: $color-primary;
-      }
-    }
-  }
-
   &-section {
     display: flex;
     flex-direction: column;
@@ -123,13 +107,6 @@
   }
 
   &-section-box {
-    &.is-loaded {
-      .movie-indicator {
-        opacity: 1;
-        transition: all $dur ease;
-        transition-delay: 1s;
-      }
-    }
     &--search {
       .search-list {
         padding-top: $header-height-sm;
@@ -155,7 +132,51 @@
     }
   }
 
+  &-indicator {
+    button {
+      display: block;
+      position: relative;
+      color: inherit;
+      font-size: 1.6rem;
+      letter-spacing: 0.08rem;
+      text-transform: capitalize;
+      padding: 1rem;
+      text-align: left;
+
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 0%;
+        margin-top: -1px;
+        border-bottom: 2px solid $color-primary;
+        transition: width $dur ease;
+      }
+      &.is-active {
+        &::before {
+          width: 100%;
+        }
+      }
+    }
+  }
+
   @include mq(medium) {
+    &-indicator {
+      position: fixed;
+      z-index: 100;
+      left: 50px;
+      // opacity: 0;
+      top: 50%;
+      transform: translateY(-50%);
+
+      button {
+        & + button {
+          margin-top: 1.5rem;
+        }
+      }
+    }
     &-section-box {
       &--search {
         .search-list {
@@ -192,19 +213,7 @@
 
   @include mq(large) {
     &-indicator {
-      top: 50%;
-      transform: translateY(-50%);
-
-      button {
-        display: block;
-        width: 150px;
-        padding: 1rem 0.5rem;
-        text-align: left;
-
-        & + button {
-          margin-top: 1.5rem;
-        }
-      }
+      left: 100px;
     }
     &-section-box {
       &--search {
@@ -215,6 +224,37 @@
           li {
             flex: 0 0 calc(#{percentage(1/3)} - #{$gutter-md});
           }
+        }
+      }
+    }
+  }
+
+  @include mq($until: medium) {
+    &-indicator {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      right: 0;
+      top: $header-height-sm + 10px;
+      margin-left: 1rem;
+      margin-right: 1rem;
+      text-align: center;
+
+      button {
+        color: inherit;
+        text-transform: capitalize;
+        font-size: 1.6rem;
+        margin-left: 1rem;
+        margin-top: 1rem;
+        padding: 0.5rem 0.8rem;
+
+        &:first-child {
+          margin-left: 0;
+        }
+        &.is-active {
         }
       }
     }
