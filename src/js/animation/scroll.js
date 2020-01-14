@@ -36,7 +36,6 @@ class ScrollMotion {
   }
 
   runAddScroll() {
-    console.log('runAddScroll');
     this.eventMap[this.eventWheel] = this.runScroll.bind(this);
     document.addEventListener('wheel', this.eventMap[this.eventWheel], {
       passive: false,
@@ -61,7 +60,7 @@ class ScrollMotion {
   runOnlock() {
     setTimeout(() => {
       this.isMove = false;
-    }, 500);
+    }, 1200);
   }
 
   runGetDir(dir) {
