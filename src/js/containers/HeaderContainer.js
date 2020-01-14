@@ -24,7 +24,6 @@ function HeaderContainer() {
   }, []);
 
   const onSearch = useCallback(e => {
-    console.log('click');
     setIsActiveSearch(true);
     $inputSearch.current.focus();
   }, []);
@@ -32,7 +31,11 @@ function HeaderContainer() {
   const onChange = useCallback(
     e => {
       let searchText = e.target.value;
+      dispatch({ type: SEARCH_ON });
       setInputText(searchText);
+      // console.log(
+      //   `1. search text = ${searchText} [HeaderContainer.js -> ListContainer.js]`,
+      // );
       dispatch(onSearchText(searchText)); // dep = [isSearch]
     },
     [dispatch],

@@ -18,13 +18,12 @@ export const SEARCH_OUT = 'load/SEARCH_OUT';
 
 export const onSearchText = searchText => (dispatch, getState) => {
   dispatch(resetList({ category: 'search' }));
-  dispatch({
-    type: SEARCH_ON,
-  });
-  dispatch({
-    type: SEARCH_TEXT,
-    searchText: searchText,
-  });
+  setTimeout(() => {
+    dispatch({
+      type: SEARCH_TEXT,
+      searchText: searchText,
+    });
+  }, 0);
 };
 
 export const onLoading = genres => (dispatch, getState) => {

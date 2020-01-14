@@ -5,9 +5,6 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 // API
 import { asyncAPI } from '../modules/asyncAPI';
 
-// List Thunk
-import { resetList } from '../reducer/list';
-
 // ACTION
 import { LOADING } from '../reducer/load';
 import {
@@ -44,9 +41,10 @@ function ListContainer({ category, lists }) {
         dispatch(asyncAPI({ category, categoryCode }));
         break;
       case SEARCH:
+        // console.log(`2. [ListContainer.js -> asyncAPI.js]`);
         dispatch(asyncAPI({ category, searchText }));
       default:
-        console.log('----- No more list -----');
+        console.log('----- Not Found Category -----');
     }
   }, [category, categoryCode, dispatch, lists.isLoading, searchText]);
 

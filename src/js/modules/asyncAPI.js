@@ -72,8 +72,32 @@ const runResponse = async payload => {
     getUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${opt.key}&language=${opt.lang}&release_date.gte=${opt.year}-${opt.month}-${opt.day}&with_genres=${opt.categoryCode}&sort_by=popularity.desc&include_adult=true&include_video=true&page=1`;
   }
 
+  function listLoadingState(category) {
+    setTimeout(() => {
+      payload.dispatch({
+        type: LOADING_LIST,
+        category: category,
+        isLoading: true,
+      });
+    }, 1500);
+  }
+
+  function searchLoadingState(category) {
+    setTimeout(() => {
+      // console.log('4. Loaded = loaded [asyncAPI.js]');
+      payload.dispatch({
+        type: LOADING_LIST,
+        category: category,
+        isLoading: true,
+      });
+    }, 1500);
+  }
+
   // 검색값이 없으면 return
-  if (getUrl === null) return false;
+  if (getUrl === null) {
+    searchLoadingState(SEARCH.toLowerCase());
+    return false;
+  }
 
   try {
     const response = await axios({
@@ -81,28 +105,8 @@ const runResponse = async payload => {
       url: getUrl,
     });
 
-    function runList(category) {
-      setTimeout(() => {
-        payload.dispatch({
-          type: LOADING_LIST,
-          category: category,
-          isLoading: true,
-        });
-      }, 1500);
-    }
-
-    function runSearchList(category) {
-      setTimeout(() => {
-        payload.dispatch({
-          type: LOADING_LIST,
-          category: category,
-          isLoading: true,
-        });
-      }, 1500);
-    }
-
     for (let i = 0; i < response.data.results.length; i++) {
-      switch (opt.category.toUpperCase()) {
+      switch (payload.category.toUpperCase()) {
         case ACTION:
         case THRILLER:
         case CRIME:
@@ -133,9 +137,13 @@ const runResponse = async payload => {
 
       // // 모든 API 로드가 완료되면 로딩화면 아웃
       if (i === response.data.results.length - 1) {
-        opt.isSearch
-          ? runSearchList(payload.category)
-          : runList(payload.category);
+        payload.isSearch &&
+          console.log(
+            `Search Length = ${response.data.results.length} [asyncAPI.js]`,
+          );
+        payload.isSearch
+          ? searchLoadingState(payload.category)
+          : listLoadingState(payload.category);
       }
     }
   } catch (error) {

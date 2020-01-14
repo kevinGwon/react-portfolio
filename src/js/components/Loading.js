@@ -2,7 +2,7 @@ import React from 'react';
 
 function Loading() {
   return (
-    <div className="loading">
+    <div className="loading loading--intro">
       <div className="split">G</div>
       <div className="split">N</div>
       <div className="split">I</div>
