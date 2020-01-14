@@ -30,16 +30,13 @@ function App() {
   useEffect(() => {
     if (isLoading) {
       setTimeout(() => {
-        console.log('isLoading');
         scrollMotion.init();
       }, 3000);
     }
     if (isSearch) {
-      console.log('isSearch');
       scrollMotion.runDestroyScroll();
     }
     if (!isLoading && !isSearch) {
-      console.log('isLoading && isSearch');
       scrollMotion.init();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
