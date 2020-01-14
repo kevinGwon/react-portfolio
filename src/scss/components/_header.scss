@@ -156,8 +156,11 @@
     }
 
     &-search {
+      &.is-active {
+        width: 50%;
+      }
       &.is-typing {
-        // width: 450px;
+        width: 450px;
       }
     }
 
