@@ -29,22 +29,24 @@ function ListContainer({ category, lists }) {
 
   useEffect(() => {
     // 로드가 완료된 리스트는 그대로 유지
-    if (lists.isLoading) return;
-    switch (category.toUpperCase()) {
-      case ACTION:
-      case THRILLER:
-      case CRIME:
-      case WAR:
-      case HORROR:
-      case ROMANCE:
-      case ANIMATION:
-        dispatch(asyncAPI({ category, categoryCode }));
-        break;
-      case SEARCH:
-        // console.log(`2. [ListContainer.js -> asyncAPI.js]`);
-        dispatch(asyncAPI({ category, searchText }));
-      default:
-        console.log('----- Not Found Category -----');
+    if (!lists.isLoading) {
+      switch (category.toUpperCase()) {
+        case ACTION:
+        case THRILLER:
+        case CRIME:
+        case WAR:
+        case HORROR:
+        case ROMANCE:
+        case ANIMATION:
+          dispatch(asyncAPI({ category, categoryCode }));
+          break;
+        case SEARCH:
+          // console.log(`2. [ListContainer.js -> asyncAPI.js]`);
+          dispatch(asyncAPI({ category, searchText }));
+          break;
+        default:
+          console.log('----- Not Found Category -----');
+      }
     }
   }, [category, categoryCode, dispatch, lists.isLoading, searchText]);
 
