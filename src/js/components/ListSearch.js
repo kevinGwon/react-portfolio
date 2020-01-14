@@ -1,13 +1,15 @@
 import React from 'react';
+import filterArray from '../modules/filterArray';
 
 function SearchList({ lists }) {
   // console.log(`5. state = ${lists.isLoading} [ListSearch.js]`);
+  const searchList = filterArray(lists.list);
   return (
     <div className="l-wrap">
       {lists.isLoading ? (
         <ul className="search-list">
-          {lists.list.length !== 0 ? (
-            lists.list.map(item => (
+          {searchList.length !== 0 ? (
+            searchList.map(item => (
               <li key={item.id}>
                 <div className="thumb">
                   <img
