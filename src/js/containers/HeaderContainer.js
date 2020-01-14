@@ -35,7 +35,7 @@ function HeaderContainer({ $article }) {
       // console.log(
       //   `1. search text = ${searchText} [HeaderContainer.js -> ListContainer.js]`,
       // );
-      searchState && dispatch(onSearchText(searchText)); // dep = [isSearch]
+      dispatch(onSearchText(searchText)); // dep = [isSearch]
     },
     [$article, dispatch],
   );

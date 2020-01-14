@@ -83,20 +83,12 @@ const runResponse = async payload => {
   }
 
   function searchLoadingState(category) {
-    setTimeout(() => {
-      console.log('4. Trigger Loading true [asyncAPI.js]');
-      payload.dispatch({
-        type: LOADING_LIST,
-        category: category,
-        isLoading: true,
-      });
-    }, 1500);
-  }
-
-  // 검색값이 없으면 return
-  if (getUrl === null) {
-    searchLoadingState(SEARCH.toLowerCase());
-    return false;
+    // console.log('4. Trigger Loading true [asyncAPI.js]');
+    payload.dispatch({
+      type: LOADING_LIST,
+      category: category,
+      isLoading: true,
+    });
   }
 
   try {
@@ -143,10 +135,10 @@ const runResponse = async payload => {
 
       // // 모든 API 로드가 완료되면 로딩화면 아웃
       if (i === response.data.results.length - 1) {
-        payload.isSearch &&
-          console.log(
-            `Search Length = ${response.data.results.length} [asyncAPI.js]`,
-          );
+        // payload.isSearch &&
+        //   console.log(
+        //     `Search Length = ${response.data.results.length} [asyncAPI.js]`,
+        //   );
         payload.isSearch
           ? searchLoadingState(payload.category)
           : listLoadingState(payload.category);
