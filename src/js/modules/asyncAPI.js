@@ -84,7 +84,7 @@ const runResponse = async payload => {
 
   function searchLoadingState(category) {
     setTimeout(() => {
-      // console.log('4. Loaded = loaded [asyncAPI.js]');
+      console.log('4. Trigger Loading true [asyncAPI.js]');
       payload.dispatch({
         type: LOADING_LIST,
         category: category,
@@ -104,6 +104,12 @@ const runResponse = async payload => {
       method: 'get',
       url: getUrl,
     });
+
+    // 검색값이 없을면 return
+    if (!response.data.results.length) {
+      searchLoadingState(SEARCH.toLowerCase());
+      return;
+    }
 
     for (let i = 0; i < response.data.results.length; i++) {
       switch (payload.category.toUpperCase()) {
