@@ -14,7 +14,7 @@ body {
   min-width: 320px;
   color: rgba($white, 0.9);
   font-size: 1em;
-  // font-family: $font-main;
+  font-family: $font-main;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -128,7 +128,7 @@ mark {
 }
 
 [lang='en'] {
-  // font-family: $en;
+  font-family: $en;
 }
 
 input,
