@@ -25,7 +25,7 @@ function List({ lists }) {
     $target => {
       const index = $target.snapIndex,
         $slide = $target.slides[index],
-        $section = $slide.parentNode.offsetParent.offsetParent,
+        $section = $slide.parentNode.offsetParent.offsetParent.offsetParent,
         $bgAll = $section.querySelectorAll('.movie-section-bg'),
         $bg = $section.querySelector('.movie-section-bg'),
         bgUrl = $slide.querySelector('img').getAttribute('data-bg'),
@@ -44,10 +44,6 @@ function List({ lists }) {
         $next = null;
 
       runBackUpBg({ slideLength, $bg, bgUrl });
-      // let $div = document.createElement('div');
-      // $div.classList.add('movie-section-bg', 'movie-section-bg--next');
-      // $div.style.backgroundImage = `url('${bgUrl}')`;
-      // $bg.after($div);
 
       $next = $section.querySelector('.movie-section-bg--next');
       $current = $next;
