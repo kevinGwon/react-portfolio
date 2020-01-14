@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Loading from './components/Loading';
 import HeaderContainer from './containers/HeaderContainer';
@@ -8,9 +8,6 @@ import ScrollMotion from './animation/scroll';
 
 // Thunk
 import { onLoading } from './reducer/load';
-
-// ACTION
-import { LOADING } from './reducer/load';
 
 const scrollMotion = new ScrollMotion();
 
@@ -22,6 +19,8 @@ function App() {
 
   // load reducer
   const { isLoading, isSearch } = useSelector(store => store.load, []);
+
+  const $article = useRef();
 
   useEffect(() => {
     dispatch(onLoading(genres));
@@ -44,9 +43,9 @@ function App() {
 
   return (
     <>
-      <HeaderContainer />
+      <HeaderContainer $article={$article} />
 
-      <article className="movie-article">
+      <article className="movie-article" ref={$article}>
         <div className={`movie-article-view ${isSearch ? 'is-search' : ''}`}>
           <div className="movie-section-box">
             <div className="movie-indicator" lang="en">
