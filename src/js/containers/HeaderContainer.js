@@ -2,9 +2,6 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import Header from '../components/Header';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 
-// API
-import { asyncAPI } from '../modules/asyncAPI';
-
 import {
   // ACTION
   SEARCH_ON,
@@ -19,6 +16,7 @@ function HeaderContainer({ $article }) {
   const [isActiveSearch, setIsActiveSearch] = useState(false);
   const dispatch = useDispatch();
   const $inputSearch = useRef();
+
   const onSubmit = useCallback(e => {
     e.preventDefault();
   }, []);
