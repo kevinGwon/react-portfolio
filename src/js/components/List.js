@@ -11,4 +11,6 @@ function List({ lists }) {
   );
 }
 
+List.displayName = 'Category';
+
 export default List;
