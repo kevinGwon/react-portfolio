@@ -17,20 +17,19 @@ class ScrollMotion {
   }
 
   init() {
-    if (this.$section === null) {
-      this.$sectionBox = document.querySelector('.movie-section-box');
-      this.$section = this.$sectionBox.querySelectorAll('section');
-      this.$indicatorBtn = this.$sectionBox.querySelectorAll(
-        '.movie-indicator button',
-      );
-      this.sectionLength = this.$section.length - 1;
+    this.$sectionBox = document.querySelector('.movie-section-box');
+    this.$section = this.$sectionBox.querySelectorAll('section');
+    this.$indicatorBtn = this.$sectionBox.querySelectorAll(
+      '.movie-indicator button',
+    );
+    this.sectionLength = this.$section.length - 1;
 
-      setTimeout(() => {
-        this.$sectionBox.classList.add('is-loaded');
-        this.$section[0].classList.add(this.isActive);
-        this.$indicatorBtn[0].classList.add(this.isActive);
-      }, 1000);
-    }
+    setTimeout(() => {
+      this.$sectionBox.classList.add('is-loaded');
+      this.$section[0].classList.add(this.isActive);
+      this.$indicatorBtn[0].classList.add(this.isActive);
+    }, 500);
+
     this.runIndicator();
     this.runAddScroll();
   }
