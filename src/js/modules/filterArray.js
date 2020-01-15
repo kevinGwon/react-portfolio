@@ -7,6 +7,7 @@ export default function removeDuplicatesArray(arr) {
       let duplicatesFlag = true;
       for (let j = 0; j < tempArr.length; j++) {
         if (tempArr[j].id === arr[i].id) {
+          console.log(`[movie id = ${tempArr[j].id}] filterd`);
           duplicatesFlag = false;
           break;
         }
