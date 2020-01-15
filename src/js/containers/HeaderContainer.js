@@ -10,12 +10,15 @@ import {
   onSearchText,
 } from '../reducer/load';
 
-function HeaderContainer({ $article }) {
+function HeaderContainer() {
+  // load reducer
   const { isSearch } = useSelector(store => store.load, shallowEqual);
+
   const [inputText, setInputText] = useState('');
   const [isActiveSearch, setIsActiveSearch] = useState(false);
   const dispatch = useDispatch();
   const $inputSearch = useRef();
+  let $article = null;
 
   const onSubmit = useCallback(e => {
     e.preventDefault();
@@ -29,7 +32,7 @@ function HeaderContainer({ $article }) {
   const onChange = useCallback(
     e => {
       let searchText = e.target.value;
-      const searchState = $article.current.querySelector('.is-search') || false;
+      const searchState = $article.querySelector('.is-search') || false;
 
       // Once SEARCH_ON
       !searchState && dispatch({ type: SEARCH_ON });
@@ -56,7 +59,7 @@ function HeaderContainer({ $article }) {
   );
 
   const onSearchBlur = useCallback(() => {
-    $article.current
+    $article
       .querySelector('.movie-section-box')
       .addEventListener('click', e => {
         setIsActiveSearch(false);
@@ -64,8 +67,9 @@ function HeaderContainer({ $article }) {
   }, [$article]);
 
   useEffect(() => {
-    onSearchBlur();
-  });
+    $article = document.querySelector('.movie-article');
+    // onSearchBlur();
+  }, [$article]);
 
   return (
     <Header
