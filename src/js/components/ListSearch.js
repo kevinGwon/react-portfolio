@@ -1,5 +1,6 @@
 import React from 'react';
 import filterArray from '../modules/filterArray';
+import { Link } from 'react-router-dom';
 
 function SearchList({ lists }) {
   // console.log(`5. state = ${lists.isLoading} [ListSearch.js]`);
@@ -11,16 +12,18 @@ function SearchList({ lists }) {
           {searchList.length !== 0 ? (
             searchList.map(item => (
               <li key={item.id}>
-                <div className="thumb">
-                  <img
-                    src={
-                      item.posterImage.indexOf('null') === -1
-                        ? item.posterImage
-                        : 'http://placehold.it/500x747?text=Preparing image'
-                    }
-                    alt=""
-                  />
-                </div>
+                <Link to={`/detail/${item.id}`}>
+                  <div className="thumb">
+                    <img
+                      src={
+                        item.posterImage.indexOf('null') === -1
+                          ? item.posterImage
+                          : 'http://placehold.it/500x747?text=Preparing image'
+                      }
+                      alt=""
+                    />
+                  </div>
+                </Link>
               </li>
             ))
           ) : (

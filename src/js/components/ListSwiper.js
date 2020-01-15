@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Swiper from 'swiper';
 import Loading from './Loading';
 
@@ -65,9 +66,11 @@ function List({ lists }) {
     [runBackUpBg],
   );
   useEffect(() => {
+    console.log('useEffect ON!');
+    let swiper = null;
     if (lists.category !== 'search') {
       setTimeout(() => {
-        const swiper = new Swiper(`.swiper-container-${lists.category}`, {
+        swiper = new Swiper(`.swiper-container-${lists.category}`, {
           lazy: true,
           parallax: true,
           centeredSlides: true,
@@ -101,6 +104,10 @@ function List({ lists }) {
         });
       }, 500);
     }
+    return () => {
+      swiper.destroy();
+      swiper = null;
+    };
   }, [lists.category, runTransition]);
 
   return (
@@ -129,7 +136,7 @@ function List({ lists }) {
           <div className="swiper-wrapper">
             {lists.list.map(item => (
               <div key={item.id} className="swiper-slide">
-                <a href="#">
+                <Link to={`/detail/${item.id}`}>
                   <div className="thumb">
                     <img
                       data-src={
@@ -147,7 +154,7 @@ function List({ lists }) {
                     />
                     <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
                   </div>
-                </a>
+                </Link>
               </div>
             ))}
           </div>
