@@ -30,11 +30,15 @@ function HeaderContainer({ $article }) {
     e => {
       let searchText = e.target.value;
       const searchState = $article.current.querySelector('.is-search') || false;
-      dispatch({ type: SEARCH_ON });
+
+      // Once SEARCH_ON
+      !searchState && dispatch({ type: SEARCH_ON });
       setInputText(searchText);
+
       // console.log(
       //   `1. search text = ${searchText} [HeaderContainer.js -> ListContainer.js]`,
       // );
+
       dispatch(onSearchText(searchText)); // dep = [isSearch]
     },
     [$article, dispatch],
@@ -57,11 +61,11 @@ function HeaderContainer({ $article }) {
       .addEventListener('click', e => {
         setIsActiveSearch(false);
       });
-  });
+  }, [$article]);
 
   useEffect(() => {
     onSearchBlur();
-  }, [onSearchBlur]);
+  });
 
   return (
     <Header

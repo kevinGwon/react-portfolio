@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// ACTION
 import {
+  // ACTION
   ACTION_LIST,
   THRILLER_LIST,
   LIST_SORT,
@@ -12,10 +12,8 @@ import {
   ANIMATION_LIST,
   LOADING_LIST,
   SEARCH_LIST,
-} from '../reducer/list';
 
-// CATEGORY
-import {
+  // CATEGORY
   ACTION,
   THRILLER,
   CRIME,
@@ -24,6 +22,9 @@ import {
   ROMANCE,
   ANIMATION,
   SEARCH,
+
+  // Thunk
+  resetList,
 } from '../reducer/list';
 
 import { LOADING_OUT } from '../reducer/load';

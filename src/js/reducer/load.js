@@ -2,7 +2,15 @@ import imagesLoaded from 'imagesloaded';
 
 // ACTION
 import { ONCE_LOADING } from './global';
-import { LOADING_LIST, ALL_RESET } from './list';
+
+import {
+  // ACTION
+  LOADING_LIST,
+  ALL_RESET,
+
+  // CATEGORY
+  SEARCH,
+} from './list';
 
 // List Thunk
 import { resetList } from './list';
@@ -16,8 +24,8 @@ export const SEARCH_TEXT = 'load/SEARCH_TEXT';
 export const SEARCH_ON = 'load/SEARCH_ON';
 export const SEARCH_OUT = 'load/SEARCH_OUT';
 
-export const onSearchText = searchText => (dispatch, getState) => {
-  dispatch(resetList({ category: 'search' }));
+export const onSearchText = searchText => dispatch => {
+  dispatch(resetList({ category: SEARCH.toLowerCase() }));
   setTimeout(() => {
     dispatch({
       type: SEARCH_TEXT,
