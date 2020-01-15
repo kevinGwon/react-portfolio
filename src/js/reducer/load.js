@@ -23,6 +23,8 @@ export const LOADING_OUT = 'load/LOADING_OUT';
 export const SEARCH_TEXT = 'load/SEARCH_TEXT';
 export const SEARCH_ON = 'load/SEARCH_ON';
 export const SEARCH_OUT = 'load/SEARCH_OUT';
+export const DETAIL_ON = 'load/DETAIL_ON';
+export const DETAIL_OUT = 'load/DETAIL_OUT';
 
 export const onSearchText = searchText => dispatch => {
   dispatch(resetList({ category: SEARCH.toLowerCase() }));
@@ -55,6 +57,7 @@ export const onLoading = genres => (dispatch, getState) => {
 const initState = {
   isLoading: true,
   isSearch: false,
+  isDetail: false,
   searchText: '',
 };
 
@@ -85,6 +88,16 @@ export default function load(state = initState, action) {
         ...state,
         isSearch: false,
         searchText: '',
+      };
+    case DETAIL_ON:
+      return {
+        ...state,
+        isDetail: true,
+      };
+    case DETAIL_OUT:
+      return {
+        ...state,
+        isDetail: false,
       };
     default:
       return state;
