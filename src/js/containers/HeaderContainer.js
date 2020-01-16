@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import Header from '../components/Header';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import {
   // ACTION
@@ -15,12 +16,14 @@ import {
   onSearchText,
 } from '../reducer/global';
 
-function HeaderContainer() {
+function HeaderContainer({ history }) {
   // global reducer
   const { isActiveSearch, isSearch } = useSelector(
     store => store.global,
     shallowEqual,
   );
+  // load reducer
+  const { isDetail } = useSelector(store => store.load, shallowEqual);
 
   const dispatch = useDispatch();
 
@@ -42,9 +45,15 @@ function HeaderContainer() {
 
   const onChange = useCallback(
     e => {
+      console.log(isDetail);
       let searchText = e.target.value;
       const searchState =
-        $article.classList.contains('movie-article--search') || false;
+        ($article && $article.classList.contains('movie-article--search')) ||
+        false;
+
+      if (isDetail) {
+        history.push('/');
+      }
 
       // Once SEARCH_ON
       !searchState && dispatch({ type: SEARCH_ON });
@@ -56,7 +65,7 @@ function HeaderContainer() {
 
       dispatch(onSearchText(searchText)); // dep = [isSearch]
     },
-    [$article, dispatch],
+    [$article, dispatch, history, isDetail],
   );
 
   const onGoHome = useCallback(
@@ -99,4 +108,4 @@ function HeaderContainer() {
   );
 }
 
-export default HeaderContainer;
+export default withRouter(HeaderContainer);
