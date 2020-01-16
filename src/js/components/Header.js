@@ -11,11 +11,16 @@ function Header({
   $inputSearch,
 }) {
   return (
-    <header id="header" className="header">
+    <header
+      id="header"
+      className={`header${isActiveSearch ? ' is-active' : ''} ${
+        isSearch ? 'is-typing' : ''
+      }`}
+    >
       <div className="l-header">
         <h1 className="logo a11y">The movie</h1>
         <button
-          className={`btn-home ${isSearch ? 'is-visible' : ''}`}
+          className={`btn-home${isSearch ? ' is-visible' : ''}`}
           onClick={onGoHome}
         >
           <svg viewBox="0 0 40 40">
@@ -23,11 +28,7 @@ function Header({
           </svg>
           <span>돌아가기</span>
         </button>
-        <div
-          className={`header-search ${isActiveSearch ? 'is-active' : ''} ${
-            isSearch ? 'is-typing' : ''
-          }`}
-        >
+        <div className="header-search">
           <form onSubmit={e => onSubmit(e)}>
             <div className="input-group">
               <input

@@ -8,6 +8,23 @@
   box-sizing: border-box;
   font-size: 1.6rem;
 
+  &.is-active {
+    .header-search {
+      .input {
+        &-group {
+          width: 100%;
+          transition: width $dur/2 $ease;
+        }
+      }
+    }
+  }
+  &.is-typing {
+    .header-search {
+      width: 200px;
+      transition: width $dur/3 $ease;
+    }
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -41,19 +58,6 @@
     z-index: 10;
     width: 100%;
     box-sizing: border-box;
-
-    &.is-active {
-      .input {
-        &-group {
-          width: 100%;
-          transition: width $dur/2 $ease;
-        }
-      }
-    }
-    &.is-typing {
-      width: 200px;
-      transition: width $dur/3 $ease;
-    }
 
     .input {
       &-group {
@@ -143,8 +147,8 @@
   }
 
   @include mq(medium) {
-    &-search {
-      &.is-typing {
+    &.is-typing {
+      .header-search {
         width: 450px;
       }
     }
@@ -155,11 +159,13 @@
       padding: 0 $gutter-lg;
     }
 
-    &-search {
-      &.is-active {
+    &.is-active {
+      .header-search {
         width: 50%;
       }
-      &.is-typing {
+    }
+    &.is-typing {
+      .header-search {
         width: 450px;
       }
     }
