@@ -44,12 +44,10 @@ function HeaderContainer() {
     e => {
       let searchText = e.target.value;
       const searchState =
-        ($article.length && $article.classList.contains('.is-search')) || false;
+        $article.classList.contains('movie-article--search') || false;
 
       // Once SEARCH_ON
       !searchState && dispatch({ type: SEARCH_ON });
-      console.log('SEARCH_ON');
-      dispatch({ type: SEARCH_ON });
       setInputText(searchText);
 
       // console.log(
