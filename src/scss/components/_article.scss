@@ -6,6 +6,23 @@
     // padding-top: $header-height-sm;
     box-sizing: border-box;
 
+    &.movie-article--search {
+      .movie {
+        &-article-view {
+          transform: translateX(-100%);
+        }
+        &-section-box {
+          &:first-child {
+            overflow: hidden;
+            height: 100vh;
+          }
+        }
+        &-section-box--search {
+          overflow-y: auto;
+          transform: translateX(100%);
+        }
+      }
+    }
     .movie-app {
       &.is-loading {
         .movie-article {
@@ -17,22 +34,6 @@
 
   &-article-view {
     transition: transform $dur $ease;
-
-    &.is-search {
-      transform: translateX(-100%);
-
-      .movie-section-box {
-        &:first-child {
-          overflow: hidden;
-          height: 100vh;
-        }
-      }
-
-      .movie-section-box--search {
-        overflow-y: auto;
-        transform: translateX(100%);
-      }
-    }
   }
 
   &-section-box {
