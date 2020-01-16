@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import widthScrollMotion from '../hoc/withScrollMotion';
 
 import {
   // ACTION
@@ -16,11 +17,11 @@ import {
   DETAIL_OUT,
 } from '../reducer/load';
 
-function Detail({ match }) {
-  // global reducer
-  // const { isActiveSearch } = useSelector(store => store.global, shallowEqual);
+function Detail({ match, scrollMotion }) {
   const dispatch = useDispatch();
+
   useEffect(() => {
+    scrollMotion.destroy();
     dispatch({ type: DETAIL_ON });
     dispatch({
       type: SEARCH_OUT,
@@ -29,7 +30,7 @@ function Detail({ match }) {
     return () => {
       dispatch({ type: DETAIL_OUT });
     };
-  }, [dispatch]);
+  }, [dispatch, scrollMotion]);
 
   return (
     <article className="article article-detail">
@@ -52,4 +53,4 @@ function Detail({ match }) {
   );
 }
 
-export default Detail;
+export default widthScrollMotion(Detail);

@@ -1,15 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-
+import widthScrollMotion from '../hoc/withScrollMotion';
 import ListContainer from '../containers/ListContainer';
-import ScrollMotion from '../animation/scroll';
 
 // Thunk
 import { onLoading } from '../reducer/global';
 
-const scrollMotion = new ScrollMotion();
-
-function List({ $article }) {
+function List({ scrollMotion }) {
   const dispatch = useDispatch();
 
   // global reducer
@@ -26,7 +23,8 @@ function List({ $article }) {
 
   useEffect(() => {
     dispatch(onLoading(genres));
-  }, [dispatch, genres]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [genres]);
 
   useEffect(() => {
     if (isLoading) {
@@ -34,19 +32,20 @@ function List({ $article }) {
         scrollMotion.init();
       }, 3000);
     }
-    if (isSearch) {
-      scrollMotion.runDestroyScroll();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (scrollMotion.isDestroy) {
+      scrollMotion.init();
       return;
     }
-    if ((!isLoading && !isSearch) || (!isLoading && !isDetail)) {
-      console.log(`Detail[List Page]= ${isDetail}`);
-      scrollMotion.init();
+    if (isSearch) {
+      scrollMotion.destroy();
+      return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    return () => {
-      scrollMotion.runDestroyScroll();
-    };
-  }, [isLoading, isSearch, isDetail]);
+  }, [isSearch]);
 
   return (
     <>
@@ -121,4 +120,4 @@ function List({ $article }) {
   );
 }
 
-export default List;
+export default widthScrollMotion(List);
