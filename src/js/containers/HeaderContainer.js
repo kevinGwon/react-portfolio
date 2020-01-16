@@ -45,7 +45,6 @@ function HeaderContainer({ history }) {
 
   const onChange = useCallback(
     e => {
-      console.log(isDetail);
       let searchText = e.target.value;
       const searchState =
         ($article && $article.classList.contains('movie-article--search')) ||
@@ -75,8 +74,9 @@ function HeaderContainer({ history }) {
       });
       dispatch({ type: SEARCH_ACTIVE_OUT });
       setInputText('');
+      history.location.pathname.indexOf('detail') === 1 && history.goBack();
     },
-    [dispatch],
+    [dispatch, history],
   );
 
   const onSearchBlur = useCallback(() => {
@@ -102,6 +102,7 @@ function HeaderContainer({ history }) {
       onGoHome={onGoHome}
       inputText={inputText}
       isSearch={isSearch}
+      isDetail={isDetail}
       isActiveSearch={isActiveSearch}
       $inputSearch={$inputSearch}
     />

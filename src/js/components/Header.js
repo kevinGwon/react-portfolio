@@ -7,20 +7,22 @@ function Header({
   onGoHome,
   inputText,
   isSearch,
+  isDetail,
   isActiveSearch,
   $inputSearch,
 }) {
   return (
     <header
       id="header"
-      className={`header${isActiveSearch ? ' is-active' : ''} ${
-        isSearch ? 'is-typing' : ''
-      }`}
+      className={`header${isActiveSearch ? ' is-active' : ''}${
+        isActiveSearch && isDetail ? '--detail' : ''
+      }
+       ${isSearch ? 'is-typing' : ''}`}
     >
       <div className="l-header">
         <h1 className="logo a11y">The movie</h1>
         <button
-          className={`btn-home${isSearch ? ' is-visible' : ''}`}
+          className={`btn-home${isSearch || isDetail ? ' is-visible' : ''}`}
           onClick={onGoHome}
         >
           <svg viewBox="0 0 40 40">

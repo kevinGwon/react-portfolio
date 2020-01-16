@@ -9,6 +9,17 @@
   font-size: 1.6rem;
 
   &.is-active {
+    &--detail {
+      .header-search {
+        width: 200px;
+      }
+      .input {
+        &-group {
+          width: 100%;
+          transition: width $dur/2 $ease;
+        }
+      }
+    }
     .header-search {
       .input {
         &-group {
@@ -92,7 +103,7 @@
       display: inline-block;
       visibility: hidden;
       left: 0;
-      z-index: 10;
+      z-index: 20;
       padding-left: 2.5rem;
       color: $white;
       opacity: 0;
