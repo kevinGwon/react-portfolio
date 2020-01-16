@@ -1,24 +1,27 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 
 import ListContainer from '../containers/ListContainer';
 import ScrollMotion from '../animation/scroll';
 
 // Thunk
-import { onLoading } from '../reducer/load';
+import { onLoading } from '../reducer/global';
 
 const scrollMotion = new ScrollMotion();
 
 function List({ $article }) {
   const dispatch = useDispatch();
 
+  // global reducer
+  const { isSearch } = useSelector(store => store.global, shallowEqual);
+
   // list reducer
-  const { genres } = useSelector(store => store.list, []);
+  const { genres } = useSelector(store => store.list, shallowEqual);
 
   // load reducer
-  const { isLoading, isSearch, isDetail } = useSelector(
+  const { isLoading, isDetail } = useSelector(
     store => store.load,
-    [],
+    shallowEqual,
   );
 
   useEffect(() => {
@@ -47,8 +50,12 @@ function List({ $article }) {
 
   return (
     <>
-      <article className="article movie-article">
-        <div className={`movie-article-view ${isSearch ? 'is-search' : ''}`}>
+      <article
+        className={`article movie-article ${
+          isSearch ? 'movie-article--search' : ''
+        }`}
+      >
+        <div className="movie-article-view">
           <div className="movie-section-box">
             <div className="movie-indicator" lang="en">
               {Object.keys(genres).map(

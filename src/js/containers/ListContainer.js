@@ -21,7 +21,7 @@ import {
 
 function ListContainer({ category, lists }) {
   // Reducer
-  const { searchText } = useSelector(store => store.load, shallowEqual);
+  const { searchText } = useSelector(store => store.global, shallowEqual);
 
   const dispatch = useDispatch();
 

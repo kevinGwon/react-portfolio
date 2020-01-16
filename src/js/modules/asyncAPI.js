@@ -1,6 +1,11 @@
 import axios from 'axios';
 
 import {
+  // Thunk
+  resetList,
+} from '../reducer/global';
+
+import {
   // ACTION
   ACTION_LIST,
   THRILLER_LIST,
@@ -22,12 +27,7 @@ import {
   ROMANCE,
   ANIMATION,
   SEARCH,
-
-  // Thunk
-  resetList,
 } from '../reducer/list';
-
-import { LOADING_OUT } from '../reducer/load';
 
 // Modules
 import extend from './extend';
@@ -152,7 +152,7 @@ const runResponse = async payload => {
 
 export const asyncAPI = payload => (dispatch, getState) => {
   const { year, month, day, genres } = getState().list;
-  const { isSearch } = getState().load;
+  const { isSearch } = getState().global;
 
   const category = payload.category;
   const categoryCode = payload.categoryCode;

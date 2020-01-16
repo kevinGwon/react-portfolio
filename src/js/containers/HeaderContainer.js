@@ -4,19 +4,27 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 
 import {
   // ACTION
+  SEARCH_ACTIVE_ON,
+  SEARCH_ACTIVE_OUT,
+
+  // ACTION
   SEARCH_ON,
   SEARCH_OUT,
+
   // Load Thunk
   onSearchText,
-} from '../reducer/load';
+} from '../reducer/global';
 
 function HeaderContainer() {
-  // load reducer
-  const { isSearch } = useSelector(store => store.load, shallowEqual);
+  // global reducer
+  const { isActiveSearch, isSearch } = useSelector(
+    store => store.global,
+    shallowEqual,
+  );
+
+  const dispatch = useDispatch();
 
   const [inputText, setInputText] = useState('');
-  const [isActiveSearch, setIsActiveSearch] = useState(false);
-  const dispatch = useDispatch();
   const $inputSearch = useRef();
   let $article = null;
 
@@ -24,18 +32,24 @@ function HeaderContainer() {
     e.preventDefault();
   }, []);
 
-  const onSearch = useCallback(e => {
-    setIsActiveSearch(true);
-    $inputSearch.current.focus();
-  }, []);
+  const onSearch = useCallback(
+    e => {
+      dispatch({ type: SEARCH_ACTIVE_ON });
+      $inputSearch.current.focus();
+    },
+    [dispatch],
+  );
 
   const onChange = useCallback(
     e => {
       let searchText = e.target.value;
-      const searchState = $article.querySelector('.is-search') || false;
+      const searchState =
+        ($article.length && $article.classList.contains('.is-search')) || false;
 
       // Once SEARCH_ON
       !searchState && dispatch({ type: SEARCH_ON });
+      console.log('SEARCH_ON');
+      dispatch({ type: SEARCH_ON });
       setInputText(searchText);
 
       // console.log(
@@ -52,23 +66,25 @@ function HeaderContainer() {
       dispatch({
         type: SEARCH_OUT,
       });
-      setIsActiveSearch(false);
+      dispatch({ type: SEARCH_ACTIVE_OUT });
       setInputText('');
     },
     [dispatch],
   );
 
   const onSearchBlur = useCallback(() => {
-    $article
-      .querySelector('.movie-section-box')
-      .addEventListener('click', e => {
-        setIsActiveSearch(false);
-      });
-  }, [$article]);
+    if ($article) {
+      $article
+        .querySelector('.movie-section-box')
+        .addEventListener('click', e => {
+          dispatch({ type: SEARCH_ACTIVE_OUT });
+        });
+    }
+  }, [$article, dispatch]);
 
   useEffect(() => {
     $article = document.querySelector('.movie-article');
-    // onSearchBlur();
+    onSearchBlur();
   }, [$article]);
 
   return (
