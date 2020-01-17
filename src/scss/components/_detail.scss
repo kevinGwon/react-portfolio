@@ -1,2 +1,56 @@
-.movie-article--detail {
+.movie {
+  &-article--detail {
+    .swiper {
+      &-container {
+        max-width: 100%;
+      }
+      &-slide {
+        position: relative;
+        height: auto;
+        padding-bottom: 0;
+
+        a {
+          position: static;
+        }
+        img {
+          height: auto;
+        }
+      }
+    }
+  }
+  &-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    margin-top: -($header-height-sm + 20px);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &::before {
+      content: '';
+      display: block;
+      @include full-pos;
+      z-index: 0;
+      background-color: rgba($black, 0.7);
+    }
+    .h1 {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      text-shadow: 1px 1px 6px $black;
+
+      span {
+        display: block;
+        font-size: 3.5rem;
+      }
+    }
+  }
+  @include mq(large) {
+    &-header {
+      height: 570px;
+      margin-top: -($header-height-lg + 20px);
+    }
+  }
 }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Detail from '../components/Detail';
-import widthScrollMotion from '../hoc/withScrollMotion';
+import Detail from '@/components/Detail';
+import widthScrollMotion from '@/hoc/withScrollMotion';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import LoadingCircle from '../components/LoadingCircle';
+import LoadingCircle from '@/components/LoadingCircle';
 
 import {
   // ACTION
@@ -11,16 +11,16 @@ import {
 
   // Thunk
   onLoading,
-} from '../reducer/global';
+} from '@/reducer/global';
 
 import {
   // ACTION
   DETAIL_ON,
   DETAIL_OUT,
-} from '../reducer/load';
+} from '@/reducer/load';
 
 // API
-import { asyncAPI } from '../modules/asyncAPI';
+import { asyncAPI } from '@/modules/asyncAPI';
 
 function DetailContainer(props) {
   const [loading, setLoading] = useState(false);

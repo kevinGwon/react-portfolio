@@ -101,7 +101,7 @@ const runResponse = async payload => {
         category: category,
         isLoading: true,
       });
-    }, 1500);
+    }, 0);
   }
 
   function searchLoadingState(category) {
@@ -199,6 +199,49 @@ const runVideo = async payload => {
   }
 };
 
+const runSimilar = async payload => {
+  opt = extend(opt, {
+    movieId: payload.movieId,
+  });
+
+  let getUrl = `https://api.themoviedb.org/3/movie/${opt.movieId}/similar?api_key=${opt.key}&language=${opt.lang}&page=1`;
+
+  try {
+    const response = await axios({
+      method: 'get',
+      url: getUrl,
+    });
+    payload.dispatch({
+      type: DETAIL_INFO,
+      similar: [...response.data.results],
+    });
+  } catch (error) {
+    console.log('검색 결과가 없습니다.');
+  }
+};
+
+const runCredits = async payload => {
+  opt = extend(opt, {
+    movieId: payload.movieId,
+  });
+
+  let getUrl = `https://api.themoviedb.org/3/movie/${opt.movieId}/credits?api_key=${opt.key}&language=${opt.lang}&page=1`;
+
+  try {
+    const response = await axios({
+      method: 'get',
+      url: getUrl,
+    });
+    console.log(response);
+    payload.dispatch({
+      type: DETAIL_INFO,
+      cast: [...response.data.cast],
+    });
+  } catch (error) {
+    console.log('검색 결과가 없습니다.');
+  }
+};
+
 export const asyncAPI = payload => (dispatch, getState) => {
   const { year, month, day, genres } = getState().list;
   const { isSearch } = getState().global;
@@ -228,5 +271,7 @@ export const asyncAPI = payload => (dispatch, getState) => {
       movieId,
     });
     runVideo({ dispatch, movieId });
+    runSimilar({ dispatch, movieId });
+    runCredits({ dispatch, movieId });
   }
 };
