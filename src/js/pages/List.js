@@ -50,8 +50,8 @@ function List({ scrollMotion }) {
   return (
     <>
       <article
-        className={`article movie-article ${
-          isSearch ? 'movie-article--search' : ''
+        className={`movie-article ${
+          !isSearch ? 'movie-article--home' : 'movie-article--search'
         }`}
       >
         <div className="movie-article-view">
