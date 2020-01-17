@@ -75,6 +75,9 @@ const config = {
   resolve: {
     extensions: ['*', '.js', '.jsx'],
     modules: [path.resolve('./node_modules'), path.resolve('./src/js')],
+    alias: {
+      '@': path.resolve(__dirname, 'src', 'js'),
+    },
   },
   plugins: [
     new CleanWebpackPlugin(),
