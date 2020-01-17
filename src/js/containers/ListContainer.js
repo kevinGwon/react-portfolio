@@ -6,7 +6,6 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { asyncAPI } from '../modules/asyncAPI';
 
 // ACTION
-import { LOADING } from '../reducer/load';
 import {
   LIST_SORT,
   ACTION,
