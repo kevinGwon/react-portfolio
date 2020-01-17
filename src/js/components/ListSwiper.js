@@ -1,11 +1,9 @@
 import React, { useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Swiper from 'swiper';
-import Loading from './Loading';
 
 function List({ lists }) {
   const $sectionBg = useRef();
-  const $window = window;
 
   const runBackUpBg = useCallback(obj => {
     const $div = document.createElement('div');
@@ -66,7 +64,6 @@ function List({ lists }) {
     [runBackUpBg],
   );
   useEffect(() => {
-    console.log('useEffect ON!');
     let swiper = null;
     if (lists.category !== 'search') {
       setTimeout(() => {

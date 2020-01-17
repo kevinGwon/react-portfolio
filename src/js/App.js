@@ -9,7 +9,6 @@ import Home from './pages/Home';
 
 function App() {
   const { isLoading } = useSelector(store => store.load, []);
-  const $article = useRef();
   return (
     <>
       <Home />
