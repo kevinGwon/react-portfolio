@@ -29,6 +29,8 @@ import {
   SEARCH,
 } from '../reducer/list';
 
+import { DETAIL_INFO } from '../reducer/detail';
+
 // Modules
 import extend from './extend';
 
@@ -49,19 +51,34 @@ const runResponse = async payload => {
    * key - 1e006c1e39b26bfadaa6f757bc1435cf
    */
 
-  opt = extend(opt, {
-    year: payload.year,
-    month: payload.month,
-    day: payload.day,
-    category: payload.category,
-    categoryCode: payload.categoryCode,
-    isSearch: payload.isSearch,
-    searchText: payload.searchText,
-  });
+  if (!payload.triggerDetail) {
+    opt = extend(opt, {
+      year: payload.year,
+      month: payload.month,
+      day: payload.day,
+      category: payload.category,
+      categoryCode: payload.categoryCode,
+      isSearch: payload.isSearch,
+      searchText: payload.searchText,
+    });
+  } else {
+    opt = extend(opt, {
+      triggerDetail: payload.triggerDetail,
+      movieId: payload.movieId,
+    });
+  }
 
   let getUrl;
 
-  if (opt.isSearch) {
+  // Default
+  if (!opt.triggerDetail && !opt.isSearch) {
+    console.log('[---- On Default ----]');
+    getUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${opt.key}&language=${opt.lang}&release_date.gte=${opt.year}-${opt.month}-${opt.day}&with_genres=${opt.categoryCode}&sort_by=popularity.desc&include_adult=true&include_video=true&page=1`;
+  }
+
+  // Search
+  if (opt.isSearch && !opt.triggerDetail) {
+    console.log('[---- On Search ----]');
     let searching =
       opt.searchText !== undefined && opt.searchText.length ? true : false;
     let queryString = searching ? `&query=${opt.searchText}` : '';
@@ -69,8 +86,12 @@ const runResponse = async payload => {
       queryString.length !== 0
         ? `https://api.themoviedb.org/3/search/multi?api_key=${opt.key}&language=${opt.lang}&include_adult=true${queryString}`
         : null;
-  } else {
-    getUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${opt.key}&language=${opt.lang}&release_date.gte=${opt.year}-${opt.month}-${opt.day}&with_genres=${opt.categoryCode}&sort_by=popularity.desc&include_adult=true&include_video=true&page=1`;
+  }
+
+  // Detail
+  if (opt.triggerDetail) {
+    console.log('[---- On Detail ----]');
+    getUrl = `https://api.themoviedb.org/3/movie/${opt.movieId}?api_key=${opt.key}&language=${opt.lang}`;
   }
 
   function listLoadingState(category) {
@@ -98,6 +119,16 @@ const runResponse = async payload => {
       url: getUrl,
     });
 
+    if (opt.triggerDetail) {
+      payload.dispatch({
+        type: DETAIL_INFO,
+        ...response.data,
+      });
+      opt.isSearch = false;
+      opt.triggerDetail = false;
+      return;
+    }
+
     // 검색값이 없을면 return
     if (!response.data.results.length) {
       searchLoadingState(SEARCH.toLowerCase());
@@ -119,6 +150,7 @@ const runResponse = async payload => {
               type: `list/${payload.category.toUpperCase()}_LIST`,
               category: payload.category,
               [payload.category]: {
+                category: payload.category,
                 title: response.data.results[i].title,
                 id: response.data.results[i].id,
                 genre: response.data.results[i].genre_ids,
@@ -136,10 +168,6 @@ const runResponse = async payload => {
 
       // // 모든 API 로드가 완료되면 로딩화면 아웃
       if (i === response.data.results.length - 1) {
-        // payload.isSearch &&
-        //   console.log(
-        //     `Search Length = ${response.data.results.length} [asyncAPI.js]`,
-        //   );
         payload.isSearch
           ? searchLoadingState(payload.category)
           : listLoadingState(payload.category);
@@ -157,16 +185,26 @@ export const asyncAPI = payload => (dispatch, getState) => {
   const category = payload.category;
   const categoryCode = payload.categoryCode;
   const searchText = payload.searchText;
+  const triggerDetail = payload.triggerDetail;
+  const movieId = payload.movieId;
 
-  runResponse({
-    dispatch,
-    category,
-    categoryCode,
-    year,
-    month,
-    day,
-    isSearch,
-    searchText,
-    genres,
-  });
+  if (!triggerDetail) {
+    runResponse({
+      dispatch,
+      category,
+      categoryCode,
+      year,
+      month,
+      day,
+      isSearch,
+      searchText,
+      genres,
+    });
+  } else {
+    runResponse({
+      dispatch,
+      triggerDetail,
+      movieId,
+    });
+  }
 };
