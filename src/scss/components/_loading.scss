@@ -54,6 +54,15 @@ body {
     }
   }
   &--circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    height: 100vh;
     svg {
       fill: $color-primary;
       width: 50px;
