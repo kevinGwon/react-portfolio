@@ -158,6 +158,13 @@
   }
 
   @include mq(medium) {
+    &.is-active {
+      &--detail {
+        .header-search {
+          width: 450px;
+        }
+      }
+    }
     &.is-typing {
       .header-search {
         width: 450px;
@@ -171,6 +178,11 @@
     }
 
     &.is-active {
+      &--detail {
+        .header-search {
+          width: 50%;
+        }
+      }
       .header-search {
         width: 50%;
       }
