@@ -101,7 +101,7 @@ const runResponse = async payload => {
         category: category,
         isLoading: true,
       });
-    }, 0);
+    }, 1500);
   }
 
   function searchLoadingState(category) {

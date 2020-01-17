@@ -6,7 +6,7 @@ export const reveal = () => dispatch => {
   dispatch({ type: LOADING_OUT });
   $app.classList.remove('is-loading');
 
-  TweenMax.from($app.querySelector('.article'), IG.DUR * 3, {
+  TweenMax.from($app.querySelector('.movie-article'), IG.DUR * 3, {
     delay: IG.DUR,
     ease: IG.EASE,
     autoAlpha: 0,
