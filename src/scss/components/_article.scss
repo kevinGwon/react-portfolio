@@ -1,9 +1,8 @@
 .movie {
   &-article {
-    overflow: hidden;
     position: relative;
-    height: 100vh;
-    // padding-top: $header-height-sm;
+    min-height: 100vh;
+    padding-top: $header-height-sm + 20px;
     box-sizing: border-box;
 
     &.movie-article--search {
@@ -11,17 +10,14 @@
         &-article-view {
           transform: translateX(-100%);
         }
-        &-section-box {
-          &:first-child {
-            overflow: hidden;
-            height: 100vh;
-          }
-        }
         &-section-box--search {
-          overflow-y: auto;
           transform: translateX(100%);
         }
       }
+    }
+    &.movie-article--home {
+      overflow: hidden;
+      padding-top: 0;
     }
     .movie-app {
       &.is-loading {
@@ -48,7 +44,7 @@
 
   @include mq(large) {
     &-article {
-      // padding-top: $header-height-lg;
+      padding-top: $header-height-lg + 20px;
     }
   }
 }

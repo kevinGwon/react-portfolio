@@ -109,8 +109,6 @@
   &-section-box {
     &--search {
       .search-list {
-        padding-top: $header-height-sm;
-
         img {
           width: 100%;
         }
@@ -183,6 +181,7 @@
           display: flex;
           flex-flow: row wrap;
           justify-content: space-between;
+          margin-top: -2rem;
 
           li {
             flex: 0 0 calc(50% - #{$gutter-sm});
@@ -218,8 +217,8 @@
     &-section-box {
       &--search {
         .search-list {
-          padding-top: $header-height-lg + 20px;
           box-sizing: border-box;
+          margin-top: -($gutter-md + 10px);
 
           li {
             flex: 0 0 calc(#{percentage(1/3)} - #{$gutter-md});
@@ -256,6 +255,17 @@
           margin-left: 0;
         }
         &.is-active {
+        }
+      }
+    }
+    &-section-box {
+      &--search {
+        .search-list {
+          li {
+            &:first-child {
+              margin-top: 0;
+            }
+          }
         }
       }
     }

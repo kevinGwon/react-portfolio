@@ -91,7 +91,7 @@ const runResponse = async payload => {
   // Detail
   if (opt.triggerDetail) {
     console.log('[---- On Detail ----]');
-    getUrl = `https://api.themoviedb.org/3/movie/${opt.movieId}?api_key=${opt.key}&language=${opt.lang}`;
+    getUrl = `https://api.themoviedb.org/3/movie/${opt.movieId}?api_key=${opt.key}&language=${opt.lang}$video=true`;
   }
 
   function listLoadingState(category) {
@@ -178,6 +178,27 @@ const runResponse = async payload => {
   }
 };
 
+const runVideo = async payload => {
+  opt = extend(opt, {
+    movieId: payload.movieId,
+  });
+
+  let getUrl = `https://api.themoviedb.org/3/movie/${opt.movieId}/videos?api_key=${opt.key}&language=${opt.lang}`;
+
+  try {
+    const response = await axios({
+      method: 'get',
+      url: getUrl,
+    });
+    payload.dispatch({
+      type: DETAIL_INFO,
+      videoArray: [...response.data.results],
+    });
+  } catch (error) {
+    console.log('검색 결과가 없습니다.');
+  }
+};
+
 export const asyncAPI = payload => (dispatch, getState) => {
   const { year, month, day, genres } = getState().list;
   const { isSearch } = getState().global;
@@ -206,5 +227,6 @@ export const asyncAPI = payload => (dispatch, getState) => {
       triggerDetail,
       movieId,
     });
+    runVideo({ dispatch, movieId });
   }
 };
