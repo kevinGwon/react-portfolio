@@ -22,25 +22,27 @@ import {
 // API
 import { asyncAPI } from '@/modules/asyncAPI';
 
-function DetailContainer(props) {
+function DetailContainer({ scrollMotion, match }) {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const movie = useSelector(store => store.detail, shallowEqual);
   const triggerDetail = true;
-  const movieId = props.match.params.id;
+  const movieId = match.params.id;
 
   useEffect(() => {
-    props.scrollMotion.destroy();
+    scrollMotion.destroy();
     dispatch({
       type: SEARCH_OUT,
     });
+    dispatch(onLoading({ triggerDetail }));
     dispatch({ type: DETAIL_ON });
     dispatch({ type: SEARCH_ACTIVE_OUT });
     dispatch(asyncAPI({ triggerDetail, movieId }));
     return () => {
       dispatch({ type: DETAIL_OUT });
+      setLoading(false);
     };
-  }, [dispatch, movieId, props.scrollMotion, triggerDetail]);
+  }, [dispatch, movieId, scrollMotion, triggerDetail]);
 
   if (!loading) {
     if (movie.id) {
@@ -50,8 +52,7 @@ function DetailContainer(props) {
     }
     return <LoadingCircle />;
   }
-
-  return <Detail {...props} movie={movie} />;
+  return <Detail match={match} movie={movie} />;
 }
 
 export default widthScrollMotion(DetailContainer);

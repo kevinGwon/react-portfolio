@@ -22,7 +22,7 @@ function Detail({ match, movie }) {
       swiper.destroy();
       swiper = null;
     };
-  }, [movie]);
+  }, []);
   return (
     <article className="movie-article movie-article--detail">
       <header
