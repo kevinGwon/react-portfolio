@@ -30,6 +30,7 @@ function DetailContainer({ scrollMotion, match }) {
   const movieId = match.params.id;
 
   useEffect(() => {
+    console.log('test');
     scrollMotion.destroy();
     dispatch({
       type: SEARCH_OUT,
