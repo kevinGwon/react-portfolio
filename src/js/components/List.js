@@ -5,8 +5,11 @@ import ListSearch from './ListSearch';
 function List({ lists }) {
   return (
     <>
-      {lists.category !== 'search' && <ListSwiper lists={lists} />}
-      {lists.category === 'search' && <ListSearch lists={lists} />}
+      {lists.category !== 'search' ? (
+        <ListSwiper lists={lists} />
+      ) : (
+        <ListSearch lists={lists} />
+      )}
     </>
   );
 }
