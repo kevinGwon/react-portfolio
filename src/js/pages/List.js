@@ -22,7 +22,7 @@ function List({ scrollMotion }) {
   );
 
   useEffect(() => {
-    dispatch(onLoading(genres));
+    dispatch(onLoading({ genres }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [genres]);
 
@@ -36,7 +36,9 @@ function List({ scrollMotion }) {
   }, []);
 
   useEffect(() => {
-    if (scrollMotion.isDestroy) {
+    // Detail 페이지에서 Search화면으로 이동시 scrollMotion 해제
+    console.log('isDetail = ' + isDetail);
+    if (isDetail === false && isSearch === false && scrollMotion.isDestroy) {
       scrollMotion.init();
       return;
     }
@@ -45,7 +47,7 @@ function List({ scrollMotion }) {
       return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSearch]);
+  }, [isDetail, isSearch]);
 
   return (
     <>
