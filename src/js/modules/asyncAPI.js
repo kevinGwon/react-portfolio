@@ -232,7 +232,6 @@ const runCredits = async payload => {
       method: 'get',
       url: getUrl,
     });
-    console.log(response);
     payload.dispatch({
       type: DETAIL_INFO,
       cast: [...response.data.cast],

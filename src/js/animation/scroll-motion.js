@@ -36,7 +36,7 @@ class ScrollMotion {
   }
 
   runEventScroll() {
-    console.log('runAddScroll');
+    console.log('Add scrollMotion');
     this.eventMap[this.eventWheel] = this.runScroll.bind(this);
     document.addEventListener('wheel', this.eventMap[this.eventWheel], {
       passive: false,
@@ -135,7 +135,7 @@ class ScrollMotion {
   }
 
   destroy(e) {
-    console.log('ScrollMotion destroy');
+    console.log('Destroy ScrollMotion');
     document.removeEventListener('wheel', this.eventMap[this.eventWheel]);
     delete this.eventMap[this.eventWheel];
     this.isDestroy = true;
