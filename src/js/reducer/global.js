@@ -27,16 +27,21 @@ export const onSearchText = searchText => dispatch => {
   }, 0);
 };
 
-export const onLoading = genres => (dispatch, getState) => {
+export const onLoading = props => (dispatch, getState) => {
+  if (props.triggerDetail) {
+    dispatch({ type: ONCE_LOADING });
+    dispatch(animationReveal());
+    return;
+  }
   if (
     !getState().global.onceLoading &&
-    genres.action.isLoading &&
-    genres.thriller.isLoading &&
-    genres.crime.isLoading &&
-    genres.war.isLoading &&
-    genres.horror.isLoading &&
-    genres.romance.isLoading &&
-    genres.animation.isLoading
+    props.genres.action.isLoading &&
+    props.genres.thriller.isLoading &&
+    props.genres.crime.isLoading &&
+    props.genres.war.isLoading &&
+    props.genres.horror.isLoading &&
+    props.genres.romance.isLoading &&
+    props.genres.animation.isLoading
   ) {
     imagesLoaded('#app', { background: true }, () => {
       dispatch({ type: ONCE_LOADING });
