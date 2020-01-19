@@ -37,7 +37,6 @@ function List({ scrollMotion }) {
 
   useEffect(() => {
     // Detail 페이지에서 Search화면으로 이동시 scrollMotion 해제
-    console.log('isDetail = ' + isDetail);
     if (isDetail === false && isSearch === false && scrollMotion.isDestroy) {
       scrollMotion.init();
       return;
