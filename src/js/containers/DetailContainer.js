@@ -19,18 +19,19 @@ import {
   DETAIL_OUT,
 } from '@/reducer/load';
 
+import { DETAIL_LOADING_OUT } from '@/reducer/detail';
+
 // API
 import { asyncAPI } from '@/modules/asyncAPI';
 
 function DetailContainer({ scrollMotion, match }) {
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const movie = useSelector(store => store.detail, shallowEqual);
+  const [isLoading, setIsloading] = useState(false);
+  const { movie } = useSelector(store => store.detail, shallowEqual);
   const triggerDetail = true;
   const movieId = match.params.id;
 
   useEffect(() => {
-    console.log('test');
     scrollMotion.destroy();
     dispatch({
       type: SEARCH_OUT,
@@ -41,19 +42,20 @@ function DetailContainer({ scrollMotion, match }) {
     dispatch(asyncAPI({ triggerDetail, movieId }));
     return () => {
       dispatch({ type: DETAIL_OUT });
-      setLoading(false);
+      setIsloading(false);
     };
   }, [dispatch, movieId, scrollMotion, triggerDetail]);
 
-  if (!loading) {
+  if (!isLoading) {
     if (movie.id) {
       setTimeout(() => {
-        setLoading(true);
+        setIsloading(true);
       }, 1500);
     }
     return <LoadingCircle />;
   }
-  return <Detail match={match} movie={movie} />;
+
+  return <Detail movie={movie} />;
 }
 
 export default widthScrollMotion(DetailContainer);

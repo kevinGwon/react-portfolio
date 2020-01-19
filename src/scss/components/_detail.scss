@@ -1,5 +1,7 @@
 .movie {
   &-article--detail {
+    font-size: 1.6rem;
+
     .swiper {
       &-container {
         max-width: 100%;
@@ -17,40 +19,58 @@
         }
       }
     }
-  }
-  &-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 400px;
-    margin-top: -($header-height-sm + 20px);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    .detail {
+      &-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 400px;
+        margin-top: -($header-height-sm + 20px);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
 
-    &::before {
-      content: '';
-      display: block;
-      @include full-pos;
-      z-index: 0;
-      background-color: rgba($black, 0.7);
-    }
-    .h1 {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      text-shadow: 1px 1px 6px $black;
+        &::before {
+          content: '';
+          display: block;
+          @include full-pos;
+          z-index: 0;
+          background-color: rgba($black, 0.7);
+        }
+        .h1 {
+          position: relative;
+          z-index: 10;
+          text-align: center;
+          text-shadow: 1px 1px 6px $black;
 
-      span {
-        display: block;
-        font-size: 3.5rem;
+          span {
+            display: block;
+            font-size: 3.5rem;
+          }
+        }
+      }
+      &-video {
+        position: relative;
+        padding-bottom: 55%;
+
+        iframe {
+          display: block;
+          @include full-pos;
+          width: 100%;
+          height: 100%;
+        }
       }
     }
-  }
-  @include mq(large) {
-    &-header {
-      height: 570px;
-      margin-top: -($header-height-lg + 20px);
+    @include mq(large) {
+      .l-detail {
+        margin: 0 10rem;
+      }
+      .detail {
+        &-header {
+          height: 570px;
+          margin-top: -($header-height-lg + 20px);
+        }
+      }
     }
   }
 }

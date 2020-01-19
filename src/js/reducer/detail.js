@@ -1,13 +1,63 @@
-export const DETAIL_INFO = 'detail/DETAIL_INFO';
+export const DETAIL_MOVIE = 'detail/DETAIL_MOVIE';
+export const DETAIL_MOVIE_SIMILAR = 'detail/DETAIL_MOVIE_SIMILAR';
+export const DETAIL_MOVIE_CAST = 'detail/DETAIL_MOVIE_CAST';
+export const DETAIL_MOVIE_VIDEO = 'detail/DETAIL_MOVIE_VIDEO';
+export const DETAIL_LOADING_ON = 'detail/DETAIL_LOADING_ON';
+export const DETAIL_LOADING_OUT = 'detail/DETAIL_LOADING_OUT';
 
-const initState = {};
+const initState = {
+  isLoading: false,
+  movie: {
+    similar: [],
+    cast: [],
+    videoArray: [],
+  },
+};
 
 export default function global(state = initState, action) {
   switch (action.type) {
-    case DETAIL_INFO:
+    case DETAIL_MOVIE:
       return {
         ...state,
-        ...action,
+        movie: {
+          ...state.movie,
+          ...action,
+        },
+      };
+    case DETAIL_MOVIE_SIMILAR:
+      return {
+        ...state,
+        movie: {
+          ...state.movie,
+          similar: action.similar,
+        },
+      };
+    case DETAIL_MOVIE_CAST:
+      return {
+        ...state,
+        movie: {
+          ...state.movie,
+          cast: action.cast,
+        },
+      };
+    case DETAIL_MOVIE_VIDEO:
+      return {
+        ...state,
+        movie: {
+          ...state.movie,
+          videoArray: action.videoArray,
+        },
+      };
+    case DETAIL_LOADING_ON:
+      console.log(DETAIL_LOADING_ON);
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case DETAIL_LOADING_OUT:
+      return {
+        ...state,
+        isLoading: true,
       };
     default:
       return state;

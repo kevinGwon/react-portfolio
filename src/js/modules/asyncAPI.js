@@ -29,7 +29,12 @@ import {
   SEARCH,
 } from '../reducer/list';
 
-import { DETAIL_INFO } from '../reducer/detail';
+import {
+  DETAIL_MOVIE,
+  DETAIL_MOVIE_SIMILAR,
+  DETAIL_MOVIE_CAST,
+  DETAIL_MOVIE_VIDEO,
+} from '../reducer/detail';
 
 // Modules
 import extend from './extend';
@@ -121,7 +126,7 @@ const runResponse = async payload => {
 
     if (opt.triggerDetail) {
       payload.dispatch({
-        type: DETAIL_INFO,
+        type: DETAIL_MOVIE,
         ...response.data,
       });
       opt.isSearch = false;
@@ -191,8 +196,8 @@ const runVideo = async payload => {
       url: getUrl,
     });
     payload.dispatch({
-      type: DETAIL_INFO,
-      videoArray: [...response.data.results],
+      type: DETAIL_MOVIE_VIDEO,
+      videoArray: response.data.results,
     });
   } catch (error) {
     console.log('검색 결과가 없습니다.');
@@ -212,15 +217,15 @@ const runSimilar = async payload => {
       url: getUrl,
     });
     payload.dispatch({
-      type: DETAIL_INFO,
-      similar: [...response.data.results],
+      type: DETAIL_MOVIE_SIMILAR,
+      similar: response.data.results,
     });
   } catch (error) {
     console.log('검색 결과가 없습니다.');
   }
 };
 
-const runCredits = async payload => {
+const runCast = async payload => {
   opt = extend(opt, {
     movieId: payload.movieId,
   });
@@ -233,8 +238,8 @@ const runCredits = async payload => {
       url: getUrl,
     });
     payload.dispatch({
-      type: DETAIL_INFO,
-      cast: [...response.data.cast],
+      type: DETAIL_MOVIE_CAST,
+      cast: response.data.cast,
     });
   } catch (error) {
     console.log('검색 결과가 없습니다.');
@@ -271,6 +276,6 @@ export const asyncAPI = payload => (dispatch, getState) => {
     });
     runVideo({ dispatch, movieId });
     runSimilar({ dispatch, movieId });
-    runCredits({ dispatch, movieId });
+    runCast({ dispatch, movieId });
   }
 };
