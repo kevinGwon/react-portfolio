@@ -111,6 +111,7 @@
     "normalize.css": "^8.0.1",
     "postcss-loader": "^3.0.0",
     "prettier": "^1.19.1",
+    "react-star-ratings": "^2.3.0",
     "sass-loader": "^8.0.0",
     "sass-mq": "^5.0.1",
     "style-loader": "^1.0.2",
