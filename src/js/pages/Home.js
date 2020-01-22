@@ -12,8 +12,10 @@ function Home() {
     <>
       <Router>
         <HeaderContainer />
-        <Route path="/" exact component={List} />
-        <Route path="/detail/:id" component={Detail} />
+        <div className="movie-article-wrap">
+          <Route path="/" exact component={List} />
+          <Route path="/detail/:id" component={Detail} />
+        </div>
         <FooterContainer />
       </Router>
     </>
