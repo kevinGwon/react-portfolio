@@ -5,7 +5,7 @@ import StarRatings from 'react-star-ratings';
 import { DETAIL_LOADING_ON, DETAIL_LOADING_OUT } from '@/reducer/detail';
 
 function Detail({ movie }) {
-  console.log('id length');
+  console.log(movie);
   useEffect(() => {
     let swiper = null;
     swiper = new Swiper('.swiper-container', {
@@ -30,42 +30,46 @@ function Detail({ movie }) {
 
   return (
     <article className="movie-article movie-article--detail">
-      <header
-        className="detail-header"
+      <div
+        className="detail-cover"
         style={{
           backgroundImage: `url(
             https://image.tmdb.org/t/p/original/${movie.backdrop_path})`,
         }}
-      >
-        <h2 className="h1">
-          {movie.title}
-          {movie.title !== movie.original_title && (
-            <span>({movie.original_title})</span>
-          )}
-        </h2>
-      </header>
-      <div className="l-wrap">
-        <div className="l-detail">
-          <ul className="detail-category">
-            {movie.genres.map(item => (
-              <li key={item.id} className="label">
-                #{item.name}
-              </li>
-            ))}
-          </ul>
-          <div>
-            <StarRatings
-              rating={movie.vote_average / 2}
-              numberOfStars={5}
-              starDimension="20px"
-              starSpacing="5px"
-              starRatedColor="#e50914"
-              name="rating"
-            />
-          </div>
-          <p>{movie.release_date}</p>
-          <p>{movie.overview}</p>
-          {/* <div className="detail-video">
+      ></div>
+      <section className="detail-section">
+        <div className="l-wrap">
+          <div className="l-detail">
+            <header className="detail-header">
+              <div className="detail-header-inner">
+                <div className="detail-img">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt=""
+                  />
+                  <div className="detail-star-ratings">
+                    <StarRatings
+                      rating={movie.vote_average / 2}
+                      numberOfStars={5}
+                      starDimension="12px"
+                      starSpacing="2px"
+                      starRatedColor="#e50914"
+                      name="rating"
+                    />
+                  </div>
+                </div>
+                <div className="detail-info">
+                  <div className="detail-date">{movie.release_date}</div>
+                  <h2 className="detail-h">{movie.title}</h2>
+                  <ul className="detail-category">
+                    {movie.genres.map(item => (
+                      <li key={item.id}>#{item.name}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </header>
+            {/* <div className="detail-video">
           <iframe
             src={`https://www.youtube.com/embed/${movie.videoArray[0].key}`}
             frameBorder="0"
@@ -73,30 +77,34 @@ function Detail({ movie }) {
             allowFullScreen
           ></iframe>
         </div> */}
-          <div className="swiper-container">
-            <div className="swiper-wrapper">
-              {movie.similar.map(item => (
-                <div key={item.id} className="swiper-slide">
-                  <Link to={`/detail/${item.id}`}>
-                    <div className="thumb">
-                      <img
-                        className="swiper-lazy"
-                        data-src={
-                          item.poster_path.indexOf('null') === -1
-                            ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`
-                            : 'http://placehold.it/500x747?text=Not Found'
-                        }
-                        alt=""
-                      />
-                      <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            <div className="detail-contents">
+              <p>{movie.overview}</p>
+              <div className="swiper-container">
+                <div className="swiper-wrapper">
+                  {movie.similar.map(item => (
+                    <div key={item.id} className="swiper-slide">
+                      <Link to={`/detail/${item.id}`}>
+                        <div className="thumb">
+                          <img
+                            className="swiper-lazy"
+                            data-src={
+                              item.poster_path.indexOf('null') === -1
+                                ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`
+                                : 'http://placehold.it/500x747?text=Not Found'
+                            }
+                            alt=""
+                          />
+                          <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                        </div>
+                      </Link>
                     </div>
-                  </Link>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </article>
   );
 }
