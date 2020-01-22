@@ -69,6 +69,23 @@
         font-size: 2rem;
         text-shadow: 1px 1px 6px $black;
       }
+      &-p {
+        position: relative;
+        padding-left: 2rem;
+        box-sizing: border-box;
+
+        &::before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          height: 100%;
+          width: 2px;
+          background-color: $color-primary;
+        }
+      }
       &-img {
         display: inline-block;
         position: relative;

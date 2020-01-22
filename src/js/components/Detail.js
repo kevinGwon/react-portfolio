@@ -81,7 +81,9 @@ function Detail({ movie }) {
         </div> */}
             <div className="detail-contents">
               <h3 className="h5">줄거리</h3>
-              <p>{movie.overview}</p>
+              <p className="detail-p">
+                {movie.overview ? movie.overview : '등록된 줄거리가 없습니다.'}
+              </p>
               <h3 className="h5">출연자</h3>
               <ul className="detail-cast">
                 {movie.cast.map((item, index) => {
