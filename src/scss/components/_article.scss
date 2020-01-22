@@ -1,7 +1,9 @@
 .movie {
+  &-article-wrap {
+    min-height: 100vh;
+  }
   &-article {
     position: relative;
-    min-height: 100vh;
     padding-top: $header-height-sm + 20px;
     box-sizing: border-box;
 
@@ -34,11 +36,8 @@
 
   &-section-box {
     &--search {
-      position: absolute;
-      right: 0;
-      top: 0;
       width: 100%;
-      height: 100vh;
+      min-height: 100vh;
     }
   }
 
