@@ -3,7 +3,7 @@ import React from 'react';
 function Footer() {
   return (
     <footer id="footer" className="footer">
-      @copyright
+      @developerGwon@gmail.com
     </footer>
   );
 }
