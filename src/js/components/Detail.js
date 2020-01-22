@@ -7,6 +7,7 @@ import { DETAIL_LOADING_ON, DETAIL_LOADING_OUT } from '@/reducer/detail';
 function Detail({ movie }) {
   console.log(movie);
   useEffect(() => {
+    if (!movie.similar.length) return;
     let swiper = null;
     swiper = new Swiper('.swiper-container', {
       lazy: true,
@@ -23,10 +24,11 @@ function Detail({ movie }) {
       },
     });
     return () => {
+      if (!movie.similar.length) return;
       swiper.destroy();
       swiper = null;
     };
-  }, []);
+  }, [movie.similar.length]);
 
   return (
     <article className="movie-article movie-article--detail">
@@ -78,29 +80,52 @@ function Detail({ movie }) {
           ></iframe>
         </div> */}
             <div className="detail-contents">
+              <h3 className="h5">줄거리</h3>
               <p>{movie.overview}</p>
-              <div className="swiper-container">
-                <div className="swiper-wrapper">
-                  {movie.similar.map(item => (
-                    <div key={item.id} className="swiper-slide">
-                      <Link to={`/detail/${item.id}`}>
-                        <div className="thumb">
-                          <img
-                            className="swiper-lazy"
-                            data-src={
-                              item.poster_path.indexOf('null') === -1
-                                ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`
-                                : 'http://placehold.it/500x747?text=Not Found'
-                            }
-                            alt=""
-                          />
-                          <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+              <h3 className="h5">출연자</h3>
+              <ul className="detail-cast">
+                {movie.cast.map((item, index) => {
+                  if (index > 9) return;
+                  return (
+                    <li key={item.credit_id}>
+                      <div className="circle-wrap">
+                        <img
+                          src={`https://image.tmdb.org/t/p/w100_and_h100_bestv2/${item.profile_path}`}
+                          alt=""
+                        />
+                      </div>
+                      <span>{item.name}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+              {movie.similar.length !== 0 && (
+                <>
+                  <h3 className="h5">추천영화</h3>
+                  <div className="swiper-container">
+                    <div className="swiper-wrapper">
+                      {movie.similar.map(item => (
+                        <div key={item.id} className="swiper-slide">
+                          <Link to={`/detail/${item.id}`}>
+                            <div className="thumb">
+                              <img
+                                className="swiper-lazy"
+                                data-src={
+                                  item.poster_path.indexOf('null') === -1
+                                    ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`
+                                    : 'http://placehold.it/500x747?text=Not Found'
+                                }
+                                alt=""
+                              />
+                              <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                            </div>
+                          </Link>
                         </div>
-                      </Link>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

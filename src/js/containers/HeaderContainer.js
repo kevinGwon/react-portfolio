@@ -74,7 +74,7 @@ function HeaderContainer({ history }) {
       });
       dispatch({ type: SEARCH_ACTIVE_OUT });
       setInputText('');
-      history.location.pathname.indexOf('detail') === 1 && history.goBack();
+      history.location.pathname.indexOf('detail') === 1 && history.push('/');
     },
     [dispatch, history],
   );
