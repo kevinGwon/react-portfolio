@@ -94,6 +94,13 @@ class ScrollMotion {
         return;
       }
 
+      // footer show & hide
+      if (this.index === this.sectionLength) {
+        IG.$footer.classList.add('is-toggle');
+      } else {
+        IG.$footer.classList.remove('is-toggle');
+      }
+
       if (this.$section[i].classList.contains(this.isActive)) {
         // Active section
         this.$section[i].classList.remove(this.isActive);
@@ -136,9 +143,11 @@ class ScrollMotion {
 
   destroy(e) {
     console.log('Destroy ScrollMotion');
+    IG.$footer.classList.remove('is-toggle');
     document.removeEventListener('wheel', this.eventMap[this.eventWheel]);
     delete this.eventMap[this.eventWheel];
     this.isDestroy = true;
+    this.index = 0;
   }
 }
 
