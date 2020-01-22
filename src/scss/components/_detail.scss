@@ -205,6 +205,9 @@
       .detail {
         &-header {
         }
+        &-cover {
+          margin-top: -($header-height-lg + 20px);
+        }
         &-cast {
           li {
             flex: 0 0 percentage(1/5);
