@@ -29,7 +29,7 @@ function HeaderContainer({ history }) {
 
   const [inputText, setInputText] = useState('');
   const $inputSearch = useRef();
-  let $article = null;
+  let $app = null;
 
   const onSubmit = useCallback(e => {
     e.preventDefault();
@@ -47,8 +47,7 @@ function HeaderContainer({ history }) {
     e => {
       let searchText = e.target.value;
       const searchState =
-        ($article && $article.classList.contains('movie-article--search')) ||
-        false;
+        ($app && $app.classList.contains('movie-app--search')) || false;
 
       if (isDetail) {
         history.push('/');
@@ -64,7 +63,7 @@ function HeaderContainer({ history }) {
 
       dispatch(onSearchText(searchText)); // dep = [isSearch]
     },
-    [$article, dispatch, history, isDetail],
+    [$app, dispatch, history, isDetail],
   );
 
   const onGoHome = useCallback(
@@ -80,19 +79,20 @@ function HeaderContainer({ history }) {
   );
 
   const onSearchBlur = useCallback(() => {
-    if ($article) {
-      $article
-        .querySelector('.movie-section-box')
-        .addEventListener('click', e => {
-          dispatch({ type: SEARCH_ACTIVE_OUT });
-        });
-    }
-  }, [$article, dispatch]);
+    $app.addEventListener('click', e => {
+      (($app.querySelector('.movie-article') &&
+        $app.querySelector('.header').classList.contains('is-active')) ||
+        $app
+          .querySelector('.header')
+          .classList.contains('is-active--detail')) &&
+        dispatch({ type: SEARCH_ACTIVE_OUT });
+    });
+  }, [$app, dispatch]);
 
   useEffect(() => {
-    $article = document.querySelector('.movie-article');
+    $app = document.getElementById('app');
     onSearchBlur();
-  }, [$article]);
+  }, [$app]);
 
   return (
     <Header
@@ -109,4 +109,4 @@ function HeaderContainer({ history }) {
   );
 }
 
-export default withRouter(HeaderContainer);
+export default React.memo(withRouter(HeaderContainer));
