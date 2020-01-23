@@ -77,7 +77,7 @@ const runResponse = async payload => {
 
   // Default
   if (!opt.triggerDetail && !opt.isSearch) {
-    console.log('[---- On Default ----]');
+    console.log(`[---- On Default[${opt.category}] ----]`);
     getUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${opt.key}&language=${opt.lang}&release_date.gte=${opt.year}-${opt.month}-${opt.day}&with_genres=${opt.categoryCode}&sort_by=popularity.desc&include_adult=true&include_video=true&page=1`;
   }
 
