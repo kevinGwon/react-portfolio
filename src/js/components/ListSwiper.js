@@ -108,8 +108,6 @@ function List({ lists }) {
     };
   }, [lists.category, runTransition]);
 
-  console.log(`ListSwiper[${lists.category}]`);
-
   return (
     <section className="movie-section">
       <div
