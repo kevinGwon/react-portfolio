@@ -134,4 +134,4 @@ function Detail({ movie }) {
   );
 }
 
-export default Detail;
+export default React.memo(Detail);

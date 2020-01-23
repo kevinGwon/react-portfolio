@@ -58,4 +58,4 @@ function DetailContainer({ scrollMotion, match }) {
   return <Detail movie={movie} />;
 }
 
-export default widthScrollMotion(DetailContainer);
+export default React.memo(widthScrollMotion(DetailContainer));

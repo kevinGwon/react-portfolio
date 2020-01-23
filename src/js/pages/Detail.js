@@ -5,4 +5,4 @@ function Detail(props) {
   return <DetailContainer {...props} />;
 }
 
-export default Detail;
+export default React.memo(Detail);
