@@ -52,4 +52,4 @@ function ListContainer({ category, lists }) {
   return <List lists={lists} />;
 }
 
-export default ListContainer;
+export default React.memo(ListContainer);

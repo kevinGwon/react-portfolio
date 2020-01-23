@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import widthScrollMotion from '../hoc/withScrollMotion';
 import ListContainer from '../containers/ListContainer';
@@ -121,4 +121,4 @@ function List({ scrollMotion }) {
   );
 }
 
-export default widthScrollMotion(List);
+export default React.memo(widthScrollMotion(List));

@@ -63,6 +63,7 @@ function List({ lists }) {
     },
     [runBackUpBg],
   );
+
   useEffect(() => {
     let swiper = null;
     if (lists.category !== 'search') {
@@ -106,6 +107,8 @@ function List({ lists }) {
       swiper = null;
     };
   }, [lists.category, runTransition]);
+
+  console.log(`ListSwiper[${lists.category}]`);
 
   return (
     <section className="movie-section">
@@ -168,4 +171,4 @@ function List({ lists }) {
   );
 }
 
-export default List;
+export default React.memo(List);
