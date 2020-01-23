@@ -11,6 +11,12 @@ const initState = {
     similar: [],
     cast: [],
     videoArray: [],
+    backdrop_path: '',
+    poster_path: '',
+    vote_average: 0,
+    release_date: '',
+    title: '',
+    genres: [],
   },
 };
 
@@ -49,7 +55,6 @@ export default function global(state = initState, action) {
         },
       };
     case DETAIL_LOADING_ON:
-      console.log(DETAIL_LOADING_ON);
       return {
         ...state,
         isLoading: false,
