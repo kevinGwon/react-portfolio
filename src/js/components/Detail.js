@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Swiper from 'swiper';
 import StarRatings from 'react-star-ratings';
-import { DETAIL_LOADING_ON, DETAIL_LOADING_OUT } from '@/reducer/detail';
 
 function Detail({ movie }) {
-  console.log(movie);
   useEffect(() => {
     if (!movie.similar.length) return;
     let swiper = null;
