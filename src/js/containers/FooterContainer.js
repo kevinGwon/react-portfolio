@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Footer from '../components/Footer';
 
-function footer() {
+function FooterContainer() {
   return <Footer />;
 }
 
-export default footer;
+FooterContainer.displayName = 'FooterContainer';
+
+export default FooterContainer;

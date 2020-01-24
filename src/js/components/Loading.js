@@ -14,4 +14,6 @@ function Loading() {
   );
 }
 
+Loading.displayName = 'Loading';
+
 export default Loading;

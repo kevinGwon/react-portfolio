@@ -5,13 +5,13 @@ import { useSelector } from 'react-redux';
 import Loading from './components/Loading';
 
 // Page
-import Home from './pages/Home';
+import HomePage from './pages/HomePage';
 
 function App() {
   const { isLoading } = useSelector(store => store.load, []);
   return (
     <>
-      <Home />
+      <HomePage />
       {isLoading && <Loading />}
     </>
   );

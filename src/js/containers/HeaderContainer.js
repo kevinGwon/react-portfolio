@@ -109,4 +109,6 @@ function HeaderContainer({ history }) {
   );
 }
 
+HeaderContainer.displayName = 'HeaderContainer';
+
 export default React.memo(withRouter(HeaderContainer));

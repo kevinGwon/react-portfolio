@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Swiper from 'swiper';
 
-function List({ lists }) {
+function ListSwiper({ lists }) {
   const $sectionBg = useRef();
 
   const runBackUpBg = useCallback(obj => {
@@ -108,6 +108,8 @@ function List({ lists }) {
     };
   }, [lists.category, runTransition]);
 
+  console.log(`ListSwiper[${lists.category}]`);
+
   return (
     <section className="movie-section">
       <div
@@ -169,4 +171,6 @@ function List({ lists }) {
   );
 }
 
-export default React.memo(List);
+ListSwiper.displayName = 'ListSwiper';
+
+export default React.memo(ListSwiper);
