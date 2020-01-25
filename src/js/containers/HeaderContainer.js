@@ -5,10 +5,10 @@ import { withRouter } from 'react-router-dom';
 
 import {
   // ACTION
+  SEARCH_TEXT,
+  SEARCH_TEXT_SAGA,
   SEARCH_ACTIVE_ON,
   SEARCH_ACTIVE_OUT,
-
-  // ACTION
   SEARCH_ON,
   SEARCH_OUT,
 
@@ -62,7 +62,11 @@ function HeaderContainer({ history }) {
       //   `1. search text = ${searchText} [HeaderContainer.js -> ListContainer.js]`,
       // );
 
-      dispatch(onSearchText(searchText)); // dep = [isSearch]
+      // dispatch(onSearchText(searchText)); // dep = [isSearch]
+      dispatch({
+        type: SEARCH_TEXT_SAGA,
+        searchText: searchText,
+      });
     },
     [$app, dispatch, history, isDetail],
   );
