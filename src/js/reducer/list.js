@@ -1,18 +1,3 @@
-// ACTION
-export const ACTION_LIST = 'list/ACTION_LIST';
-export const THRILLER_LIST = 'list/THRILLER_LIST';
-export const CRIME_LIST = 'list/CRIME_LIST';
-export const WAR_LIST = 'list/WAR_LIST';
-export const HORROR_LIST = 'list/HORROR_LIST';
-export const ROMANCE_LIST = 'list/ROMANCE_LIST';
-export const ANIMATION_LIST = 'list/ANIMATION_LIST';
-export const SEARCH_LIST = 'list/SEARCH_LIST';
-
-export const LOADING_LIST = 'list/LOADING_LIST';
-export const ALL_RESET = 'list/ALL_RESET';
-export const LIST_RESET = 'list/LIST_RESET';
-export const LIST_SORT = 'list/LIST_SORT';
-
 // CATEGORY
 export const ACTION = 'ACTION';
 export const THRILLER = 'THRILLER';
@@ -23,6 +8,60 @@ export const ROMANCE = 'ROMANCE';
 export const ANIMATION = 'ANIMATION';
 export const SEARCH = 'SEARCH';
 
+// ACTION
+export const ACTION_LIST = 'list/ACTION_LIST';
+export const THRILLER_LIST = 'list/THRILLER_LIST';
+export const CRIME_LIST = 'list/CRIME_LIST';
+export const WAR_LIST = 'list/WAR_LIST';
+export const HORROR_LIST = 'list/HORROR_LIST';
+export const ROMANCE_LIST = 'list/ROMANCE_LIST';
+export const ANIMATION_LIST = 'list/ANIMATION_LIST';
+export const SEARCH_LIST = 'list/SEARCH_LIST';
+export const LOADING_LIST = 'list/LOADING_LIST';
+export const ALL_RESET = 'list/ALL_RESET';
+export const LIST_RESET = 'list/LIST_RESET';
+export const LIST_SORT = 'list/LIST_SORT';
+
+export const actionList = () => ({
+  type: ACTION_LIST,
+});
+export const thrillerList = () => ({
+  type: THRILLER_LIST,
+});
+export const crimeList = () => ({
+  type: CRIME_LIST,
+});
+export const warList = () => ({
+  type: WAR_LIST,
+});
+export const horrorList = () => ({
+  type: HORROR_LIST,
+});
+export const romanceList = () => ({
+  type: ROMANCE_LIST,
+});
+export const animationList = () => ({
+  type: ANIMATION_LIST,
+});
+export const searchList = () => ({
+  type: SEARCH_LIST,
+});
+export const loadingList = ({ category, isLoading }) => ({
+  type: LOADING_LIST,
+  category: category,
+  isLoading: isLoading,
+});
+export const allReset = () => ({
+  type: ALL_RESET,
+});
+export const listReset = () => ({
+  type: LIST_RESET,
+});
+export const listSort = () => ({
+  type: LIST_SORT,
+});
+
+// Thunk
 export const resetList = payload => dispatch => {
   dispatch({
     type: LIST_RESET,

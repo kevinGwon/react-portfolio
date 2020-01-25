@@ -3,6 +3,19 @@ export const LOADING_OUT = 'load/LOADING_OUT';
 export const DETAIL_ON = 'load/DETAIL_ON';
 export const DETAIL_OUT = 'load/DETAIL_OUT';
 
+export const loading = () => ({
+  type: LOADING,
+});
+export const loadingOut = () => ({
+  type: LOADING_OUT,
+});
+export const detailOn = () => ({
+  type: DETAIL_ON,
+});
+export const detailOut = () => ({
+  type: DETAIL_OUT,
+});
+
 const initState = {
   isLoading: true,
   isDetail: false,

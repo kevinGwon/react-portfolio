@@ -5,15 +5,11 @@ import { withRouter } from 'react-router-dom';
 
 import {
   // ACTION
-  SEARCH_TEXT,
-  SEARCH_TEXT_SAGA,
-  SEARCH_ACTIVE_ON,
-  SEARCH_ACTIVE_OUT,
-  SEARCH_ON,
-  SEARCH_OUT,
-
-  // Load Thunk
-  onSearchText,
+  searchTextSaga,
+  searchActiveOn,
+  searchActiveOut,
+  searchOn,
+  searchOut,
 } from '../reducer/global';
 
 function HeaderContainer({ history }) {
@@ -38,7 +34,7 @@ function HeaderContainer({ history }) {
 
   const onSearch = useCallback(
     e => {
-      dispatch({ type: SEARCH_ACTIVE_ON });
+      dispatch(searchActiveOn());
       $inputSearch.current.focus();
     },
     [dispatch],
@@ -46,7 +42,7 @@ function HeaderContainer({ history }) {
 
   const onChange = useCallback(
     e => {
-      let searchText = e.target.value;
+      let text = e.target.value;
       const searchState =
         ($app && $app.classList.contains('movie-app--search')) || false;
 
@@ -55,28 +51,18 @@ function HeaderContainer({ history }) {
       }
 
       // Once SEARCH_ON
-      !searchState && dispatch({ type: SEARCH_ON });
-      setInputText(searchText);
+      !searchState && dispatch(searchOn());
+      setInputText(text);
 
-      // console.log(
-      //   `1. search text = ${searchText} [HeaderContainer.js -> ListContainer.js]`,
-      // );
-
-      // dispatch(onSearchText(searchText)); // dep = [isSearch]
-      dispatch({
-        type: SEARCH_TEXT_SAGA,
-        searchText: searchText,
-      });
+      dispatch(searchTextSaga(text));
     },
     [$app, dispatch, history, isDetail],
   );
 
   const onGoHome = useCallback(
     e => {
-      dispatch({
-        type: SEARCH_OUT,
-      });
-      dispatch({ type: SEARCH_ACTIVE_OUT });
+      dispatch(searchOut());
+      dispatch(searchActiveOut());
       setInputText('');
       history.location.pathname.indexOf('detail') === 1 && history.push('/');
     },
@@ -93,7 +79,7 @@ function HeaderContainer({ history }) {
           $app
             .querySelector('.header')
             .classList.contains('is-active--detail')) &&
-          dispatch({ type: SEARCH_ACTIVE_OUT });
+          dispatch(searchActiveOut());
       });
   }, []);
 

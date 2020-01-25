@@ -19,28 +19,30 @@ export const SEARCH_TEXT_SAGA = 'global/SEARCH_TEXT_SAGA';
 export const SEARCH_ON = 'global/SEARCH_ON';
 export const SEARCH_OUT = 'global/SEARCH_OUT';
 
-const initState = {
-  onceLoading: false,
-  isActiveSearch: false,
-  isSearch: false,
-  searchText: '',
-};
+export const onceLoading = () => ({
+  type: ONCE_LOADING,
+});
+export const searchActiveOn = () => ({
+  type: SEARCH_ACTIVE_ON,
+});
+export const searchActiveOut = () => ({
+  type: SEARCH_ACTIVE_OUT,
+});
+export const searchTextSaga = text => ({
+  type: SEARCH_TEXT_SAGA,
+  searchText: text,
+});
+export const searchOn = () => ({
+  type: SEARCH_ON,
+});
+export const searchOut = () => ({
+  type: SEARCH_OUT,
+});
 
-function* searchText(action) {
-  yield delay(1000);
-  yield put({
-    type: LIST_RESET,
-    category: 'search',
-  });
-  yield put({
-    type: SEARCH_TEXT,
-    searchText: action.searchText,
-  });
-}
-
+// Thunk
 export const onLoading = props => (dispatch, getState) => {
   if (props.triggerDetail) {
-    dispatch({ type: ONCE_LOADING });
+    dispatch(onceLoading());
     dispatch(animationReveal());
     return;
   }
@@ -55,15 +57,35 @@ export const onLoading = props => (dispatch, getState) => {
     props.genres.animation.isLoading
   ) {
     imagesLoaded('#app', { background: true }, () => {
-      dispatch({ type: ONCE_LOADING });
+      dispatch(onceLoading());
       dispatch(animationReveal());
     });
   }
 };
 
+// Saga
+function* searchText(action) {
+  yield delay(1000);
+  yield put({
+    type: LIST_RESET,
+    category: 'search',
+  });
+  yield put({
+    type: SEARCH_TEXT,
+    searchText: action.searchText,
+  });
+}
+
 export function* searchSaga() {
   yield takeLatest(SEARCH_TEXT_SAGA, searchText);
 }
+
+const initState = {
+  onceLoading: false,
+  isActiveSearch: false,
+  isSearch: false,
+  searchText: '',
+};
 
 export default function global(state = initState, action) {
   switch (action.type) {

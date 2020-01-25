@@ -6,8 +6,8 @@ import LoadingCircle from '@/components/LoadingCircle';
 
 import {
   // ACTION
-  SEARCH_ACTIVE_OUT,
-  SEARCH_OUT,
+  searchActiveOut,
+  searchOut,
 
   // Thunk
   onLoading,
@@ -15,8 +15,8 @@ import {
 
 import {
   // ACTION
-  DETAIL_ON,
-  DETAIL_OUT,
+  detailOn,
+  detailOut,
 } from '@/reducer/load';
 
 import { DETAIL_LOADING_OUT } from '@/reducer/detail';
@@ -33,15 +33,13 @@ function DetailContainer({ scrollMotion, match }) {
 
   useEffect(() => {
     scrollMotion.destroy();
-    dispatch({
-      type: SEARCH_OUT,
-    });
+    dispatch(searchOut());
     dispatch(onLoading({ triggerDetail }));
-    dispatch({ type: DETAIL_ON });
-    dispatch({ type: SEARCH_ACTIVE_OUT });
+    dispatch(detailOn());
+    dispatch(searchActiveOut());
     dispatch(asyncAPI({ triggerDetail, movieId }));
     return () => {
-      dispatch({ type: DETAIL_OUT });
+      dispatch(detailOut());
       setIsloading(false);
     };
   }, [dispatch, movieId, scrollMotion, triggerDetail]);

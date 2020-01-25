@@ -3,20 +3,11 @@ import axios from 'axios';
 import {
   // Thunk
   resetList,
-} from '../reducer/global';
+} from '@/reducer/global';
 
 import {
   // ACTION
-  ACTION_LIST,
-  THRILLER_LIST,
-  LIST_SORT,
-  CRIME_LIST,
-  WAR_LIST,
-  HORROR_LIST,
-  ROMANCE_LIST,
-  ANIMATION_LIST,
-  LOADING_LIST,
-  SEARCH_LIST,
+  loadingList,
 
   // CATEGORY
   ACTION,
@@ -27,14 +18,14 @@ import {
   ROMANCE,
   ANIMATION,
   SEARCH,
-} from '../reducer/list';
+} from '@/reducer/list';
 
 import {
-  DETAIL_MOVIE,
-  DETAIL_MOVIE_SIMILAR,
-  DETAIL_MOVIE_CAST,
-  DETAIL_MOVIE_VIDEO,
-} from '../reducer/detail';
+  detailMovie,
+  detailMovieSimilar,
+  detailMovieCast,
+  detailMovieVideo,
+} from '@/reducer/detail';
 
 // Modules
 import extend from './extend';
@@ -101,21 +92,13 @@ const runResponse = async payload => {
 
   function listLoadingState(category) {
     setTimeout(() => {
-      payload.dispatch({
-        type: LOADING_LIST,
-        category: category,
-        isLoading: true,
-      });
+      payload.dispatch(loadingList({ category, isLoading: true }));
     }, 1500);
   }
 
   function searchLoadingState(category) {
     // console.log('4. Trigger Loading true [asyncAPI.js]');
-    payload.dispatch({
-      type: LOADING_LIST,
-      category: category,
-      isLoading: true,
-    });
+    payload.dispatch(loadingList({ category, isLoading: true }));
   }
 
   try {
@@ -125,10 +108,7 @@ const runResponse = async payload => {
     });
 
     if (opt.triggerDetail) {
-      payload.dispatch({
-        type: DETAIL_MOVIE,
-        ...response.data,
-      });
+      payload.dispatch(detailMovie(response.data));
       opt.isSearch = false;
       opt.triggerDetail = false;
       return;
@@ -195,10 +175,7 @@ const runVideo = async payload => {
       method: 'get',
       url: getUrl,
     });
-    payload.dispatch({
-      type: DETAIL_MOVIE_VIDEO,
-      videoArray: response.data.results,
-    });
+    payload.dispatch(detailMovieVideo(response.data.results));
   } catch (error) {
     console.log('검색 결과가 없습니다.');
   }
@@ -216,10 +193,7 @@ const runSimilar = async payload => {
       method: 'get',
       url: getUrl,
     });
-    payload.dispatch({
-      type: DETAIL_MOVIE_SIMILAR,
-      similar: response.data.results,
-    });
+    payload.dispatch(detailMovieSimilar(response.data.results));
   } catch (error) {
     console.log('검색 결과가 없습니다.');
   }
@@ -237,10 +211,7 @@ const runCast = async payload => {
       method: 'get',
       url: getUrl,
     });
-    payload.dispatch({
-      type: DETAIL_MOVIE_CAST,
-      cast: response.data.cast,
-    });
+    payload.dispatch(detailMovieCast(response.data.cast));
   } catch (error) {
     console.log('검색 결과가 없습니다.');
   }

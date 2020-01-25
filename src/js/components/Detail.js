@@ -29,7 +29,7 @@ function Detail({ movie }) {
     };
   }, [movie.similar.length]);
 
-  console.log(`Detail[${movie.title}]`);
+  console.log(`Detail[ ----- ${movie.title} ----- ]`);
 
   return (
     <article className="movie-article movie-article--detail">

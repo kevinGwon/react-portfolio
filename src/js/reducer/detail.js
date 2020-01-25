@@ -5,6 +5,30 @@ export const DETAIL_MOVIE_VIDEO = 'detail/DETAIL_MOVIE_VIDEO';
 export const DETAIL_LOADING_ON = 'detail/DETAIL_LOADING_ON';
 export const DETAIL_LOADING_OUT = 'detail/DETAIL_LOADING_OUT';
 
+// ACTION
+export const detailMovie = data => ({
+  type: DETAIL_MOVIE,
+  ...data,
+});
+export const detailMovieSimilar = data => ({
+  type: DETAIL_MOVIE_SIMILAR,
+  similar: data,
+});
+export const detailMovieCast = data => ({
+  type: DETAIL_MOVIE_CAST,
+  cast: data,
+});
+export const detailMovieVideo = data => ({
+  type: DETAIL_MOVIE_VIDEO,
+  videoArray: data,
+});
+export const detailLoadingOn = () => ({
+  type: DETAIL_LOADING_ON,
+});
+export const detailLoadingOut = () => ({
+  type: DETAIL_LOADING_OUT,
+});
+
 const initState = {
   isLoading: false,
   movie: {

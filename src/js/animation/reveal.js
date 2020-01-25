@@ -1,10 +1,13 @@
-import { LOADING_OUT } from '../reducer/load';
+import {
+  // ACTION
+  loadingOut,
+} from '../reducer/load';
 
 export const reveal = () => dispatch => {
   const $app = document.querySelector('#app');
   const $article = $app.querySelector('.movie-article');
 
-  dispatch({ type: LOADING_OUT });
+  dispatch(loadingOut());
   $app.classList.remove('is-loading');
 
   if ($article === null) return;
