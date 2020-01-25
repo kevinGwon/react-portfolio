@@ -14,6 +14,6 @@ function List({ lists }) {
   );
 }
 
-List.displayName = 'Category';
+List.displayName = 'List';
 
 export default React.memo(List);

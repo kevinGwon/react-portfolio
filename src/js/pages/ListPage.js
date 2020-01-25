@@ -6,7 +6,7 @@ import ListContainer from '../containers/ListContainer';
 // Thunk
 import { onLoading } from '../reducer/global';
 
-function List({ scrollMotion }) {
+function ListPage({ scrollMotion }) {
   const dispatch = useDispatch();
 
   // global reducer
@@ -121,4 +121,6 @@ function List({ scrollMotion }) {
   );
 }
 
-export default React.memo(widthScrollMotion(List));
+ListPage.displayName = 'ListPage';
+
+export default widthScrollMotion(React.memo(ListPage));

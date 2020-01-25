@@ -1,8 +1,8 @@
 import React from 'react';
 import DetailContainer from '../containers/DetailContainer';
 
-function Detail(props) {
+function DetailPage(props) {
   return <DetailContainer {...props} />;
 }
 
-export default React.memo(Detail);
+export default React.memo(DetailPage);

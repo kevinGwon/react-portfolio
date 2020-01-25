@@ -20,4 +20,6 @@ function LoadingCircle() {
   );
 }
 
+LoadingCircle.displayName = 'LoadingCircle';
+
 export default LoadingCircle;

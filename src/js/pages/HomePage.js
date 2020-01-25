@@ -1,20 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import List from './List';
-import Detail from './Detail';
+import ListPage from './ListPage';
+import DetailPage from './DetailPage';
 
 import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
 
-function Home() {
+function HomePage() {
   return (
     <>
       <Router>
         <HeaderContainer />
         <div className="movie-article-wrap">
-          <Route path="/" exact component={List} />
-          <Route path="/detail/:id" component={Detail} />
+          <Route path="/" exact component={ListPage} />
+          <Route path="/detail/:id" component={DetailPage} />
         </div>
         <FooterContainer />
       </Router>
@@ -22,4 +22,7 @@ function Home() {
   );
 }
 
-export default React.memo(Home);
+ListPage.displayName = 'RouteListPage';
+DetailPage.displayName = 'RouteDetailPage';
+
+export default React.memo(HomePage);

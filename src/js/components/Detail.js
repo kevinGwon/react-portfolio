@@ -28,6 +28,8 @@ function Detail({ movie }) {
     };
   }, [movie.similar.length]);
 
+  console.log(`Detail[${movie.title}]`);
+
   return (
     <article className="movie-article movie-article--detail">
       <div
@@ -133,5 +135,7 @@ function Detail({ movie }) {
     </article>
   );
 }
+
+Detail.displayName = 'Detail';
 
 export default React.memo(Detail);

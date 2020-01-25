@@ -38,4 +38,6 @@ function SearchList({ lists }) {
   );
 }
 
+SearchList.displayName = 'SearchList';
+
 export default SearchList;
