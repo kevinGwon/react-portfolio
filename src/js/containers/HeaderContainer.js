@@ -30,6 +30,7 @@ function HeaderContainer({ history }) {
   const [inputText, setInputText] = useState('');
   const $inputSearch = useRef();
   let $app = null;
+  let $articleWrap = null;
 
   const onSubmit = useCallback(e => {
     e.preventDefault();
@@ -79,20 +80,22 @@ function HeaderContainer({ history }) {
   );
 
   const onSearchBlur = useCallback(() => {
-    $app.addEventListener('click', e => {
-      (($app.querySelector('.movie-article') &&
-        $app.querySelector('.header').classList.contains('is-active')) ||
-        $app
-          .querySelector('.header')
-          .classList.contains('is-active--detail')) &&
-        dispatch({ type: SEARCH_ACTIVE_OUT });
-    });
-  }, [$app, dispatch]);
+    $app = document.getElementById('app');
+    $articleWrap = $app.querySelector('.movie-article-wrap');
+
+    $articleWrap &&
+      $articleWrap.addEventListener('click', e => {
+        ($app.querySelector('.header').classList.contains('is-active') ||
+          $app
+            .querySelector('.header')
+            .classList.contains('is-active--detail')) &&
+          dispatch({ type: SEARCH_ACTIVE_OUT });
+      });
+  }, []);
 
   useEffect(() => {
-    $app = document.getElementById('app');
     onSearchBlur();
-  }, [$app]);
+  }, [onSearchBlur]);
 
   return (
     <Header
