@@ -2,6 +2,7 @@ import React from 'react';
 import filterArray from '../modules/filterArray';
 import { Link } from 'react-router-dom';
 import LoadingCircle from './LoadingCircle';
+import filterImages from '@/modules/filterImages';
 
 function SearchList({ lists }) {
   // console.log(`5. state = ${lists.isLoading} [ListSearch.js]`);
@@ -17,7 +18,7 @@ function SearchList({ lists }) {
                   <div className="thumb">
                     <img
                       src={
-                        item.posterImage.indexOf('null') === -1
+                        filterImages(item.posterImage)
                           ? item.posterImage
                           : 'http://placehold.it/500x747?text=Preparing image'
                       }

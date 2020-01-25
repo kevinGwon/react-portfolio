@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Swiper from 'swiper';
+import filterImages from '@/modules/filterImages';
 
 function ListSwiper({ lists }) {
   const $sectionBg = useRef();
@@ -140,12 +141,12 @@ function ListSwiper({ lists }) {
                   <div className="thumb">
                     <img
                       data-src={
-                        item.posterImage.indexOf('null') === -1
+                        filterImages(item.posterImage)
                           ? item.posterImage
                           : 'http://placehold.it/500x747?text=Not Found'
                       }
                       data-bg={
-                        item.bgImage.indexOf('null') === -1
+                        filterImages(item.bgImage)
                           ? item.bgImage
                           : 'http://placehold.it/3840x2160?text=Not Found'
                       }

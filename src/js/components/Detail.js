@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Swiper from 'swiper';
 import StarRatings from 'react-star-ratings';
+import filterImages from '@/modules/filterImages';
 
 function Detail({ movie }) {
   useEffect(() => {
@@ -35,8 +36,9 @@ function Detail({ movie }) {
       <div
         className="detail-cover"
         style={{
-          backgroundImage: `url(
-            https://image.tmdb.org/t/p/original/${movie.backdrop_path})`,
+          backgroundImage: filterImages(movie.backdrop_path)
+            ? `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`
+            : 'url("http://placehold.it/3840x2160?text=Not Found")',
         }}
       ></div>
       <section className="detail-section">
@@ -46,7 +48,11 @@ function Detail({ movie }) {
               <div className="detail-header-inner">
                 <div className="detail-img">
                   <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    src={
+                      filterImages(movie.poster_path)
+                        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                        : 'http://placehold.it/500x747?text=Not Found'
+                    }
                     alt=""
                   />
                   <div className="detail-star-ratings">
@@ -86,20 +92,26 @@ function Detail({ movie }) {
               </p>
               <h3 className="h5">출연자</h3>
               <ul className="detail-cast">
-                {movie.cast.map((item, index) => {
-                  if (index > 9) return;
-                  return (
-                    <li key={item.credit_id}>
-                      <div className="circle-wrap">
-                        <img
-                          src={`https://image.tmdb.org/t/p/w100_and_h100_bestv2/${item.profile_path}`}
-                          alt=""
-                        />
-                      </div>
-                      <span>{item.name}</span>
-                    </li>
-                  );
-                })}
+                {movie.cast
+                  ? movie.cast.map((item, index) => {
+                      if (index > 9) return;
+                      return (
+                        <li key={item.credit_id}>
+                          <div className="circle-wrap">
+                            <img
+                              src={
+                                filterImages(item.profile_path)
+                                  ? `https://image.tmdb.org/t/p/w100_and_h100_bestv2/${item.profile_path}`
+                                  : '/images/no-image.png'
+                              }
+                              alt=""
+                            />
+                          </div>
+                          <span>{item.name}</span>
+                        </li>
+                      );
+                    })
+                  : '등록된 출연자가 없습니다.'}
               </ul>
               {movie.similar.length !== 0 && (
                 <>
@@ -113,7 +125,7 @@ function Detail({ movie }) {
                               <img
                                 className="swiper-lazy"
                                 data-src={
-                                  item.poster_path.indexOf('null') === -1
+                                  filterImages(item.poster_path)
                                     ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`
                                     : 'http://placehold.it/500x747?text=Not Found'
                                 }
