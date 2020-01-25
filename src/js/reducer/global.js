@@ -65,7 +65,7 @@ export const onLoading = props => (dispatch, getState) => {
 
 // Saga
 function* searchText(action) {
-  yield delay(1000);
+  yield delay(500);
   yield put({
     type: LIST_RESET,
     category: 'search',

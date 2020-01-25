@@ -98,7 +98,9 @@ const runResponse = async payload => {
 
   function searchLoadingState(category) {
     // console.log('4. Trigger Loading true [asyncAPI.js]');
-    payload.dispatch(loadingList({ category, isLoading: true }));
+    setTimeout(() => {
+      payload.dispatch(loadingList({ category, isLoading: true }));
+    }, 500);
   }
 
   try {
@@ -159,7 +161,8 @@ const runResponse = async payload => {
       }
     }
   } catch (error) {
-    console.log('검색 결과가 없습니다.');
+    const category = payload.category;
+    payload.dispatch(loadingList({ category, isLoading: true }));
   }
 };
 
