@@ -7,7 +7,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import reduxThunk from 'redux-thunk';
 import reduxLogger from 'redux-logger';
-import rootReducer from './js/reducer';
+import rootReducer, { rootSaga } from './js/reducer';
+import createSagaMiddleware from 'redux-saga';
 
 // Components
 import App from './js/App';
@@ -18,8 +19,15 @@ import './style.scss';
 // Proxy
 import * as serviceWorker from './serviceWorker';
 
-const store = createStore(rootReducer, applyMiddleware(reduxThunk));
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(reduxThunk, sagaMiddleware),
+);
 // const store = createStore(rootReducer, applyMiddleware(reduxLogger));
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
