@@ -25,7 +25,7 @@ const config = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules\/(?!(swiper|dom7)\/).*/, /\.test\.jsx?$/],
         use: {
           loader: 'babel-loader',
         },
@@ -59,7 +59,7 @@ const config = {
         ],
       },
       {
-        test: /\.(png|jpe|gif)$/i,
+        test: /\.(png|jpe|gif|svg)$/i,
         use: [
           {
             loader: 'file-loader',
