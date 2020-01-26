@@ -48,6 +48,16 @@ const config = {
             },
           },
           {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [
+                require('autoprefixer')({
+                  browsers: ['> 10%', 'last 2 versions'],
+                }),
+              ],
+            },
+          },
+          {
             loader: 'sass-loader',
             options: {
               sourceMap: isDev,
