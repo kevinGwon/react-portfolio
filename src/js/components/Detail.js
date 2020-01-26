@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Swiper from 'swiper';
+import Swiper from 'swiper/dist/js/swiper';
 import StarRatings from 'react-star-ratings';
 import filterImages from '@/modules/filterImages';
 

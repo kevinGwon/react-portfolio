@@ -18,6 +18,10 @@
     &-preloader {
       border-color: $color-primary;
       border-top-color: transparent;
+
+      &:after {
+        background-image: url('/images/loading.svg');
+      }
     }
   }
 
@@ -28,7 +32,9 @@
       z-index: 10;
       top: 0;
       bottom: 0;
+      height: auto;
       width: 27%;
+      background-image: none;
       background-color: transparent;
     }
 

@@ -13,9 +13,7 @@
 @import 'scss/base/reset';
 
 // Swiper
-@import 'node_modules/swiper/swiper.scss';
-@import 'node_modules/swiper/components/pagination/pagination.scss';
-@import 'node_modules/swiper/components/lazy/lazy.scss';
+@import 'node_modules/swiper/dist/css/swiper';
 
 // modules
 @import 'scss/modules/layout';

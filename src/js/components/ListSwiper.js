@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import Swiper from 'swiper';
+import Swiper from 'swiper/dist/js/swiper';
 import filterImages from '@/modules/filterImages';
 
 function ListSwiper({ lists }) {
