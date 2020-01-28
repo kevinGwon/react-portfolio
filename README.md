@@ -1,4 +1,5 @@
 # react-portfolio
+React를 이용한 영화정보 사이트입니다.
 
 ## Site
 https://developergwon.netlify.com/
