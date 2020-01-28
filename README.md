@@ -1,9 +1,8 @@
 # react-portfolio
+React를 이용한 영화정보 사이트
 
 ## Site
 https://developergwon.netlify.com/
-
-React를 이용한 영화정보 사이트
 
 ## Spec
 - webpack 4.x
