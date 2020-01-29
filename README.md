@@ -1,7 +1,7 @@
 # react-portfolio
 
 ## Site
-https://developergwon.netlify.com/
+https://developergwon-react.netlify.com/
 
 ## Spec
 - webpack 4.x
