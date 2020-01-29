@@ -1,0 +1,14 @@
+.footer {
+  width: 100%;
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 1.2rem;
+  transition: all $dur/2 $ease;
+
+  &.is-toggle {
+    position: relative;
+    z-index: 100;
+    opacity: 1;
+    transform: translateY(-100%);
+  }
+}

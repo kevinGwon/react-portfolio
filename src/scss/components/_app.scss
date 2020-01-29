@@ -1,0 +1,16 @@
+#app {
+  position: relative;
+
+  &.is-loading {
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+
+    .movie-article {
+      visibility: hidden !important;
+    }
+  }
+}

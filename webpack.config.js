@@ -1,29 +1,36 @@
-
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const isDev = process.env.NODE_ENV === 'development' ? true : false;
-const webpackObj = isDev ? require('./webpack.dev') : require('./webpack.prod');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const globImporter = require('node-sass-glob-importer');
 
+// webpeack config
+const isDev = process.env.NODE_ENV === 'development' ? true : false;
+const configCustom = isDev
+  ? require('./webpack.dev')
+  : require('./webpack.prod');
 const config = {
-  entry: {app: path.resolve(__dirname, 'src', 'app.js')},
+  entry: {
+    index: ['babel-polyfill', path.resolve(__dirname, 'src', 'index.js')],
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash].js',
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules\/(?!(swiper|dom7)\/).*/, /\.test\.jsx?$/],
         use: {
-          loader: 'babel-loader'
-        }
-      }, {
+          loader: 'babel-loader',
+        },
+      },
+      {
         test: /\.s[ac]ss$/i,
         use: [
           'style-loader',
@@ -31,56 +38,80 @@ const config = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               hmr: isDev,
-              reloadAll: isDev
-            }
-          }, {
+              reloadAll: isDev,
+            },
+          },
+          {
             loader: 'css-loader',
             options: {
               sourceMap: isDev,
-            }
-          }, {
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [
+                require('autoprefixer')({
+                  browsers: ['> 10%', 'last 2 versions'],
+                }),
+              ],
+            },
+          },
+          {
             loader: 'sass-loader',
             options: {
               sourceMap: isDev,
-            }
-          }
-        ]
-      }, {
-        test: /\.(png|jpe|gif)$/i,
+              sassOptions: {
+                importer: globImporter(),
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe|gif|svg)$/i,
         use: [
           {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'images'
-            }
-          }
-        ]
+              outputPath: 'images',
+            },
+          },
+        ],
       },
-    ]
+    ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
+    modules: [path.resolve('./node_modules'), path.resolve('./src/js')],
+    alias: {
+      '@': path.resolve(__dirname, 'src', 'js'),
+    },
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './src/index.html',
     }),
     new MiniCssExtractPlugin({ filename: 'style.css' }),
     new CopyWebpackPlugin([
-      { 
+      {
         context: 'src/',
         from: 'images/',
         to: 'images/',
-        force: true
-      }
-    ])
-  ]
+        force: true,
+      },
+    ]),
+    new webpack.ProvidePlugin({
+      TweenMax: ['gsap', 'TweenMax'],
+      IG: 'modules/global',
+    }),
+  ],
 };
 
 console.log('-----------------------');
-console.log(isDev);
+console.log('Developer Mode = ' + process.env.NODE_ENV);
 console.log('-----------------------');
 
-module.exports = merge(config, webpackObj);
+module.exports = merge(config, configCustom);

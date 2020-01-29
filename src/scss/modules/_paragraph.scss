@@ -1,0 +1,81 @@
+// -----------------------------------------------------------------------------
+// Paragraph
+// -----------------------------------------------------------------------------
+
+$order-list-counter: order-list-counter;
+
+%dot {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: $dark;
+}
+
+%counter {
+  content: counter($order-list-counter)'.';
+  counter-increment: $order-list-counter;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+article,
+.article {
+  @include break-word;
+
+  p {
+    margin-top: 2.8rem;
+    line-height: 1.5;
+
+    & + .h {
+      margin-top: 6.5rem;
+    }
+  }
+}
+
+.ul,
+.ol {
+  margin-bottom: 1.5rem;
+
+  > li {
+    position: relative;
+    padding-left: 2rem;
+  }
+  li {
+    margin-top: 1.5rem;
+    line-height: 1.5;
+  }
+
+  & + & {
+    margin-top: 3rem;
+  }
+}
+
+.ul {
+  > li {
+    &:before {
+      @extend %dot;
+    }
+  }
+}
+
+.ol {
+  counter-reset: $order-list-counter;
+
+  > li {
+    &:before {
+      @extend %counter;
+    }
+  }
+}
+
+.caption {
+  &-p {
+    color: $gray5;
+    font-size: 1.3rem;
+  }
+}

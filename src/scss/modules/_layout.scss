@@ -1,0 +1,16 @@
+.l-wrap {
+  position: relative;
+  max-width: $w-wrap;
+  width: 100%;
+  padding-left: $offset-sm;
+  padding-right: $offset-sm;
+  box-sizing: border-box;
+
+  @include mq(large) {
+    width: 100%;
+    padding-left: $offset-lg;
+    padding-right: $offset-lg;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

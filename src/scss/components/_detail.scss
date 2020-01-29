@@ -1,0 +1,219 @@
+.movie {
+  &-article--detail {
+    font-size: 1.6rem;
+
+    .swiper {
+      &-container {
+        max-width: 100%;
+      }
+      &-slide {
+        position: relative;
+        height: auto;
+        padding-bottom: 0;
+
+        a {
+          position: static;
+        }
+        img {
+          height: auto;
+        }
+      }
+    }
+    .detail {
+      $widthImg: 100px;
+
+      &-h,
+      &-date {
+        margin-bottom: 1rem;
+      }
+      &-cover {
+        position: relative;
+        height: 400px;
+        margin-top: -($header-height-sm + 20px);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        &::before {
+          content: '';
+          display: block;
+          @include full-pos;
+          z-index: 0;
+          background-color: rgba($black, 0.7);
+        }
+
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 100px;
+          background: linear-gradient(transparent 30%, black);
+        }
+      }
+      &-header {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 1.2rem;
+        transform: translateY(-100%);
+
+        &-inner {
+          display: inline-block;
+          position: relative;
+        }
+      }
+      &-h {
+        font-size: 2rem;
+        text-shadow: 1px 1px 6px $black;
+      }
+      &-p {
+        position: relative;
+        padding-left: 2rem;
+        box-sizing: border-box;
+
+        &::before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          height: 100%;
+          width: 2px;
+          background-color: $color-primary;
+        }
+      }
+      &-img {
+        display: inline-block;
+        position: relative;
+        height: 200px;
+
+        &::before {
+          content: '';
+          display: block;
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 70px;
+          background: linear-gradient(transparent 30%, black);
+        }
+
+        img {
+          height: 100%;
+          width: auto;
+        }
+      }
+      &-info {
+        position: absolute;
+        left: 0;
+        right: -1rem;
+        bottom: 0;
+        box-sizing: border-box;
+        transform: translateX(100%);
+      }
+      &-star-ratings {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0.5rem;
+        text-align: center;
+
+        .detail-star-ratings {
+          display: inline-block;
+        }
+      }
+      &-video {
+        position: relative;
+        padding-bottom: 55%;
+
+        iframe {
+          display: block;
+          @include full-pos;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      &-category {
+        margin-top: -0.5rem;
+        margin-left: -0.5rem;
+
+        li {
+          display: inline-block;
+          margin-top: 0.5rem;
+          margin-left: 0.5rem;
+        }
+      }
+      &-cast {
+        display: flex;
+        flex-flow: row wrap;
+        margin-top: -2rem;
+        text-align: center;
+
+        li {
+          flex: 0 0 percentage(1/4);
+          margin-top: 2rem;
+        }
+        span {
+          display: block;
+          margin-top: 1rem;
+          font-size: 1.2rem;
+        }
+        .circle-wrap {
+          display: inline-block;
+          overflow: hidden;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+        }
+      }
+      &-section {
+        .l-detail {
+          position: relative;
+        }
+      }
+      &-contents {
+        padding: 4rem 0;
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+          margin: 3rem 0;
+        }
+        p {
+          &:first-child {
+            margin-top: 0;
+          }
+          margin: 2rem 0 4rem;
+        }
+        .swiper-container {
+          margin-top: 2rem;
+          padding-bottom: 0;
+        }
+      }
+    }
+
+    @include mq(large) {
+      .l-detail {
+        margin: 0 10rem;
+      }
+      .detail {
+        &-header {
+        }
+        &-cover {
+          margin-top: -($header-height-lg + 20px);
+        }
+        &-cast {
+          li {
+            flex: 0 0 percentage(1/5);
+          }
+        }
+      }
+    }
+  }
+}

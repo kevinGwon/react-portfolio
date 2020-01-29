@@ -1,0 +1,78 @@
+// -----------------------------------------------------------------------------
+// Variable
+// -----------------------------------------------------------------------------
+
+// breakpoints
+$mq-breakpoints: (
+  small: 560px,
+  medium: 720px,
+  large: 960px,
+  x-large: 1200px,
+  xx-large: 1600px,
+);
+
+// grid
+// -----------------------------------------------------------------------------
+$grid-columns: 12;
+$gutter-sm: 10px;
+$gutter-md: 20px;
+$gutter-lg: 20px;
+
+// layout
+// -----------------------------------------------------------------------------
+$w-small: 360px;
+$w-default: 1440px;
+$w-wrap: 1280px;
+
+$offset-sm: 20px;
+$offset-md: 30px;
+$offset-lg: 50px;
+
+$header-height-sm: 60px; // 모바일 header 높이
+$header-height-lg: 85px; // 데스크탑 header 높이
+$header-height-compact: 45px; // 데스크탑 header 최소화 시 높이
+
+$input-padding-tb: 10px;
+$input-padding-lr: 15px;
+
+$element-margin-lr: 10px;
+
+// fonts
+// -----------------------------------------------------------------------------
+$font-main: 'Noto Sans KR', sans-serif;
+$en: 'Roboto', sans-serif;
+$base-font-size: 16px;
+
+// color guide
+// -----------------------------------------------------------------------------
+$white: #fff;
+$black: #000;
+
+$gray0: #f7f7f7;
+$gray1: #f0f0f0;
+$gray2: #e5e5e5;
+$gray3: #cccccc;
+$gray4: #999999;
+$gray5: #737373;
+$gray6: #666666;
+$gray7: #404040;
+$gray8: #333333;
+$gray9: #191919;
+
+$fog: $gray0;
+$ash: $gray1;
+$silver-light: $gray2;
+$silver: $gray3;
+$silver-dark: $gray4;
+$gray-light: $gray5;
+$gray: $gray6;
+$gray-dark: $gray7;
+$dark: $gray8;
+$ink: $gray9;
+
+$color-primary: #e50914;
+
+// 애니메이션
+// -----------------------------------------------------------------------------
+$dur: 0.4s;
+$ease: cubic-bezier(0.645, 0.045, 0.355, 1);

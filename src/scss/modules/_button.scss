@@ -1,0 +1,223 @@
+// -----------------------------------------------------------------------------
+// Button
+// -----------------------------------------------------------------------------
+
+.btn {
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  padding: 12px 26px;
+  border: 2px solid $color-primary;
+  background-color: transparent;
+  color: $color-primary;
+  font-size: 15px;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0;
+  vertical-align: middle;
+  transition: all .2s ease-out;
+
+  &+& {
+    margin-left: $element-margin-lr;
+  }
+
+  &[disabled] {
+    border-color: $silver-light !important;
+    color: $silver-dark !important;
+    cursor: not-allowed;
+  }
+
+  span {
+    position: relative;
+    z-index: 1;
+  }
+
+  &:hover,
+  &:focus {
+    color: $white;
+    text-decoration: none;
+  }
+
+  &:active:enabled {
+    transform: scale(0.97);
+  }
+
+  // size variation
+  &--lg {
+    padding: 16px 40px;
+    font-size: 18px;
+  }
+
+  &--sm {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  &--block {
+    display: block;
+    width: 100%;
+  }
+
+  // color variation
+  &--em {
+    background-color: $gray8;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      border-color: $color-primary;
+      background-color: $color-primary;
+      color: $white;
+    }
+
+    &[disabled] {
+      border-color: transparent !important;
+      background-color: $silver-light !important;
+      color: $silver-dark !important;
+      cursor: not-allowed;
+    }
+  }
+
+  &--ghost {
+    border-color: $color-primary;
+    color: $color-primary;
+
+    &:hover,
+    &:focus {
+      color: $white;
+      background-color: $color-primary;
+    }
+
+    &[disabled] {
+      border-color: rgba($white, 0.2) !important;
+      color: $silver-dark !important;
+      cursor: not-allowed;
+    }
+  }
+
+  &--invert {
+    border-color: $color-primary;
+    background-color: $color-primary;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      border-color: $color-primary;
+      background-color: $color-primary;
+      color: $white;
+    }
+
+    &[disabled] {
+      border-color: transparent !important;
+      background-color: rgba($white, 0.2) !important;
+      color: $silver-dark !important;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.btn-r {
+  display: inline-block;
+  background-color: #333333;
+  text-align: center;
+  color: $white;
+  height: 35px;
+  width: 35px;
+  font-size: 15px;
+  line-height: 35px;
+  text-align: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+
+  &+& {
+    margin-left: $element-margin-lr;
+  }
+
+  &[disabled] {
+    border-color: transparent !important;
+    background-color: $silver-light !important;
+    color: $silver-dark !important;
+    cursor: not-allowed;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $color-primary;
+  }
+
+  &--invert {
+    background: $white;
+    color: $gray;
+
+    &:hover,
+    &:focus {
+      color: $white;
+    }
+  }
+}
+
+.btn-rb {
+  height: 35px;
+  width: 35px;
+  border: 2px solid;
+  border-color: $white;
+  color: $white;
+  background-color: $gray9;
+
+  border-radius: 50%;
+  transition: background-color 0.2s;
+
+  &:hover,
+  &:focus {
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+
+  &[disabled] {
+    border-color: rgba($white, 0.2) !important;
+    color: rgba($white, 0.2) !important;
+    background-color: rgba($gray9, 0.2) !important;
+    cursor: not-allowed;
+  }
+
+  &-l {
+    height: 48px;
+    width: 48px;
+    font-size: 20px;
+  }
+
+  &-xl {
+    height: 64px;
+    width: 64px;
+    font-size: 22px;
+  }
+}
+
+.btn-i {
+  color: $white;
+
+  &:hover,
+  &:focus {
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+
+  &[disabled] {
+    color: rgba($white, 0.2) !important;
+    cursor: not-allowed;
+  }
+
+  &-l {
+    font-size: 48px;
+  }
+
+  &-xl {
+    font-size: 64px;
+  }
+}
+
+.func {
+  text-align: center;
+  margin-top: 5rem;
+}
