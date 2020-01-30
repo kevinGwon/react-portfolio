@@ -79,9 +79,7 @@ month =
     ? '0' + (date.getMonth() + 1)
     : date.getMonth() + 1;
 day =
-  String(date.getDate()).length === 1
-    ? '0' + date.getDate()
-    : date.getDate() + 1;
+  String(date.getDate()).length === 1 ? '0' + date.getDate() : date.getDate();
 
 // 매년 초 데이터 기록이 없을때, 이전 연도의 초기값으로 설정
 if (parseInt(month, 10) === 1 && parseInt(day, 10) < 7) {
