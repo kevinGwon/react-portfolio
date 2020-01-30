@@ -50,11 +50,7 @@ const config = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => [
-                require('autoprefixer')({
-                  browsers: ['> 10%', 'last 2 versions'],
-                }),
-              ],
+              plugins: () => [require('autoprefixer')],
             },
           },
           {
