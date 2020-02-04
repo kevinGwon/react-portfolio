@@ -216,4 +216,14 @@
       }
     }
   }
+  &-article--error {
+    .detail {
+      &-header {
+        position: static;
+        margin-top: 10rem;
+        text-align: center;
+        transform: none;
+      }
+    }
+  }
 }

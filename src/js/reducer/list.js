@@ -21,6 +21,8 @@ export const LOADING_LIST = 'list/LOADING_LIST';
 export const ALL_RESET = 'list/ALL_RESET';
 export const LIST_RESET = 'list/LIST_RESET';
 export const LIST_SORT = 'list/LIST_SORT';
+export const LIST_ERROR = 'list/LIST_ERROR';
+export const LIST_ERROR_CLEAR = 'list/LIST_ERROR_CLEAR';
 
 export const actionList = () => ({
   type: ACTION_LIST,
@@ -59,6 +61,13 @@ export const listReset = () => ({
 });
 export const listSort = () => ({
   type: LIST_SORT,
+});
+export const listError = error => ({
+  type: LIST_ERROR,
+  error,
+});
+export const listErrorClear = () => ({
+  type: LIST_ERROR_CLEAR,
 });
 
 // Thunk
@@ -142,6 +151,7 @@ const initState = {
       list: [],
     },
   },
+  error: null,
 };
 
 const list = (state = initState, action) => {
@@ -210,8 +220,17 @@ const list = (state = initState, action) => {
         ...state,
         genres: {
           ...state.genres,
-          // ACTION: [],
         },
+      };
+    case LIST_ERROR:
+      return {
+        ...state,
+        error: action.error,
+      };
+    case LIST_ERROR_CLEAR:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;

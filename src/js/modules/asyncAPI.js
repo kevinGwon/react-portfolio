@@ -8,6 +8,8 @@ import {
 import {
   // ACTION
   loadingList,
+  listError,
+  listErrorClear,
 
   // CATEGORY
   ACTION,
@@ -25,6 +27,7 @@ import {
   detailMovieSimilar,
   detailMovieCast,
   detailMovieVideo,
+  detailReset,
 } from '@/reducer/detail';
 
 // Modules
@@ -37,6 +40,60 @@ let opt = {
     'append_to_response=images&include_image_language=en,null',
   basePostImageUrl: 'https://image.tmdb.org/t/p/w500',
   baseBgImageUrl: 'https://image.tmdb.org/t/p/original',
+};
+
+const runVideo = async payload => {
+  opt = extend(opt, {
+    movieId: payload.movieId,
+  });
+
+  let getUrl = `https://api.themoviedb.org/3/movie/${opt.movieId}/videos?api_key=${opt.key}&language=${opt.lang}`;
+
+  try {
+    const response = await axios({
+      method: 'get',
+      url: getUrl,
+    });
+    payload.dispatch(detailMovieVideo(response.data.results));
+  } catch (error) {
+    console.log('검색 결과가 없습니다.');
+  }
+};
+
+const runSimilar = async payload => {
+  opt = extend(opt, {
+    movieId: payload.movieId,
+  });
+
+  let getUrl = `https://api.themoviedb.org/3/movie/${opt.movieId}/similar?api_key=${opt.key}&language=${opt.lang}&page=1`;
+
+  try {
+    const response = await axios({
+      method: 'get',
+      url: getUrl,
+    });
+    payload.dispatch(detailMovieSimilar(response.data.results));
+  } catch (error) {
+    console.log('검색 결과가 없습니다.');
+  }
+};
+
+const runCast = async payload => {
+  opt = extend(opt, {
+    movieId: payload.movieId,
+  });
+
+  let getUrl = `https://api.themoviedb.org/3/movie/${opt.movieId}/credits?api_key=${opt.key}&language=${opt.lang}&page=1`;
+
+  try {
+    const response = await axios({
+      method: 'get',
+      url: getUrl,
+    });
+    payload.dispatch(detailMovieCast(response.data.cast));
+  } catch (error) {
+    console.log('검색 결과가 없습니다.');
+  }
 };
 
 const runResponse = async payload => {
@@ -109,10 +166,16 @@ const runResponse = async payload => {
       url: getUrl,
     });
 
+    payload.dispatch(listErrorClear());
+
     if (opt.triggerDetail) {
       payload.dispatch(detailMovie(response.data));
       opt.isSearch = false;
       opt.triggerDetail = false;
+
+      runVideo({ dispatch: payload.dispatch, movieId: opt.movieId });
+      runSimilar({ dispatch: payload.dispatch, movieId: opt.movieId });
+      runCast({ dispatch: payload.dispatch, movieId: opt.movieId });
       return;
     }
 
@@ -162,61 +225,11 @@ const runResponse = async payload => {
     }
   } catch (error) {
     const category = payload.category;
+    opt.triggerDetail = false;
+    getUrl = '';
     payload.dispatch(loadingList({ category, isLoading: true }));
-  }
-};
-
-const runVideo = async payload => {
-  opt = extend(opt, {
-    movieId: payload.movieId,
-  });
-
-  let getUrl = `https://api.themoviedb.org/3/movie/${opt.movieId}/videos?api_key=${opt.key}&language=${opt.lang}`;
-
-  try {
-    const response = await axios({
-      method: 'get',
-      url: getUrl,
-    });
-    payload.dispatch(detailMovieVideo(response.data.results));
-  } catch (error) {
-    console.log('검색 결과가 없습니다.');
-  }
-};
-
-const runSimilar = async payload => {
-  opt = extend(opt, {
-    movieId: payload.movieId,
-  });
-
-  let getUrl = `https://api.themoviedb.org/3/movie/${opt.movieId}/similar?api_key=${opt.key}&language=${opt.lang}&page=1`;
-
-  try {
-    const response = await axios({
-      method: 'get',
-      url: getUrl,
-    });
-    payload.dispatch(detailMovieSimilar(response.data.results));
-  } catch (error) {
-    console.log('검색 결과가 없습니다.');
-  }
-};
-
-const runCast = async payload => {
-  opt = extend(opt, {
-    movieId: payload.movieId,
-  });
-
-  let getUrl = `https://api.themoviedb.org/3/movie/${opt.movieId}/credits?api_key=${opt.key}&language=${opt.lang}&page=1`;
-
-  try {
-    const response = await axios({
-      method: 'get',
-      url: getUrl,
-    });
-    payload.dispatch(detailMovieCast(response.data.cast));
-  } catch (error) {
-    console.log('검색 결과가 없습니다.');
+    payload.dispatch(listError({ error }));
+    payload.dispatch(detailReset());
   }
 };
 
@@ -248,8 +261,5 @@ export const asyncAPI = payload => (dispatch, getState) => {
       triggerDetail,
       movieId,
     });
-    runVideo({ dispatch, movieId });
-    runSimilar({ dispatch, movieId });
-    runCast({ dispatch, movieId });
   }
 };

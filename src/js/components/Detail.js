@@ -4,7 +4,7 @@ import Swiper from 'swiper/dist/js/swiper';
 import StarRatings from 'react-star-ratings';
 import filterImages from '@/modules/filterImages';
 
-function Detail({ movie }) {
+function Detail({ movie, error, scrollToUp }) {
   useEffect(() => {
     if (!movie.similar.length) return;
     let swiper = null;
@@ -29,10 +29,11 @@ function Detail({ movie }) {
     };
   }, [movie.similar.length]);
 
-  console.log(`Detail[ ----- ${movie.title} ----- ]`);
+  console.log(`Detail[ ----- ${movie.title ? movie.title : 'null'} ----- ]`);
 
-  return (
+  return error === null ? (
     <article className="movie-article movie-article--detail">
+      <h2 className="a11y">영화정보 상세페이지</h2>
       <div
         className="detail-cover"
         style={{
@@ -92,7 +93,7 @@ function Detail({ movie }) {
               </p>
               <h3 className="h5">출연자</h3>
               <ul className="detail-cast">
-                {movie.cast
+                {movie.cast.length
                   ? movie.cast.map((item, index) => {
                       if (index > 9) return;
                       return (
@@ -120,7 +121,7 @@ function Detail({ movie }) {
                     <div className="swiper-wrapper">
                       {movie.similar.map(item => (
                         <div key={item.id} className="swiper-slide">
-                          <Link to={`/detail/${item.id}`}>
+                          <Link to={`/detail/${item.id}`} onClick={scrollToUp}>
                             <div className="thumb">
                               <img
                                 className="swiper-lazy"
@@ -141,6 +142,19 @@ function Detail({ movie }) {
                 </>
               )}
             </div>
+          </div>
+        </div>
+      </section>
+    </article>
+  ) : (
+    <article className="movie-article movie-article--detail movie-article--error">
+      <h2 className="a11y">영화정보 상세페이지</h2>
+      <section className="detail-section">
+        <div className="l-wrap">
+          <div className="l-detail">
+            <header className="detail-header">
+              <h3 className="detail-h">등록된 영화정보가 없습니다.</h3>
+            </header>
           </div>
         </div>
       </section>
