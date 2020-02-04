@@ -4,7 +4,7 @@ import Swiper from 'swiper/dist/js/swiper';
 import StarRatings from 'react-star-ratings';
 import filterImages from '@/modules/filterImages';
 
-function Detail({ movie, error }) {
+function Detail({ movie, error, scrollToUp }) {
   useEffect(() => {
     if (!movie.similar.length) return;
     let swiper = null;
@@ -93,7 +93,7 @@ function Detail({ movie, error }) {
               </p>
               <h3 className="h5">출연자</h3>
               <ul className="detail-cast">
-                {movie.cast
+                {movie.cast.length
                   ? movie.cast.map((item, index) => {
                       if (index > 9) return;
                       return (
@@ -121,7 +121,7 @@ function Detail({ movie, error }) {
                     <div className="swiper-wrapper">
                       {movie.similar.map(item => (
                         <div key={item.id} className="swiper-slide">
-                          <Link to={`/detail/${item.id}`}>
+                          <Link to={`/detail/${item.id}`} onClick={scrollToUp}>
                             <div className="thumb">
                               <img
                                 className="swiper-lazy"

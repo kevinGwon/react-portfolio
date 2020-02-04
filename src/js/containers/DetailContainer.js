@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Detail from '@/components/Detail';
 import widthScrollMotion from '@/hoc/withScrollMotion';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
@@ -28,10 +28,14 @@ function DetailContainer({ scrollMotion, match }) {
   const { movie } = useSelector(store => store.detail, shallowEqual);
   const { error } = useSelector(store => store.list, shallowEqual);
 
-  const dispatch = useDispatch();
   const [isLoading, setIsloading] = useState(false);
+  const dispatch = useDispatch();
   const triggerDetail = true;
   const movieId = match.params.id;
+
+  const scrollToUp = useCallback(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     scrollMotion.destroy();
@@ -60,7 +64,7 @@ function DetailContainer({ scrollMotion, match }) {
     return <LoadingCircle />;
   }
 
-  return <Detail movie={movie} error={error} />;
+  return <Detail movie={movie} error={error} scrollToUp={scrollToUp} />;
 }
 
 DetailContainer.displayName = 'DetailContainer';
