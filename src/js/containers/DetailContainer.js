@@ -25,9 +25,11 @@ import { DETAIL_LOADING_OUT } from '@/reducer/detail';
 import { asyncAPI } from '@/modules/asyncAPI';
 
 function DetailContainer({ scrollMotion, match }) {
+  const { movie } = useSelector(store => store.detail, shallowEqual);
+  const { error } = useSelector(store => store.list, shallowEqual);
+
   const dispatch = useDispatch();
   const [isLoading, setIsloading] = useState(false);
-  const { movie } = useSelector(store => store.detail, shallowEqual);
   const triggerDetail = true;
   const movieId = match.params.id;
 
@@ -45,6 +47,11 @@ function DetailContainer({ scrollMotion, match }) {
   }, [dispatch, movieId, scrollMotion, triggerDetail]);
 
   if (!isLoading) {
+    if (error) {
+      setTimeout(() => {
+        setIsloading(true);
+      }, 1500);
+    }
     if (movie.id) {
       setTimeout(() => {
         setIsloading(true);
@@ -53,7 +60,7 @@ function DetailContainer({ scrollMotion, match }) {
     return <LoadingCircle />;
   }
 
-  return <Detail movie={movie} />;
+  return <Detail movie={movie} error={error} />;
 }
 
 DetailContainer.displayName = 'DetailContainer';
