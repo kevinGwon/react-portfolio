@@ -21,11 +21,10 @@ npm install --global yarn
 
 ```	
 yarn	
-```	```
-
+```
 
 ## Run
 
-```	```
+```
 yarn start
 ```
