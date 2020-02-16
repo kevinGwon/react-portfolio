@@ -143,7 +143,6 @@ class ScrollMotion {
 
   destroy(e) {
     console.log('Destroy ScrollMotion');
-    IG.$footer && IG.$footer.classList.remove('is-toggle');
     document.removeEventListener('wheel', this.eventMap[this.eventWheel]);
     delete this.eventMap[this.eventWheel];
     this.isDestroy = true;
@@ -152,8 +151,3 @@ class ScrollMotion {
 }
 
 export default ScrollMotion;
-
-// console.log('isSeach = ' + isSearch);
-// document.addEventListener('wheel', runScroll, {
-// passive: false,
-// });

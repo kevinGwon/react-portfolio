@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Footer from '../components/Footer';
+import { useSelector } from 'react-redux';
 
 function FooterContainer() {
-  return <Footer />;
+  const { isDetail } = useSelector(state => state.load);
+  const { isSearch } = useSelector(state => state.global);
+  return <Footer isSearch={isSearch} isDetail={isDetail} />;
 }
 
 FooterContainer.displayName = 'FooterContainer';

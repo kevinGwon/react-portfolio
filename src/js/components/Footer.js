@@ -1,8 +1,11 @@
 import React from 'react';
 
-function Footer() {
+function Footer({ isSearch, isDetail }) {
   return (
-    <footer id="footer" className="footer">
+    <footer
+      id="footer"
+      className={`footer${isSearch || isDetail ? ' no-fixed' : ''}`}
+    >
       @developerGwon@gmail.com
     </footer>
   );

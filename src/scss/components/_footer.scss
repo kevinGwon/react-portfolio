@@ -1,4 +1,5 @@
 .footer {
+  position: fixed;
   width: 100%;
   padding: 2rem 0;
   text-align: center;
@@ -6,9 +7,11 @@
   transition: all $dur/2 $ease;
 
   &.is-toggle {
-    position: relative;
     z-index: 100;
     opacity: 1;
     transform: translateY(-100%);
+  }
+  &.no-fixed {
+    position: relative;
   }
 }
