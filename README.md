@@ -8,7 +8,7 @@ https://developergwon-react.netlify.com/
 - Husky, Prettier, Eslint
 - React(16.12.x), Hooks, Redux, Redux-Thunk, Redux-Saga
 
-## Se
+## Set
 - node.js package manager로 yarn을 사용	
 
 
