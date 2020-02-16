@@ -13,7 +13,7 @@ https://developergwon-react.netlify.com/
 
 
 - yarn 설치	
-```	```
+```
 npm install --global yarn
 ```	
 
