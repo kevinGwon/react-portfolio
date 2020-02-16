@@ -8,9 +8,7 @@
   "license": "ISC",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
-    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development",
-    "server": "cross-env NODE_ENV=development nodemon --exec babel-node express/server.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development"
   },
   "repository": {
     "type": "git",
