@@ -12,10 +12,12 @@ function HomePage() {
     <>
       <Router>
         <HeaderContainer />
-        <div className="movie-article-wrap">
-          <Route path="/" exact component={ListPage} />
-          <Route path="/detail/:id" component={DetailPage} />
-        </div>
+        <main id="main" className="main">
+          <div className="movie-article-wrap">
+            <Route path="/" exact component={ListPage} />
+            <Route path="/detail/:id" component={DetailPage} />
+          </div>
+        </main>
         <FooterContainer />
       </Router>
     </>
