@@ -8,6 +8,7 @@ https://developergwon-react.netlify.com/
 
 ## 간단한 페이지 소개
 
+- 해당 프로젝트는 CRA(Create React App)를 사용하지 않고 Webpack으로 구성하였습니다.
 - 시멘틱 마크업으로 작성 하였습니다.
 - RWD(Responsive Web Design)를 적용 하였습니다.
 - Router를 이용하여 상세페이지로 이동합니다.
@@ -39,7 +40,6 @@ develop
 
 ## 설치 준비
 
-- 해당 프로젝트는 CRA(Create React App)를 사용하지 않고 Webpack으로 구성하였습니다.
 - npm으로 설치를 하기 위해선 [Node.js](https://nodejs.org/ko/) 설치가 필요합니다. 사이트에서 LTS버전을 다운 받고 설치를 하시기 바랍니다.
 - Node.js 버전이 낮을경우 최신 상태로 설치하는걸 권장합니다.
 - npm 대신 yarn을 이용하여 패키지를 관리합니다.
