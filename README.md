@@ -19,7 +19,7 @@ https://developergwon-react.netlify.com/
 
 master
 
-- 최종 업로드 브랜치(최종 제출)
+- 최종 업로드 브랜치
 
 develop
 
