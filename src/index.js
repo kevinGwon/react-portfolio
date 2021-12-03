@@ -21,6 +21,8 @@ import * as serviceWorker from './serviceWorker';
 
 const sagaMiddleware = createSagaMiddleware();
 
+console.log('test');
+
 const store = createStore(
   rootReducer,
   applyMiddleware(reduxThunk, sagaMiddleware),
