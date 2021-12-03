@@ -19,7 +19,7 @@ import './style.scss';
 // Proxy
 import * as serviceWorker from './serviceWorker';
 
-console.log('test');
+console.log('test test');
 
 const sagaMiddleware = createSagaMiddleware();
 
