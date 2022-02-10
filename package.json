@@ -107,7 +107,7 @@
     "imagesloaded": "^4.1.4",
     "lint-staged": "^9.5.0",
     "mini-css-extract-plugin": "^0.8.2",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "node-sass-glob-importer": "^5.3.2",
     "normalize.css": "^8.0.1",
     "postcss-loader": "^3.0.0",
